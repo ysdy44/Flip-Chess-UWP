@@ -43,7 +43,7 @@ namespace Flip_Chess
         public ChessType Previous { get; set; }
         public int PreviousY { get; set; } = -1;
         public int PreviousX { get; set; } = -1;
-
+        
         // History
         public int Step => this.Historian.Count + this.HistorianCount; // Index
         public bool IsRed => this.Step % 2 == 0; // Index
@@ -102,6 +102,91 @@ namespace Flip_Chess
         public MainPage()
         {
             this.InitializeComponent();
+
+            this.HistorianCount = this.LoadStep();
+
+            if (this.ReadCollection()) // Sertings
+            {
+                this.Shown();
+            }
+            else
+            {
+                this.Collection.Clear();
+                this.WriteCollection(); // Sertings
+            }
+
+            if (this.ReadRandom()) // Sertings
+            {
+                this.Deaded();
+            }
+            else
+            {
+                this.Randoms.Random();
+                this.WriteRandom(); // Sertings
+            }
+
+            this.Timer.Tick += (s, e) =>
+            {
+                switch (this.State)
+                {
+                    case GameState.None:
+                        if (this.IsRed)
+                        {
+                            if (this.IsRedComputer)
+                            {
+                                this.ItemClick(new RedAutoAICollection(this).FindAutoAI(this));
+                            }
+                        }
+                        else if (this.IsBlack)
+                        {
+                            if (this.IsBlackComputer)
+                            {
+                                this.ItemClick(new BlackAutoAICollection(this).FindAutoAI(this));
+                            }
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            };
+            this.Timer.Start();
+
+            // ItemClick
+            this.ItemsItemClick += (s, e) =>
+            {
+                switch (this.State)
+                {
+                    case GameState.None:
+                        if (this.IsRed)
+                        {
+                            if (this.IsRedComputer) break;
+                            if (e.ClickedItem is IChess item)
+                            {
+                                this.ItemClick(item);
+                            }
+                        }
+                        else if (this.IsBlack)
+                        {
+                            if (this.IsBlackComputer) break;
+                            if (e.ClickedItem is IChess item)
+                            {
+                                this.ItemClick(item);
+                            }
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            };
+
+            // UI
+            this.Text1 = this.Step.ToString();
+            this.Text2 = this.IsBlack ? "黑方" : "红方";
+            this.Historian.CollectionChanged += (s, e) =>
+            {
+                this.Text1 = this.Step.ToString();
+                this.Text2 = this.IsBlack ? "黑方" : "红方";
+            };
         }
     }
 }
