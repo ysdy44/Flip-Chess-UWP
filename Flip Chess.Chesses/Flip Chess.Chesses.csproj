@@ -120,6 +120,11 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Enums\ChessCount.cs" />
+    <Compile Include="Enums\ChessText.cs" />
+    <Compile Include="Enums\ClickAction.cs" />
+    <Compile Include="Enums\HistoryAction.cs" />
+    <Compile Include="Enums\NeighborType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Flip_Chess.Chesses.rd.xml" />
   </ItemGroup>
