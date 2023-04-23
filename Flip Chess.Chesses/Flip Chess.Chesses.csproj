@@ -120,6 +120,7 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="ChessType.cs" />
     <Compile Include="Enums\ChessCount.cs" />
     <Compile Include="Enums\ChessText.cs" />
     <Compile Include="Enums\ClickAction.cs" />
