@@ -120,6 +120,12 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="AnimationClipContainer.xaml.cs">
+      <DependentUpon>AnimationClipContainer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AnimationFadeContainer.xaml.cs">
+      <DependentUpon>AnimationFadeContainer.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ApplicationTitleBarExtension.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Flip_Chess.Elements.rd.xml" />
@@ -128,6 +134,16 @@
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.2.14</Version>
     </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="AnimationClipContainer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="AnimationFadeContainer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

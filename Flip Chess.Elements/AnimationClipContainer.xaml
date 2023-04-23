@@ -1,0 +1,30 @@
+﻿<UserControl
+    x:Class="Flip_Chess.Elements.AnimationClipContainer"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    d:DesignWidth="400"
+    d:DesignHeight="400"
+    >
+
+    <UIElement.Clip>
+        <RectangleGeometry x:Name="Geometry">
+            <Geometry.Transform>
+                <ScaleTransform x:Name="Transform" ScaleY="1"/>
+            </Geometry.Transform>
+        </RectangleGeometry>
+    </UIElement.Clip>
+
+    <FrameworkElement.Resources>
+        <!--Storyboard-->
+        <Storyboard x:Name="HideStoryboard" >
+            <DoubleAnimation From="1" To="0" Duration="0:0:0.2" Storyboard.TargetProperty="ScaleY" Storyboard.TargetName="Transform" d:IsOptimized="True" EnableDependentAnimation="True"/>
+        </Storyboard>
+        <Storyboard x:Name="ShowStoryboard" >
+            <DoubleAnimation From="0" To="1" Duration="0:0:0.2" Storyboard.TargetProperty="ScaleY" Storyboard.TargetName="Transform" d:IsOptimized="True" EnableDependentAnimation="True"/>
+        </Storyboard>
+    </FrameworkElement.Resources>
+    <!--Content-->
+</UserControl>
