@@ -13,6 +13,10 @@ namespace Flip_Chess
     /// </summary>
     sealed partial class App : Application
     {
+        //@Const
+        internal const int Width = 4;
+        internal const int Height = 8;
+
         //@Strings
         internal static readonly ResourceLoader Resource = ResourceLoader.GetForCurrentView();
 
