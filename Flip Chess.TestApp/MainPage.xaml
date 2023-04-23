@@ -4,8 +4,104 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="using:Flip_Chess.TestApp.Models"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    Background="Black"
     >
 
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="AUto"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+   
+        <ItemsControl Width="160" Height="320" ItemsSource="{x:Bind Randoms}">
+            
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <ItemsWrapGrid 
+                        Orientation="Horizontal"
+                        Background="White" 
+                        HorizontalAlignment="Center" 
+                        VerticalAlignment="Center" 
+                        MaximumRowsOrColumns="8" 
+                        />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            
+            <ItemsControl.ItemContainerStyle>
+                <Style TargetType="ContentPresenter">
+                    <Setter Property="Width" Value="40"/>
+                    <Setter Property="Height" Value="40"/>
+                    <Setter Property="Padding" Value="0"/>
+                    <Setter Property="Margin" Value="0"/>
+                    <Setter Property="FontSize" Value="26"/>
+                    <Setter Property="FontWeight" Value="Bold"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    <Setter Property="VerticalContentAlignment" Value="Center"/>
+                </Style>
+            </ItemsControl.ItemContainerStyle>
+            
+            <ItemsControl.ItemTemplate>
+                <DataTemplate x:DataType="models:Chess">
+                    <TextBlock Text="{x:Bind Text, Mode=OneWay}">
+                        <TextBlock.Foreground>
+                            <SolidColorBrush Color="{x:Bind Color, Mode=OneWay}"/>
+                        </TextBlock.Foreground>
+                    </TextBlock>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+            
+        </ItemsControl>
+
+        <ItemsControl
+            x:Name="ItemsControl" 
+            Grid.Column="1"
+            Padding="12"
+            ItemsSource="{x:Bind Chesses}"
+            >
+
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <ItemsWrapGrid 
+                        Width="320"
+                        Height="640"
+                        Orientation="Horizontal"
+                        Background="#412D1C"
+                        HorizontalAlignment="Center" 
+                        VerticalAlignment="Center" 
+                        MaximumRowsOrColumns="8" 
+                        />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+
+            <ItemsControl.ItemContainerStyle>
+                <Style TargetType="ContentPresenter">
+                    <Setter Property="Width" Value="80"/>
+                    <Setter Property="Height" Value="80"/>
+                    <Setter Property="Padding" Value="4"/>
+                    <Setter Property="Margin" Value="0"/>
+                    <Setter Property="FontSize" Value="44"/>
+                    <Setter Property="FontWeight" Value="Bold"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                    <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+                </Style>
+            </ItemsControl.ItemContainerStyle>
+
+            <ItemsControl.ItemTemplate>
+                <DataTemplate x:DataType="models:Chess">
+                    <Border BorderThickness="4" BorderBrush="Black" Background="White" Visibility="{x:Bind Visibility, Mode=OneWay}">
+                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="{x:Bind Text, Mode=OneWay}">
+                            <TextBlock.Foreground>
+                                <SolidColorBrush Color="{x:Bind Color, Mode=OneWay}"/>
+                            </TextBlock.Foreground>
+                        </TextBlock>
+                    </Border>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+
+        </ItemsControl>
+
+    </Grid>
 </Page>
