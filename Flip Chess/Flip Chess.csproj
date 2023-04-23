@@ -129,6 +129,8 @@
     <Compile Include="Models\ChessAlive.cs" />
     <Compile Include="Models\ChessDeaded.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Strings\OptionTypeExtension.cs" />
+    <Compile Include="Strings\UIExtension.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
