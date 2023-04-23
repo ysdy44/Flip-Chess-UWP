@@ -1,0 +1,40 @@
+﻿<UserControl
+    x:Class="Flip_Chess.Elements.AnimationZoomMoveImage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    d:DesignWidth="400"
+    d:DesignHeight="400"
+    IsHitTestVisible="False"
+    Visibility="Collapsed"
+    Width="100"
+    Height="100"
+    >
+
+    <UIElement.RenderTransformOrigin>
+        0.5,0.5
+    </UIElement.RenderTransformOrigin>
+    <UIElement.RenderTransform>
+        <CompositeTransform x:Name="CompositeTransform"/>
+    </UIElement.RenderTransform>
+
+    <FrameworkElement.Resources>
+        <!--EasingFunction-->
+        <CubicEase x:Key="CubicEaseOut" EasingMode="EaseOut"/>
+        <!--Storyboard-->
+        <Storyboard x:Name="Storyboard" >
+            <DoubleAnimation EasingFunction="{StaticResource CubicEaseOut}" From="0.8" To="0.6" Duration="0:0:0.6" Storyboard.TargetProperty="ScaleX" Storyboard.TargetName="CompositeTransform" d:IsOptimized="True"/>
+            <DoubleAnimation EasingFunction="{StaticResource CubicEaseOut}" From="0.8" To="0.6" Duration="0:0:0.6" Storyboard.TargetProperty="ScaleY" Storyboard.TargetName="CompositeTransform" d:IsOptimized="True"/>
+            <DoubleAnimation x:Name="XAnimation" EasingFunction="{StaticResource CubicEaseOut}" Duration="0:0:0.6" Storyboard.TargetProperty="TranslateX" Storyboard.TargetName="CompositeTransform" d:IsOptimized="True"/>
+            <DoubleAnimation x:Name="YAnimation" EasingFunction="{StaticResource CubicEaseOut}" Duration="0:0:0.6" Storyboard.TargetProperty="TranslateY" Storyboard.TargetName="CompositeTransform" d:IsOptimized="True"/>
+        </Storyboard>
+    </FrameworkElement.Resources>
+
+    <Image>
+        <Image.Source>
+            <BitmapImage x:Name="BitmapImage"/>
+        </Image.Source>
+    </Image>
+</UserControl>

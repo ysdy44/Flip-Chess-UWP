@@ -126,6 +126,15 @@
     <Compile Include="AnimationFadeContainer.xaml.cs">
       <DependentUpon>AnimationFadeContainer.xaml</DependentUpon>
     </Compile>
+    <Compile Include="AnimationMoveImage.xaml.cs">
+      <DependentUpon>AnimationMoveImage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AnimationZoomImage.xaml.cs">
+      <DependentUpon>AnimationZoomImage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AnimationZoomMoveImage.xaml.cs">
+      <DependentUpon>AnimationZoomMoveImage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ApplicationTitleBarExtension.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Flip_Chess.Elements.rd.xml" />
@@ -141,6 +150,18 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="AnimationFadeContainer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="AnimationMoveImage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="AnimationZoomImage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="AnimationZoomMoveImage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
