@@ -3,9 +3,900 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Windows10FallCreatorsUpdate="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract, 5)"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local="using:Flip_Chess"
+    xmlns:controls="using:Flip_Chess.Elements"
+    xmlns:models="using:Flip_Chess.Models"
+    xmlns:strings="using:Flip_Chess.Strings"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    Background="{StaticResource AppBrush600}"
     >
 
+    <Grid>
+        <Panel.Background>
+            <!--
+            <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                <GradientStop Offset="0" Color="{StaticResource AppColor600}"/>
+                <GradientStop Offset="0.5" Color="{StaticResource AppColor700}"/>
+                <GradientStop Offset="0.75" Color="{StaticResource AppColor800}"/>
+                <GradientStop Offset="1" Color="{StaticResource AppColor900}"/>
+            </LinearGradientBrush>
+            -->
+            <ImageBrush AlignmentX="Center" AlignmentY="Center" Stretch="UniformToFill" ImageSource="ms-appx:///Images/Background.x2.jpg"/>
+        </Panel.Background>
+
+
+        <!--VisualState-->
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <!--UnFullScreen-->
+                <VisualState x:Name="UnFullScreen"/>
+                <!--FullScreen-->
+                <VisualState x:Name="FullScreen">
+                    <VisualState.Setters>
+                        <!--Head-->
+                        <Setter Target="FullScreenButton.Visibility" Value="Collapsed"/>
+                        <Setter Target="UnFullScreenButton.Visibility" Value="Visible"/>
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+
+
+        <!--Extension-->
+        <controls:ApplicationTitleBarExtension x:Name="ApplicationView" TitleBarColor="{StaticResource AppColor600}"/>
+
+
+        <!--Debug-->
+        <ToggleSwitch 
+            x:Name="DebugButton"
+            Margin="10,4"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top" 
+            >
+            <UIElement.KeyboardAccelerators>
+                <KeyboardAccelerator Key="F10"/>
+                <KeyboardAccelerator Key="F11"/>
+                <KeyboardAccelerator Key="F12"/>
+            </UIElement.KeyboardAccelerators>
+
+            <UIElement.RenderTransformOrigin>
+                0.5,0.5
+            </UIElement.RenderTransformOrigin>
+            <UIElement.RenderTransform>
+                <TranslateTransform Y="{x:Bind BooleanToDoubleConverter(DebugButton.IsOn), Mode=OneWay}"/>
+            </UIElement.RenderTransform>
+
+            <ToggleSwitch.OffContent>
+                Release
+            </ToggleSwitch.OffContent>
+
+            <ToggleSwitch.OnContent>
+                Debug
+            </ToggleSwitch.OnContent>
+        </ToggleSwitch>
+
+        <!--Debug-->
+        <StackPanel 
+            Margin="8,44,8,8" 
+            Spacing="8" 
+            HorizontalAlignment="Left" 
+            VerticalAlignment="Top"
+            Visibility="{x:Bind BooleanToVisibilityConverter(DebugButton.IsOn), Mode=OneWay}"
+            >
+            <Button FontWeight="Bold" Content="{strings:OptionType Type=Play}" CommandParameter="{strings:OptionType Type=Play}" Command="{x:Bind Command}"/>
+            <Button FontWeight="Bold" Content="{strings:OptionType Type=Pause}" CommandParameter="{strings:OptionType Type=Pause}" Command="{x:Bind Command}"/>
+            <Button FontWeight="Bold" Content="{strings:OptionType Type=Win}" CommandParameter="{strings:OptionType Type=Win}" Command="{x:Bind Command}"/>
+            <Button FontWeight="Bold" Content="{strings:OptionType Type=Lose}" CommandParameter="{strings:OptionType Type=Lose}" Command="{x:Bind Command}"/>
+            <ContentControl Height="0"/>
+            <Button FontWeight="Bold" Content="{strings:OptionType Type=Restart}" CommandParameter="{strings:OptionType Type=Restart}" Command="{x:Bind Command}"/>
+            <Button FontWeight="Bold" Content="{strings:OptionType Type=Next}" CommandParameter="{strings:OptionType Type=Next}" Command="{x:Bind Command}"/>
+            <Button FontWeight="Bold" Content="{strings:OptionType Type=FullScreen}" CommandParameter="{strings:OptionType Type=FullScreen}" Command="{x:Bind Command}"/>
+            <Button FontWeight="Bold" Content="{strings:OptionType Type=UnFullScreen}" CommandParameter="{strings:OptionType Type=UnFullScreen}" Command="{x:Bind Command}"/>
+            <ContentControl Height="0"/>
+            <Button FontWeight="Bold" Content="{strings:OptionType Type=Ai}" CommandParameter="{strings:OptionType Type=Ai}" Command="{x:Bind Command}"/>
+        </StackPanel>
+
+        <!--Debug-->
+        <controls:AnimationFadeContainer
+            IsHitTestVisible="False"
+            Width="160" 
+            Height="320" 
+            Margin="8" 
+            HorizontalAlignment="Right"
+            VerticalAlignment="Top" 
+            IsEnabled="{x:Bind DebugButton.IsOn, Mode=OneWay}"
+            >
+            <ItemsControl 
+                BorderThickness="1" 
+                BorderBrush="{StaticResource AppBrush900}"
+                Background="{StaticResource AppBrush100}"
+                ItemsSource="{x:Bind Randoms}"
+                >
+
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <ItemsWrapGrid 
+                            Orientation="Horizontal"
+                            Background="White" 
+                            HorizontalAlignment="Center" 
+                            VerticalAlignment="Center" 
+                            />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+
+                <ItemsControl.ItemContainerStyle>
+                    <Style TargetType="ContentPresenter">
+                        <Setter Property="Width" Value="40"/>
+                        <Setter Property="Height" Value="40"/>
+                        <Setter Property="Padding" Value="0"/>
+                        <Setter Property="Margin" Value="0"/>
+                        <Setter Property="FontSize" Value="26"/>
+                        <Setter Property="FontWeight" Value="Bold"/>
+                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                        <Setter Property="VerticalContentAlignment" Value="Center"/>
+                    </Style>
+                </ItemsControl.ItemContainerStyle>
+
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate x:DataType="models:Chess">
+                        <TextBlock Text="{x:Bind Text, Mode=OneWay}">
+                            <TextBlock.Foreground>
+                                <SolidColorBrush Color="{x:Bind Color, Mode=OneWay}"/>
+                            </TextBlock.Foreground>
+                        </TextBlock>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+
+            </ItemsControl>
+        </controls:AnimationFadeContainer>
+
+
+        <!--Body-->
+        <Viewbox IsHitTestVisible="{x:Bind NoneToBoolenConverter(State), Mode=OneWay}">
+            <Grid Margin="0,28" ColumnSpacing="28">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <!--Cemetery-->
+                <ListView 
+                    x:Name="BlackCemeteryCanvas"
+                    Margin="10,0" 
+                    Width="60" 
+                    Height="420" 
+                    CanDrag="True"
+                    CanDragItems="True"
+                    AllowDrop="True"
+                    SelectionMode="None"
+                    IsItemClickEnabled="False"
+                    VerticalAlignment="Bottom"
+                    Background="#30000000"
+                    ItemsSource="{x:Bind BlackCemetery}"
+                    >
+
+                    <ItemsControl.ItemContainerTransitions>
+                        <TransitionCollection>
+
+                        </TransitionCollection>
+                    </ItemsControl.ItemContainerTransitions>
+
+                    <ItemsControl.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="Width" Value="60"/>
+                            <Setter Property="Height" Value="60"/>
+                            <Setter Property="MaxWidth" Value="60"/>
+                            <Setter Property="MinWidth" Value="60"/>
+                            <Setter Property="MaxHeight" Value="60"/>
+                            <Setter Property="MinHeight" Value="60"/>
+                            <Setter Property="Padding" Value="0"/>
+                            <Setter Property="Margin" Value="0"/>
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                            <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+                        </Style>
+                    </ItemsControl.ItemContainerStyle>
+
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate x:DataType="models:ChessDeaded">
+                            <Border Opacity="{x:Bind Opacity, Mode=OneWay}">
+                                <Border.Background>
+                                    <ImageBrush Stretch="Uniform" AlignmentX="Center" AlignmentY="Center">
+                                        <ImageBrush.ImageSource>
+                                            <BitmapImage UriSource="{x:Bind ImageSource,Mode=OneWay}"/>
+                                        </ImageBrush.ImageSource>
+                                    </ImageBrush>
+                                </Border.Background>
+                                <Border 
+                                    CornerRadius="14" 
+                                    Width="28" 
+                                    Height="28" 
+                                    BorderThickness="2" 
+                                    BorderBrush="White" 
+                                    Background="{StaticResource AppBlack}"
+                                    HorizontalAlignment="Right" 
+                                    VerticalAlignment="Top"
+                                    Visibility="{x:Bind Visibility, Mode=OneWay}"
+                                    >
+                                    <TextBlock 
+                                        FontSize="18" 
+                                        FontWeight="Bold" 
+                                        Foreground="White" 
+                                        HorizontalAlignment="Center" 
+                                        VerticalAlignment="Center"
+                                        Text="{x:Bind Count, Mode=OneWay}"
+                                        >
+                                        <!--Text-->
+                                    </TextBlock>
+                                </Border>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ListView>
+
+                <!--Cemetery-->
+                <ListView 
+                    x:Name="RedCemeteryCanvas"
+                    Grid.Column="2"
+                    Margin="10,0" 
+                    Width="60" 
+                    Height="420" 
+                    CanDrag="True"
+                    CanDragItems="True"
+                    AllowDrop="True"
+                    SelectionMode="None"
+                    IsItemClickEnabled="False"
+                    VerticalAlignment="Top"
+                    Background="#30000000"
+                    ItemsSource="{x:Bind RedCemetery}"
+                    >
+
+                    <ItemsControl.ItemContainerTransitions>
+                        <TransitionCollection>
+
+                        </TransitionCollection>
+                    </ItemsControl.ItemContainerTransitions>
+
+                    <ItemsControl.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="Width" Value="60"/>
+                            <Setter Property="Height" Value="60"/>
+                            <Setter Property="MaxWidth" Value="60"/>
+                            <Setter Property="MinWidth" Value="60"/>
+                            <Setter Property="MaxHeight" Value="60"/>
+                            <Setter Property="MinHeight" Value="60"/>
+                            <Setter Property="Padding" Value="0"/>
+                            <Setter Property="Margin" Value="0"/>
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                            <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+                        </Style>
+                    </ItemsControl.ItemContainerStyle>
+
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate x:DataType="models:ChessDeaded">
+                            <Border Opacity="{x:Bind Opacity, Mode=OneWay}">
+                                <Border.Background>
+                                    <ImageBrush Stretch="Uniform" AlignmentX="Center" AlignmentY="Center">
+                                        <ImageBrush.ImageSource>
+                                            <BitmapImage UriSource="{x:Bind ImageSource,Mode=OneWay}"/>
+                                        </ImageBrush.ImageSource>
+                                    </ImageBrush>
+                                </Border.Background>
+                                <Border 
+                                    CornerRadius="14" 
+                                    Width="28" 
+                                    Height="28" 
+                                    BorderThickness="2" 
+                                    BorderBrush="White" 
+                                    Background="{StaticResource AppRed}"
+                                    HorizontalAlignment="Right" 
+                                    VerticalAlignment="Top"
+                                    Visibility="{x:Bind Visibility, Mode=OneWay}"
+                                    >
+                                    <TextBlock 
+                                        FontSize="18" 
+                                        FontWeight="Bold" 
+                                        Foreground="White" 
+                                        HorizontalAlignment="Center" 
+                                        VerticalAlignment="Center"
+                                        Text="{x:Bind Count, Mode=OneWay}"
+                                        >
+                                        <!--Text-->
+                                    </TextBlock>
+                                </Border>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ListView>
+
+
+                <!--Player-->
+                <Button Grid.Column="2" Width="54" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+                    <Button.Flyout>
+                        <Flyout Placement="TopEdgeAlignedRight">
+                            <ListBox x:Name="RedListBox" SelectedIndex="1" MinWidth="200" Background="Transparent">
+                                <ListBoxItem>
+                                    <TextBlock>
+                                        <Run Text="&#xE115;" FontSize="16" FontFamily="Segoe UI Symbol"/>
+                                        <Run FontSize="20" Text="{strings:UI Type=Computer}">
+                                            <!--Computer-->
+                                        </Run>
+                                    </TextBlock>
+                                </ListBoxItem>
+                                <ListBoxItem>
+                                    <TextBlock>
+                                        <Run Text="&#xE13D;" FontSize="16" FontFamily="Segoe UI Symbol"/>
+                                        <Run FontSize="20" Text="{strings:UI Type=Players}">
+                                            <!--Players-->
+                                        </Run>
+                                    </TextBlock>
+                                </ListBoxItem>
+                            </ListBox>
+                        </Flyout>
+                    </Button.Flyout>
+                    <FontIcon 
+                        Foreground="{StaticResource AppRed}"
+                        FontSize="30" 
+                        FontFamily="Segoe UI Symbol"
+                        Glyph="{x:Bind IntToGlyphConverter(RedListBox.SelectedIndex), Mode=OneWay}"
+                        />
+                </Button>
+
+                <!--Player-->
+                <Button Width="54" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Top">
+                    <Button.Flyout>
+                        <Flyout Placement="BottomEdgeAlignedLeft">
+                            <ListBox x:Name="BlackListBox" SelectedIndex="0" MinWidth="200" Background="Transparent">
+                                <ListBoxItem>
+                                    <TextBlock>
+                                        <Run Text="&#xE115;" FontSize="16" FontFamily="Segoe UI Symbol"/>
+                                        <Run FontSize="20" Text="{strings:UI Type=Computer}">
+                                            <!--Computer-->
+                                        </Run>
+                                    </TextBlock>
+                                </ListBoxItem>
+                                <ListBoxItem>
+                                    <TextBlock>
+                                        <Run Text="&#xE13D;" FontSize="16" FontFamily="Segoe UI Symbol"/>
+                                        <Run FontSize="20" Text="{strings:UI Type=Players}">
+                                            <!--Players-->
+                                        </Run>
+                                    </TextBlock>
+                                </ListBoxItem>
+                            </ListBox>
+                        </Flyout>
+                    </Button.Flyout>
+                    <FontIcon 
+                        Foreground="{StaticResource AppBlack}"
+                        FontSize="30" 
+                        FontFamily="Segoe UI Symbol"
+                        Glyph="{x:Bind IntToGlyphConverter(BlackListBox.SelectedIndex), Mode=OneWay}"
+                        />
+                </Button>
+
+
+                <!--Value-->
+                <Border 
+                    Grid.Column="2"
+                    CornerRadius="3"
+                    Margin="0,60"
+                    Width="8"
+                    Height="208"
+                    BorderThickness="1"
+                    BorderBrush="{StaticResource AppBrush300}" 
+                    Background="{StaticResource AppBrush900}"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Bottom"
+                    >
+                    <Rectangle x:Name="RedProgressBar" Height="208" Fill="Red" VerticalAlignment="Bottom"/>
+                </Border>
+
+                <!--Value-->
+                <Border 
+                    CornerRadius="3"
+                    Margin="0,60"
+                    Width="8"
+                    Height="208"
+                    BorderThickness="1"
+                    BorderBrush="{StaticResource AppBrush300}" 
+                    Background="{StaticResource AppBrush900}"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Top"
+                    >
+                    <Rectangle x:Name="BlackProgressBar" Height="208" Fill="DodgerBlue" VerticalAlignment="Top"/>
+                </Border>
+
+
+                <!--Background-->
+                <Rectangle
+                    Grid.Column="1"
+                    Margin="-28"
+                    RadiusX="8"
+                    RadiusY="8"
+                    StrokeThickness="4" 
+                    Stroke="{StaticResource AppBrush900}" 
+                    Fill="{StaticResource AppBrush100}" 
+                    />
+
+                <!--Background-->
+                <Rectangle 
+                    Grid.Column="1"
+                    Margin="-10"
+                    StrokeThickness="6" 
+                    Stroke="{StaticResource AppBrush400}" 
+                    />
+
+
+                <!--Chess-->
+                <Canvas 
+                    Grid.Column="1"
+                    Width="{x:Bind W}"
+                    Height="{x:Bind H}"
+                    >
+
+                    <!--Chess-->
+                    <controls:AnimationClipContainer
+                        x:Name="ClipContainer"
+                        Width="{x:Bind W}"
+                        Height="{x:Bind H}"
+                        CommandParameter="{strings:OptionType Type=UIClipCompleted}"
+                        Command="{x:Bind Command}"
+                        >
+                        <ListView
+                            x:Name="ItemsControl" 
+                            Width="{x:Bind W}"
+                            Height="{x:Bind H}"
+                            CanDrag="True"
+                            CanDragItems="True"
+                            AllowDrop="True"
+                            SelectionMode="None"
+                            IsItemClickEnabled="True"
+                            ItemsSource="{x:Bind Chesses}"
+                            ScrollViewer.HorizontalScrollMode="Disabled"
+                            ScrollViewer.VerticalScrollMode="Disabled"
+                            ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                            ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                            >
+
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <ItemsWrapGrid 
+                                        Orientation="Horizontal"
+                                        HorizontalAlignment="Center" 
+                                        VerticalAlignment="Center" 
+                                        />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+
+                            <ItemsControl.ItemContainerStyle>
+                                <Style TargetType="ListViewItem">
+                                    <Setter Property="Width" Value="100"/>
+                                    <Setter Property="Height" Value="100"/>
+                                    <Setter Property="MaxWidth" Value="100"/>
+                                    <Setter Property="MinWidth" Value="100"/>
+                                    <Setter Property="MaxHeight" Value="100"/>
+                                    <Setter Property="MinHeight" Value="100"/>
+                                    <Setter Property="Padding" Value="0"/>
+                                    <Setter Property="Margin" Value="0"/>
+                                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                    <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+                                </Style>
+                            </ItemsControl.ItemContainerStyle>
+
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate x:DataType="models:ChessAlive">
+                                    <Image Visibility="{x:Bind Visibility, Mode=OneWay}">
+                                        <Image.Source>
+                                            <BitmapImage UriSource="{x:Bind ImageSource, Mode=OneWay}"/>
+                                        </Image.Source>
+                                    </Image>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+
+                        </ListView>
+                    </controls:AnimationClipContainer>
+
+                    <!--Lines-->
+                    <local:MainLinesCanvas x:Name="Lines"/>
+
+                    <!--Animation-->
+                    <controls:AnimationZoomMoveImage
+                        x:Name="CemeteryItem"
+                        CommandParameter="{strings:OptionType Type=UICemeteryCompleted}"
+                        Command="{x:Bind Command}"
+                        ImageSource="ms-appx:///Images/Item.x2.png"
+                        />
+
+                    <!--Animation-->
+                    <controls:AnimationMoveImage
+                        x:Name="CaptureItem"
+                        CommandParameter="{strings:OptionType Type=UICaptureCompleted}"
+                        Command="{x:Bind Command}"
+                        ImageSource="ms-appx:///Images/Item.x2.png"
+                        />
+
+                    <!--Animation-->
+                    <controls:AnimationZoomImage
+                        x:Name="FlipItem"
+                        CommandParameter="{strings:OptionType Type=UIFlipCompleted}"
+                        Command="{x:Bind Command}"
+                        ImageSource1="ms-appx:///Images/Item.x2.png"
+                        ImageSource2="ms-appx:///Images/Item.x2.png"
+                        />
+
+                </Canvas>
+
+            </Grid>
+        </Viewbox>
+
+        <!--Button-->
+        <Border
+            Margin="12"
+            CornerRadius="22"
+            MinWidth="60"
+            Height="44"
+            BorderThickness="1"
+            BorderBrush="{StaticResource AppBrush300}"
+            Background="{StaticResource AppBrush900}"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Bottom"
+           >
+            <Button
+                Padding="28,2"
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Center"
+                FontWeight="Bold" FontSize="26"
+                Foreground="{StaticResource AppBrush100}"
+                Style="{StaticResource TextBlockButtonStyle}"
+                >
+                <Button.Flyout>
+                    <Flyout Placement="TopEdgeAlignedLeft">
+                        <ItemsControl Width="190" Foreground="{StaticResource AppBrush100}" ItemsSource="{x:Bind Historian}" >
+
+                            <ItemsControl.ItemContainerStyle>
+                                <Style TargetType="ContentPresenter">
+                                    <Setter Property="Margin" Value="8,0"/>
+                                    <Setter Property="FontSize" Value="16"/>
+                                    <Setter Property="FontWeight" Value="Bold"/>
+                                </Style>
+                            </ItemsControl.ItemContainerStyle>
+
+                        </ItemsControl>
+                    </Flyout>
+                </Button.Flyout>
+                <TextBlock>
+                    <Run x:Name="Run1">
+                        <!--Text-->
+                    </Run>/<Run x:Name="Run2">
+                        <!--Text-->
+                    </Run>
+                </TextBlock>
+            </Button>
+        </Border>
+
+        <!--Button-->
+        <Canvas Width="162" Height="115" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+            <controls:RevolvingRestaurant Paused="{x:Bind ReverseNoneToBooleanConverter(State), Mode=OneWay}"/>
+            <Button
+                Canvas.Left="50"
+                Canvas.Top="45"
+                Width="112" 
+                Height="70"
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Center"
+                Foreground="{StaticResource AppBrush900}"
+                Style="{StaticResource TextBlockButtonStyle}"
+                CommandParameter="{strings:OptionType Type=Pause}"
+                Command="{x:Bind Command}"
+                >
+                <StackPanel>
+                    <FontIcon Margin="-10" Glyph="&#xE103;" FontSize="40" FontFamily="Segoe UI Symbol"/>
+                    <TextBlock Text="{strings:UI Type=PauseGame}" FontSize="18" FontWeight="Bold" HorizontalAlignment="Center">
+                        <!--PauseGame-->
+                    </TextBlock>
+                </StackPanel>
+            </Button>
+        </Canvas>
+
+
+        <!--Billboard-->
+        <controls:AnimationFadeContainer x:Name="FadeContainer" Margin="12" Width="452" Height="280" IsEnabled="{x:Bind ReverseNoneToBooleanConverter(State), Mode=OneWay}">
+            <FlipView x:Name="FlipView" SelectedIndex="1">
+                <FrameworkElement.Resources>
+                    <!--Style-->
+                    <Style TargetType="FlipView">
+                        <Setter Property="BorderThickness" Value="1"/>
+                        <Setter Property="BorderBrush" Value="{StaticResource AppBrush300}"/>
+                        <Setter Property="Background" Value="{StaticResource AppBrush900}"/>
+                    </Style>
+                    <Style TargetType="Border">
+                        <Setter Property="BorderThickness" Value="1"/>
+                        <Setter Property="BorderBrush" Value="{StaticResource AppBrush300}"/>
+                        <Setter Property="Background" Value="{StaticResource AppBrush900}"/>
+                    </Style>
+                </FrameworkElement.Resources>
+
+                <!--Step 0-->
+                <Border Margin="2">
+                    <TextBlock
+                        FontSize="14" 
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center" 
+                        Windows10FallCreatorsUpdate:HorizontalTextAlignment="Center"
+                        Foreground="{ThemeResource AppBrush100}"
+                        >
+                 
+                        <Run FontWeight="Bold" Text="{strings:UI Type=VersionTitle}">
+                            <!--VersionTitle-->
+                        </Run>
+                        <LineBreak/>
+                        <Run Text="{strings:UI Type=Version}">
+                            <!--Version-->
+                        </Run>
+                        <LineBreak/>
+                 
+                        <LineBreak/>
+                        <Run FontWeight="Bold" Text="{strings:UI Type=Github}">
+                            <!--Github-->
+                        </Run>
+                        <LineBreak/>
+                        <Hyperlink NavigateUri="{x:Bind GithubLink}">
+                            <!--GithubLink-->
+                            <Run Text="{strings:UI Type=GithubTitle}">
+                                <!--GithubTitle-->
+                            </Run>
+                        </Hyperlink>
+                        <LineBreak/>
+                 
+                        <LineBreak/>
+                        <Run FontWeight="Bold" Text="{strings:UI Type=FeedbackTitle}">
+                            <!--Feedback-->
+                        </Run>
+                        <LineBreak/>
+                        <Hyperlink NavigateUri="{x:Bind FeedbackLink}">
+                            <!--FeedbackLink-->
+                            <Run Text="{strings:UI Type=Feedback}">
+                                <!--FeedbackTitle-->
+                            </Run>
+                        </Hyperlink>
+                        <LineBreak/>
+
+                    </TextBlock>
+                </Border>
+
+                <!--Step 1-->
+                <Border Margin="2">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="{x:Bind LoseToVisibilityConverter(State), Mode=OneWay}">
+                            <TextBlock Text="{strings:UI Type=Lose}" FontSize="46" HorizontalAlignment="Center" Foreground="{StaticResource AppBrush100}">
+                                <!--Lose-->
+                            </TextBlock>
+                            <TextBlock FontSize="16" HorizontalAlignment="Center" Foreground="{StaticResource AppBrush100}">
+                                <Run Text="{strings:UI Type=Click}">
+                                    <!--Click-->
+                                </Run>       
+                                <Run Text="&#xE149;" FontSize="14" FontFamily="Segoe UI Symbol"/>
+                                <Run Text="{strings:UI Type=ToRestart}">
+                                    <!--ToRestart-->
+                                </Run>
+                            </TextBlock>
+                        </StackPanel>
+
+                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="{x:Bind WinToVisibilityConverter(State), Mode=OneWay}">
+                            <TextBlock Text="{strings:UI Type=Win}" FontSize="46" HorizontalAlignment="Center" Foreground="{StaticResource AppBrush100}">
+                                <!--Win-->
+                            </TextBlock>
+                            <TextBlock FontSize="16" HorizontalAlignment="Center" Foreground="{StaticResource AppBrush100}">
+                                <Run Text="{strings:UI Type=Click}">
+                                    <!--Click-->
+                                </Run>       
+                                <Run Text="&#xE111;" FontSize="14" FontFamily="Segoe UI Symbol"/>
+                                <Run Text="{strings:UI Type=ToNext}">
+                                    <!--ToNext-->
+                                </Run>
+                            </TextBlock>
+                        </StackPanel>
+
+                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="{x:Bind PauseToVisibilityConverter(State), Mode=OneWay}">
+                            <TextBlock Text="{strings:UI Type=Pause}" FontSize="46" HorizontalAlignment="Center" Foreground="{StaticResource AppBrush100}">
+                                <!--Pause-->
+                            </TextBlock>
+                            <TextBlock FontSize="16" HorizontalAlignment="Center" Foreground="{StaticResource AppBrush100}">
+                                <Run Text="{strings:UI Type=Click}">
+                                    <!--Click-->
+                                </Run>       
+                                <Run Text="&#xE102;" FontSize="14" FontFamily="Segoe UI Symbol"/>
+                                <Run Text="{strings:UI Type=ToPlay}">
+                                    <!--ToPlay-->
+                                </Run>
+                            </TextBlock>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="12" Spacing="6" HorizontalAlignment="Center">
+                            <Button x:Name="FullScreenButton" CommandParameter="{strings:OptionType Type=FullScreen}" Command="{x:Bind Command}">
+                                <FontIcon Glyph="&#xE1D9;" FontSize="36" FontFamily="Segoe UI Symbol" Foreground="{StaticResource AppBrush900}"/>
+                            </Button>
+                            <Button x:Name="UnFullScreenButton" Visibility="Collapsed" CommandParameter="{strings:OptionType Type=UnFullScreen}" Command="{x:Bind Command}">
+                                <FontIcon Glyph="&#xE1D8;" FontSize="36" FontFamily="Segoe UI Symbol" Foreground="{StaticResource AppBrush900}"/>
+                            </Button>
+                            <Button CommandParameter="{strings:OptionType Type=Restart}" Command="{x:Bind Command}">
+                                <FontIcon Glyph="&#xE149;" FontSize="36" FontFamily="Segoe UI Symbol" Foreground="{StaticResource AppBrush900}"/>
+                            </Button>
+                            <Button CommandParameter="{strings:OptionType Type=Next}" Command="{x:Bind Command}" Visibility="{x:Bind WinToVisibilityConverter(State), Mode=OneWay}">
+                                <FontIcon Glyph="&#xE111;" FontSize="36" FontFamily="Segoe UI Symbol" Foreground="{StaticResource AppBrush900}"/>
+                            </Button>
+                            <Button CommandParameter="{strings:OptionType Type=Continue}" Command="{x:Bind Command}" Visibility="{x:Bind PauseToVisibilityConverter(State), Mode=OneWay}">
+                                <FontIcon Glyph="&#xE102;" FontSize="36" FontFamily="Segoe UI Symbol" Foreground="{StaticResource AppBrush900}"/>
+                            </Button>
+                        </StackPanel>
+
+                        <Grid Grid.Row="2" BorderThickness="0,1,0,0" BorderBrush="{StaticResource AppBrush700}">
+                            <Button Padding="12,6" HorizontalAlignment="Left" Content="{strings:UI Type=About}" CommandParameter="{strings:OptionType Type=About}" Command="{x:Bind Command}" Style="{StaticResource TextBlockButtonStyle}">
+                                <!--About-->
+                            </Button>
+                            <Button Padding="12,6" HorizontalAlignment="Right" Content="{strings:UI Type=Tutorial}" CommandParameter="{strings:OptionType Type=Tutorial}" Command="{x:Bind Command}" Style="{StaticResource TextBlockButtonStyle}">
+                                <!--Tutorial-->
+                            </Button>
+                        </Grid>
+                    </Grid>
+                </Border>
+
+                <!--Step 2-->
+                <Border Margin="2">
+                    <Grid>
+                        <StackPanel Spacing="12" Margin="12,8">
+                            <TextBlock FontSize="18" TextWrapping="Wrap" Foreground="{StaticResource AppBrush100}">
+                                <Run FontWeight="Bold">+1</Run>
+                                <Run FontWeight="Bold" Text="{strings:UI Type=Tutorial}">
+                                    <!--Tutorial-->
+                                </Run>
+                                <LineBreak/>
+                                <Run Text="{strings:UI Type=Guider001}">
+                                    <!--Guider001-->
+                                </Run>
+                                <LineBreak/>
+                                <Run Text="{strings:UI Type=Guider002}">
+                                    <!--Guider002-->
+                                </Run>
+                            </TextBlock>
+                            <Canvas Width="144" Height="60" Background="{StaticResource AppBrush100}">
+                                <Image Width="60" Height="60" Source="ms-appx:///Images/Item.png" />
+                                <Image Canvas.Left="84" Width="60" Height="60" Source="ms-appx:///Images/ItemRed.png" />
+                                <FontIcon Canvas.Left="60" Canvas.Top="14" Glyph="&#xE111;" FontFamily="Segoe UI Symbol" Foreground="{StaticResource AppRed}"/>
+                            </Canvas>
+                            <Canvas Width="144" Height="60" Background="{StaticResource AppBrush100}">
+                                <Image Width="60" Height="60" Source="ms-appx:///Images/Item.png" />
+                                <Image Canvas.Left="84" Width="60" Height="60" Source="ms-appx:///Images/ItemBlack.png" />
+                                <FontIcon Canvas.Left="60" Canvas.Top="14" Glyph="&#xE111;" FontFamily="Segoe UI Symbol" Foreground="{StaticResource AppBlack}"/>
+                            </Canvas>
+                        </StackPanel>
+                        <Border VerticalAlignment="Bottom" BorderThickness="0,1,0,0" BorderBrush="{StaticResource AppBrush700}">
+                            <Button Padding="12,6" HorizontalAlignment="Right" Content="{strings:UI Type=NextStep}" CommandParameter="{strings:OptionType Type=Step1}" Command="{x:Bind Command}" Style="{StaticResource TextBlockButtonStyle}">
+                                <!--NextStep-->
+                            </Button>
+                        </Border>
+                    </Grid>
+                </Border>
+
+                <!--Step 3-->
+                <Border Margin="2">
+                    <Grid>
+                        <StackPanel Spacing="12" Margin="12,8">
+                            <TextBlock FontSize="18" TextWrapping="Wrap" Foreground="{StaticResource AppBrush100}">
+                                <Run FontWeight="Bold">+2</Run>
+                                <Run FontWeight="Bold" Text="{strings:UI Type=Tutorial}">
+                                    <!--Tutorial-->
+                                </Run>
+                                <LineBreak/>
+                                <Run Text="{strings:UI Type=Guider003}">
+                                    <!--Guider003-->
+                                </Run>
+                                <LineBreak/>
+                                <Run Text="{strings:UI Type=Guider004}">
+                                    <!--Guider004-->
+                                </Run>
+                            </TextBlock>
+                            <Canvas Width="420" Height="60" Background="{StaticResource AppBrush100}">
+                                <Image Width="60" Height="60" Source="ms-appx:///Images/RedKing.png"/>
+                                <Image Canvas.Left="60" Width="60" Height="60" Source="ms-appx:///Images/RedMandarins.png"/>
+                                <Image Canvas.Left="120" Width="60" Height="60" Source="ms-appx:///Images/RedElephant.png"/>
+                                <Image Canvas.Left="180" Width="60" Height="60" Source="ms-appx:///Images/RedRook.png"/>
+                                <Image Canvas.Left="240" Width="60" Height="60" Source="ms-appx:///Images/RedKnight.png"/>
+                                <Image Canvas.Left="300" Width="60" Height="60" Source="ms-appx:///Images/RedCannons.png"/>
+                                <Image Canvas.Left="360" Width="60" Height="60" Source="ms-appx:///Images/RedSoldier.png"/>
+                            </Canvas>
+                            <Canvas Width="420" Height="60" Background="{StaticResource AppBrush100}">
+                                <Image Width="60" Height="60" Source="ms-appx:///Images/BlackKing.png"/>
+                                <Image Canvas.Left="60" Width="60" Height="60" Source="ms-appx:///Images/BlackMandarins.png"/>
+                                <Image Canvas.Left="120" Width="60" Height="60" Source="ms-appx:///Images/BlackElephant.png"/>
+                                <Image Canvas.Left="180" Width="60" Height="60" Source="ms-appx:///Images/BlackRook.png"/>
+                                <Image Canvas.Left="240" Width="60" Height="60" Source="ms-appx:///Images/BlackKnight.png"/>
+                                <Image Canvas.Left="300" Width="60" Height="60" Source="ms-appx:///Images/BlackCannons.png"/>
+                                <Image Canvas.Left="360" Width="60" Height="60" Source="ms-appx:///Images/BlackSoldier.png"/>
+                            </Canvas>
+                        </StackPanel>
+                        <Border VerticalAlignment="Bottom" BorderThickness="0,1,0,0" BorderBrush="{StaticResource AppBrush700}">
+                            <Button Padding="12,6" HorizontalAlignment="Right" Content="{strings:UI Type=NextStep}" CommandParameter="{strings:OptionType Type=Step2}" Command="{x:Bind Command}" Style="{StaticResource TextBlockButtonStyle}">
+                                <!--NextStep-->
+                            </Button>
+                        </Border>
+                    </Grid>
+                </Border>
+
+                <!--Step 4-->
+                <Border Margin="2">
+                    <Grid>
+                        <StackPanel Spacing="12" Margin="12,8">
+                            <TextBlock FontSize="18" TextWrapping="Wrap" Foreground="{StaticResource AppBrush100}">
+                                <Run FontWeight="Bold">+3</Run>
+                                <Run FontWeight="Bold" Text="{strings:UI Type=Tutorial}">
+                                    <!--Tutorial-->
+                                </Run>
+                                <LineBreak/>
+                                <Run Text="{strings:UI Type=Guider005}">
+                                    <!--Guider005-->
+                                </Run>
+                                <LineBreak/>
+                                <Run Text="{strings:UI Type=Guider006}">
+                                    <!--Guider006-->
+                                </Run>
+                            </TextBlock>
+                            <Canvas Width="120" Height="120" Background="{StaticResource AppBrush100}">
+                                <Image Width="60" Height="60" Source="ms-appx:///Images/RedKing.png"/>
+                                <Image Canvas.Left="60" Width="60" Height="60" Source="ms-appx:///Images/BlackMandarins.png"/>
+                                <Image Canvas.Top="60" Width="60" Height="60" Source="ms-appx:///Images/BlackElephant.png"/>
+                            </Canvas>
+                        </StackPanel>
+                        <Border VerticalAlignment="Bottom" BorderThickness="0,1,0,0" BorderBrush="{StaticResource AppBrush700}">
+                            <Button Padding="12,6" HorizontalAlignment="Right" Content="{strings:UI Type=NextStep}" CommandParameter="{strings:OptionType Type=Step3}" Command="{x:Bind Command}" Style="{StaticResource TextBlockButtonStyle}">
+                                <!--NextStep-->
+                            </Button>
+                        </Border>
+                    </Grid>
+                </Border>
+
+                <!--Step 5-->
+                <Border Margin="2">
+                    <Grid>
+                        <StackPanel Spacing="12" Margin="12,8">
+                            <TextBlock FontSize="18" TextWrapping="Wrap" Foreground="{StaticResource AppBrush100}">
+                                <Run FontWeight="Bold">+4</Run>
+                                <Run FontWeight="Bold" Text="{strings:UI Type=Tutorial}">
+                                    <!--Tutorial-->
+                                </Run>
+                                <LineBreak/>
+                                <Run Text="{strings:UI Type=Guider007}">
+                                    <!--Guider007-->
+                                </Run>
+                                <LineBreak/>
+                                <Run Text="{strings:UI Type=Guider008}">
+                                    <!--Guider008-->
+                                </Run>
+                            </TextBlock>
+                            <Canvas Width="120" Height="120" Background="{StaticResource AppBrush100}">
+                                <Image Canvas.Left="60" Width="60" Height="60" Source="ms-appx:///Images/BlackSoldier.png"/>
+                                <Image Canvas.Top="60" Width="60" Height="60" Source="ms-appx:///Images/BlackSoldier.png"/>
+                                <Image Canvas.Left="60" Canvas.Top="60" Width="60" Height="60" Source="ms-appx:///Images/RedKing.png"/>
+                            </Canvas>
+                        </StackPanel>
+                        <Border VerticalAlignment="Bottom" BorderThickness="0,1,0,0" BorderBrush="{StaticResource AppBrush700}">
+                            <Button Padding="12,6" HorizontalAlignment="Right" Content="{strings:UI Type=Close}" CommandParameter="{strings:OptionType Type=Step4}" Command="{x:Bind Command}" Style="{StaticResource TextBlockButtonStyle}">
+                                <!--Close-->
+                            </Button>
+                        </Border>
+                    </Grid>
+                </Border>
+
+            </FlipView>
+        </controls:AnimationFadeContainer>
+
+    </Grid>
 </Page>
