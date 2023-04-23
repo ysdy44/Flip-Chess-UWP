@@ -11,8 +11,94 @@ using Windows.UI.Xaml.Controls;
 
 namespace Flip_Chess
 {
-    public sealed partial class MainPage : Page, ICommand
+    internal sealed class MainLinesCanvas : LinesCanvas
     {
+        public MainLinesCanvas() : base(App.Width, App.Height, 100) { }
+    }
+
+    public sealed partial class MainPage : Page, ICommand, IIndexer
+    {
+        //@Strings
+        private int W => App.Width * 100;
+        private int H => App.Height * 100;
+        private Uri GithubLink => new Uri(App.Resource.GetString(UIType.GithubLink.ToString()));
+        private Uri FeedbackLink => new Uri(App.Resource.GetString(UIType.FeedbackLink.ToString()));
+
+        //@Converter
+        private string IntToGlyphConverter(int value) => value == 0 ? "\uE115" : "\uE13D";
+        private bool NoneToBoolenConverter(GameState value) => value == default;
+        private bool ReverseNoneToBooleanConverter(GameState value) => value != default;
+        private double BooleanToDoubleConverter(bool value) => value ? 0 : -36;
+        private Visibility BooleanToVisibilityConverter(bool value) => value ? Visibility.Visible : Visibility.Collapsed;
+        private Visibility PauseToVisibilityConverter(GameState value) => value == GameState.Pause ? Visibility.Visible : Visibility.Collapsed;
+        private Visibility WinToVisibilityConverter(GameState value) => value == GameState.Win ? Visibility.Visible : Visibility.Collapsed;
+        private Visibility LoseToVisibilityConverter(GameState value) => value == GameState.Lose ? Visibility.Visible : Visibility.Collapsed;
+
+        readonly DispatcherTimer Timer = new DispatcherTimer
+        {
+            Interval = System.TimeSpan.FromSeconds(1)
+        };
+
+        // Previous
+        public ChessType Previous { get; set; }
+        public int PreviousY { get; set; } = -1;
+        public int PreviousX { get; set; } = -1;
+
+        // History
+        public int Step => this.Historian.Count + this.HistorianCount; // Index
+        public bool IsRed => this.Step % 2 == 0; // Index
+        public bool IsBlack => this.Step % 2 != 0; // Index
+        public ObservableCollection<History> Historian { get; } = new ObservableCollection<History>();
+        public int HistorianCount { get; set; } // Sertings
+
+        // Collection
+        public int Index { get; set; } // Index
+        public ChessType[,,] Collection { get; } = new ChessType[1024, App.Height, App.Width]; // Sertings // Index
+        public ChessAlive[] Chesses { get; } = new ChessAlive[App.Height * App.Width]
+        {
+            new ChessAlive(), new ChessAlive(), new ChessAlive(), new ChessAlive(),
+            new ChessAlive(), new ChessAlive(), new ChessAlive(), new ChessAlive(),
+            new ChessAlive(), new ChessAlive(), new ChessAlive(), new ChessAlive(),
+            new ChessAlive(), new ChessAlive(), new ChessAlive(), new ChessAlive(),
+            new ChessAlive(), new ChessAlive(), new ChessAlive(), new ChessAlive(),
+            new ChessAlive(), new ChessAlive(), new ChessAlive(), new ChessAlive(),
+            new ChessAlive(), new ChessAlive(), new ChessAlive(), new ChessAlive(),
+            new ChessAlive(), new ChessAlive(), new ChessAlive(), new ChessAlive(),
+        };
+        public Chess[] Randoms { get; } = new Chess[App.Height * App.Width] // Sertings
+        {
+            new Chess(), new Chess(), new Chess(), new Chess(),
+            new Chess(), new Chess(), new Chess(), new Chess(),
+            new Chess(), new Chess(), new Chess(), new Chess(),
+            new Chess(), new Chess(), new Chess(), new Chess(),
+            new Chess(), new Chess(), new Chess(), new Chess(),
+            new Chess(), new Chess(), new Chess(), new Chess(),
+            new Chess(), new Chess(), new Chess(), new Chess(),
+            new Chess(), new Chess(), new Chess(), new Chess(),
+        };
+
+        // Storyboard
+        public ChessDeaded[] BlackCemetery { get; } = new ChessDeaded[]
+        {
+            new ChessDeaded(ChessType.BlackKing),
+            new ChessDeaded(ChessType.BlackMandarins),
+            new ChessDeaded(ChessType.BlackElephant),
+            new ChessDeaded(ChessType.BlackRook),
+            new ChessDeaded(ChessType.BlackKnight),
+            new ChessDeaded(ChessType.BlackCannons),
+            new ChessDeaded(ChessType.BlackSoldier)
+        };
+        public ChessDeaded[] RedCemetery { get; } = new ChessDeaded[]
+        {
+            new ChessDeaded(ChessType.RedKing),
+            new ChessDeaded(ChessType.RedMandarins),
+            new ChessDeaded(ChessType.RedElephant),
+            new ChessDeaded(ChessType.RedRook),
+            new ChessDeaded(ChessType.RedKnight),
+            new ChessDeaded(ChessType.RedCannons),
+            new ChessDeaded(ChessType.RedSoldier)
+        };
+
         public MainPage()
         {
             this.InitializeComponent();
