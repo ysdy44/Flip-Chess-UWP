@@ -166,9 +166,12 @@ namespace Flip_Chess.Chesses.AutoAIs
                 }
             }
 
-            foreach (var item in this.Children)
+            if (this.Children != null)
             {
-                return item.History;
+                foreach (var item in this.Children)
+                {
+                    return item.History;
+                }
             }
 
             return History.Noway;
