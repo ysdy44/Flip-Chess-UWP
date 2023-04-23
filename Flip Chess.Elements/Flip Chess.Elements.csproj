@@ -136,6 +136,11 @@
       <DependentUpon>AnimationZoomMoveImage.xaml</DependentUpon>
     </Compile>
     <Compile Include="ApplicationTitleBarExtension.cs" />
+    <Compile Include="Corner.cs" />
+    <Compile Include="Liner.cs" />
+    <Compile Include="LinesCanvas.xaml.cs">
+      <DependentUpon>LinesCanvas.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Flip_Chess.Elements.rd.xml" />
   </ItemGroup>
@@ -162,6 +167,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="AnimationZoomMoveImage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="LinesCanvas.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

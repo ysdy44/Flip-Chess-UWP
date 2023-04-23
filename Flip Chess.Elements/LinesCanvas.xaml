@@ -1,0 +1,85 @@
+﻿<Canvas
+    x:Class="Flip_Chess.Elements.LinesCanvas"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    d:DesignWidth="400"
+    d:DesignHeight="800"
+    IsHitTestVisible="False"
+    >
+
+    <FrameworkElement.Resources>
+        <!--Style-->
+        <Style TargetType="Canvas">
+            <Setter Property="Visibility" Value="Collapsed"/>
+            <Setter Property="Width" Value="100"/>
+            <Setter Property="Height" Value="100"/>
+            <Setter Property="Background" Value="#44FEF893"/>
+        </Style>
+        <Style TargetType="Rectangle">
+            <Setter Property="Fill" Value="#FFF8A3"/>
+        </Style>
+        <!--Storyboard-->
+        <Storyboard x:Name="LeftStoryboard" RepeatBehavior="Forever" AutoReverse="True">
+            <DoubleAnimation From="1" To="0" Duration="0:0:0.6" Storyboard.TargetName="Left" Storyboard.TargetProperty="Opacity"/>
+        </Storyboard>
+        <Storyboard x:Name="TopStoryboard" RepeatBehavior="Forever" AutoReverse="True">
+            <DoubleAnimation From="1" To="0" Duration="0:0:0.6" Storyboard.TargetName="Top" Storyboard.TargetProperty="Opacity"/>
+        </Storyboard>
+        <Storyboard x:Name="RightStoryboard" RepeatBehavior="Forever" AutoReverse="True">
+            <DoubleAnimation From="1" To="0" Duration="0:0:0.6" Storyboard.TargetName="Right" Storyboard.TargetProperty="Opacity"/>
+        </Storyboard>
+        <Storyboard x:Name="BottomStoryboard" RepeatBehavior="Forever" AutoReverse="True">
+            <DoubleAnimation From="1" To="0" Duration="0:0:0.6" Storyboard.TargetName="Bottom" Storyboard.TargetProperty="Opacity"/>
+        </Storyboard>
+    </FrameworkElement.Resources>
+
+    <Canvas x:Name="Left">
+        <Rectangle Width="30" Height="6"/>
+        <Rectangle Width="6" Height="30"/>
+        <Rectangle Canvas.Left="70" Width="30" Height="6"/>
+        <Rectangle Canvas.Left="94" Width="6" Height="30"/>
+        <Rectangle Canvas.Top="94" Width="30" Height="6"/>
+        <Rectangle Canvas.Top="70" Width="6" Height="30"/>
+        <Rectangle Canvas.Left="70" Canvas.Top="94" Width="30" Height="6"/>
+        <Rectangle Canvas.Left="94" Canvas.Top="70" Width="6" Height="30"/>
+    </Canvas>
+    <Canvas x:Name="Top">
+        <Rectangle Width="30" Height="6"/>
+        <Rectangle Width="6" Height="30"/>
+        <Rectangle Canvas.Left="70" Width="30" Height="6"/>
+        <Rectangle Canvas.Left="94" Width="6" Height="30"/>
+        <Rectangle Canvas.Top="94" Width="30" Height="6"/>
+        <Rectangle Canvas.Top="70" Width="6" Height="30"/>
+        <Rectangle Canvas.Left="70" Canvas.Top="94" Width="30" Height="6"/>
+        <Rectangle Canvas.Left="94" Canvas.Top="70" Width="6" Height="30"/>
+    </Canvas>
+    <Canvas x:Name="Right">
+        <Rectangle Width="30" Height="6"/>
+        <Rectangle Width="6" Height="30"/>
+        <Rectangle Canvas.Left="70" Width="30" Height="6"/>
+        <Rectangle Canvas.Left="94" Width="6" Height="30"/>
+        <Rectangle Canvas.Top="94" Width="30" Height="6"/>
+        <Rectangle Canvas.Top="70" Width="6" Height="30"/>
+        <Rectangle Canvas.Left="70" Canvas.Top="94" Width="30" Height="6"/>
+        <Rectangle Canvas.Left="94" Canvas.Top="70" Width="6" Height="30"/>
+    </Canvas>
+    <Canvas x:Name="Bottom">
+        <Rectangle Width="30" Height="6"/>
+        <Rectangle Width="6" Height="30"/>
+        <Rectangle Canvas.Left="70" Width="30" Height="6"/>
+        <Rectangle Canvas.Left="94" Width="6" Height="30"/>
+        <Rectangle Canvas.Top="94" Width="30" Height="6"/>
+        <Rectangle Canvas.Top="70" Width="6" Height="30"/>
+        <Rectangle Canvas.Left="70" Canvas.Top="94" Width="30" Height="6"/>
+        <Rectangle Canvas.Left="94" Canvas.Top="70" Width="6" Height="30"/>
+    </Canvas>
+
+    <Canvas x:Name="Center">
+        <Ellipse Canvas.Left="4" Canvas.Top="0" Width="92" Height="99" StrokeThickness="3" Stroke="Gold" Fill="Transparent"/>
+        <Ellipse Canvas.Left="4" Canvas.Top="0" Width="92" Height="99" StrokeThickness="2" Stroke="#FFF8A3" Fill="Transparent"/>
+    </Canvas>
+
+</Canvas>
