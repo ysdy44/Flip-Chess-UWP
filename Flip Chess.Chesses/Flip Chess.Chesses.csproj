@@ -120,6 +120,10 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="AutoAIs\BlackAutoAI.cs" />
+    <Compile Include="AutoAIs\BlackAutoAICollection.cs" />
+    <Compile Include="AutoAIs\RedAutoAI.cs" />
+    <Compile Include="AutoAIs\RedAutoAICollection.cs" />
     <Compile Include="ChessType.cs" />
     <Compile Include="Enums\ChessCount.cs" />
     <Compile Include="Enums\ChessText.cs" />
