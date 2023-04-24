@@ -11,13 +11,11 @@ namespace Flip_Chess.Elements
 
             if (base.IsEnabled)
             {
-                this.ShowStoryboard.Begin(); // Storyboard
                 base.Visibility = Visibility.Visible;
                 base.IsHitTestVisible = true;
             }
             else
             {
-                this.HideStoryboard.Begin(); // Storyboard
                 base.Visibility = Visibility.Collapsed;
                 base.IsHitTestVisible = false;
             }
