@@ -33,6 +33,17 @@ namespace Flip_Chess
         private Visibility PauseToVisibilityConverter(GameState value) => value == GameState.Pause ? Visibility.Visible : Visibility.Collapsed;
         private Visibility WinToVisibilityConverter(GameState value) => value == GameState.Win ? Visibility.Visible : Visibility.Collapsed;
         private Visibility LoseToVisibilityConverter(GameState value) => value == GameState.Lose ? Visibility.Visible : Visibility.Collapsed;
+        private Visibility LoseOrWinToVisibilityConverter(GameState value)
+        {
+            switch (value)
+            {
+                case GameState.Win:
+                case GameState.Lose:
+                    return Visibility.Visible;
+                default:
+                    return Visibility.Collapsed;
+            }
+        }
 
         readonly DispatcherTimer Timer = new DispatcherTimer
         {
