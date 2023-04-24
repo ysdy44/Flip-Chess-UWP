@@ -638,13 +638,13 @@
                         <LineBreak/>
                  
                         <LineBreak/>
-                        <Run FontWeight="Bold" Text="{strings:UI Type=Github}">
+                        <Run FontWeight="Bold" Text="{strings:UI Type=GithubTitle}">
                             <!--Github-->
                         </Run>
                         <LineBreak/>
                         <Hyperlink NavigateUri="{x:Bind GithubLink}">
                             <!--GithubLink-->
-                            <Run Text="{strings:UI Type=GithubTitle}">
+                            <Run Text="{strings:UI Type=Github}">
                                 <!--GithubTitle-->
                             </Run>
                         </Hyperlink>
