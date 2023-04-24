@@ -106,15 +106,14 @@ namespace Flip_Chess.Chesses.AutoAIs
                         }
         }
 
-        public BlackAutoAI FindNext()
+        public History FindAutoAI()
         {
-            if (this.Children is null) return null;
-            if (this.Children.Length is 0) return null;
+            if (this.Children is null) return History.Noway;
+            if (this.Children.Length is 0) return History.Noway;
 
             float level = this.Level;
-            BlackAutoAI ai = null;
+            BlackAutoAI next = null;
 
-            // Capture
             foreach (BlackAutoAI item in this.Children)
             {
                 float amout = item.GetAmout();
@@ -122,20 +121,13 @@ namespace Flip_Chess.Chesses.AutoAIs
                 if (level >= amout)
                 {
                     level = amout;
-                    ai = item;
+                    next = item;
                 }
             }
 
-            return ai;
-        }
-
-        public History FindAutoAI()
-        {
-            BlackAutoAI next = this.FindNext();
-
             if (next != null)
             {
-                if (next.History != default)
+                if (next.History != History.Noway)
                 {
                     if (this.Level >= next.Level)
                     {
@@ -146,15 +138,15 @@ namespace Flip_Chess.Chesses.AutoAIs
 
             if (next != null)
             {
-                if (next.History != default)
+                if (next.History != History.Noway)
                 {
                     return next.History;
                 }
             }
 
-            if (this.Children != null)
+            foreach (var item in this.Children)
             {
-                foreach (var item in this.Children)
+                if (item.History != History.Noway)
                 {
                     return item.History;
                 }
