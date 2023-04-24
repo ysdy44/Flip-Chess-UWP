@@ -100,7 +100,7 @@ namespace Flip_Chess
                         int index = this.Collection.IndexOf(history.Y, history.X);
                         ChessType random = this.Randoms[index].Type;
                         this.Collection[0, history.Y, history.X] = random;
-                        this.WriteRandom(); // Sertings
+                        this.WriteCollection(); // Sertings
 
                         // UI
                         ChessAlive model = this.Chesses[index];
@@ -144,7 +144,7 @@ namespace Flip_Chess
 
                         this.Collection[0, history.Y1, history.X1] = ChessType.Deaded;
                         this.Collection[0, history.Y2, history.X2] = fromType;
-                        this.WriteRandom(); // Sertings
+                        this.WriteCollection(); // Sertings
 
                         // UI
                         int index1 = this.Collection.IndexOf(history.Y1, history.X1);
