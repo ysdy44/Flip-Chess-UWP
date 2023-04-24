@@ -29,12 +29,8 @@ namespace Flip_Chess.Chesses.AutoAIs
             this.Step = parentStep + 1;
 
             this.History = history;
-            switch (history.Action)
+            switch ((HistoryAction)history.Distance)
             {
-                case HistoryAction.Noway:
-                    break;
-                case HistoryAction.Flip:
-                    break;
                 case HistoryAction.Capture:
                     indexer.Collection[this.Index, history.Y1, history.X1] = ChessType.Deaded;
                     indexer.Collection[this.Index, history.Y2, history.X2] = indexer.Collection[parentIndex, history.Y1, history.X1];
