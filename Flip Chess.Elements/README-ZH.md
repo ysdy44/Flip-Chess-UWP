@@ -25,9 +25,7 @@
 
 ## Nuget 引用
 
-|Value|
-|:-|
-|FanKit.Transformers|
+无
 
 
 <br/>
