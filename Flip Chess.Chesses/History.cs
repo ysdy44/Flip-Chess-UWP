@@ -11,6 +11,30 @@
         public int Y => (this.Y1 + this.Y2) / 2;
         public int X => (this.X1 + this.X2) / 2;
         public HistoryAction Action => this == Noway ? HistoryAction.Noway : this.X1 == this.X2 && this.Y1 == this.Y2 ? HistoryAction.Flip : HistoryAction.Capture;
+        public HistoryDistance Distance
+        {
+            get
+            {
+                if (this == Noway)
+                    return HistoryDistance.Noway;
+
+                if (this.Y1 == -1)
+                    return HistoryDistance.Others;
+                if (this.X1 == -1)
+                    return HistoryDistance.Others;
+                if (this.Y2 == -1)
+                    return HistoryDistance.Others;
+                if (this.X2 == -1)
+                    return HistoryDistance.Others;
+
+                if (this.Y1 == this.Y2 && this.X1 == this.X2)
+                    return HistoryDistance.DistanceIs0;
+                if (System.Math.Abs(this.Y1 - this.Y2) + System.Math.Abs(this.X1 - this.X2) == 1)
+                    return HistoryDistance.DistanceIs1;
+
+                return HistoryDistance.Others;
+            }
+        }
 
         //@Construct
         public History(int y, int x) : this(y, x, y, x) { }
@@ -45,14 +69,16 @@
         public override int GetHashCode() => base.GetHashCode();
         public override string ToString()
         {
-            switch (this.Action)
+            switch (this.Distance)
             {
-                case HistoryAction.Flip:
+                case HistoryDistance.Noway:
+                    return $"(≧∇≦)ﾉ";
+                case HistoryDistance.DistanceIs0:
                     return $"(Y:{this.Y}, X:{this.X})";
-                case HistoryAction.Capture:
+                case HistoryDistance.DistanceIs1:
                     return $"(Y:{this.Y1}, X:{this.X1}) -> (Y:{this.Y2}, X:{this.X2})";
                 default:
-                    return $"(≧∇≦)ﾉ";
+                    return string.Empty;
             }
         }
     }
