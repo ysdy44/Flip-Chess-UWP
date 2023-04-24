@@ -11,13 +11,27 @@
 
         public static ClickAction BlackClick(this ChessType previous, ChessType next)
         {
+            switch (previous.BlackRelateTo(next))
+            {
+                case HistoryRelation.Unkonw:
+                    return ClickAction.Flip;
+                case HistoryRelation.WeakEnemy:
+                    return ClickAction.Capture;
+                case HistoryRelation.Friend:
+                    return ClickAction.Select;
+                default:
+                    return ClickAction.None;
+            }
+        }
+        public static HistoryRelation BlackRelateTo(this ChessType previous, ChessType next)
+        {
             switch (next)
             {
                 case ChessType.Unkonw:
-                    return ClickAction.Flip;
+                    return HistoryRelation.Unkonw;
 
                 case ChessType.Deaded:
-                    return ClickAction.Capture;
+                    return HistoryRelation.StrongEnemy;
 
                 case ChessType.BlackSoldier:
                 case ChessType.BlackCannons:
@@ -26,7 +40,7 @@
                 case ChessType.BlackElephant:
                 case ChessType.BlackMandarins:
                 case ChessType.BlackKing:
-                    return ClickAction.Select;
+                    return HistoryRelation.Friend;
 
                 case ChessType.RedSoldier:
                     switch (previous)
@@ -38,7 +52,7 @@
                         case ChessType.RedElephant:
                         case ChessType.RedMandarins:
                         case ChessType.RedKing:
-                            return ClickAction.Select;
+                            return HistoryRelation.Friend;
 
                         case ChessType.BlackSoldier:
                         case ChessType.BlackCannons:
@@ -46,9 +60,9 @@
                         case ChessType.BlackRook:
                         case ChessType.BlackElephant:
                         case ChessType.BlackMandarins:
-                            return ClickAction.Capture;
+                            return HistoryRelation.WeakEnemy;
                         default:
-                            return ClickAction.None;
+                            return HistoryRelation.StrongEnemy;
                     }
 
                 case ChessType.RedCannons:
@@ -61,7 +75,7 @@
                         case ChessType.RedElephant:
                         case ChessType.RedMandarins:
                         case ChessType.RedKing:
-                            return ClickAction.Select;
+                            return HistoryRelation.Friend;
 
                         case ChessType.BlackCannons:
                         case ChessType.BlackKnight:
@@ -69,9 +83,9 @@
                         case ChessType.BlackElephant:
                         case ChessType.BlackMandarins:
                         case ChessType.BlackKing:
-                            return ClickAction.Capture;
+                            return HistoryRelation.WeakEnemy;
                         default:
-                            return ClickAction.None;
+                            return HistoryRelation.StrongEnemy;
                     }
 
                 case ChessType.RedKnight:
@@ -84,16 +98,16 @@
                         case ChessType.RedElephant:
                         case ChessType.RedMandarins:
                         case ChessType.RedKing:
-                            return ClickAction.Select;
+                            return HistoryRelation.Friend;
 
                         case ChessType.BlackKnight:
                         case ChessType.BlackRook:
                         case ChessType.BlackElephant:
                         case ChessType.BlackMandarins:
                         case ChessType.BlackKing:
-                            return ClickAction.Capture;
+                            return HistoryRelation.WeakEnemy;
                         default:
-                            return ClickAction.None;
+                            return HistoryRelation.StrongEnemy;
                     }
 
                 case ChessType.RedRook:
@@ -106,15 +120,15 @@
                         case ChessType.RedElephant:
                         case ChessType.RedMandarins:
                         case ChessType.RedKing:
-                            return ClickAction.Select;
+                            return HistoryRelation.Friend;
 
                         case ChessType.BlackRook:
                         case ChessType.BlackElephant:
                         case ChessType.BlackMandarins:
                         case ChessType.BlackKing:
-                            return ClickAction.Capture;
+                            return HistoryRelation.WeakEnemy;
                         default:
-                            return ClickAction.None;
+                            return HistoryRelation.StrongEnemy;
                     }
 
                 case ChessType.RedElephant:
@@ -127,14 +141,14 @@
                         case ChessType.RedElephant:
                         case ChessType.RedMandarins:
                         case ChessType.RedKing:
-                            return ClickAction.Select;
+                            return HistoryRelation.Friend;
 
                         case ChessType.BlackElephant:
                         case ChessType.BlackMandarins:
                         case ChessType.BlackKing:
-                            return ClickAction.Capture;
+                            return HistoryRelation.WeakEnemy;
                         default:
-                            return ClickAction.None;
+                            return HistoryRelation.StrongEnemy;
                     }
 
                 case ChessType.RedMandarins:
@@ -147,13 +161,13 @@
                         case ChessType.RedElephant:
                         case ChessType.RedMandarins:
                         case ChessType.RedKing:
-                            return ClickAction.Select;
+                            return HistoryRelation.Friend;
 
                         case ChessType.BlackMandarins:
                         case ChessType.BlackKing:
-                            return ClickAction.Capture;
+                            return HistoryRelation.WeakEnemy;
                         default:
-                            return ClickAction.None;
+                            return HistoryRelation.StrongEnemy;
                     }
 
                 case ChessType.RedKing:
@@ -166,17 +180,17 @@
                         case ChessType.RedElephant:
                         case ChessType.RedMandarins:
                         case ChessType.RedKing:
-                            return ClickAction.Select;
+                            return HistoryRelation.Friend;
 
                         case ChessType.BlackSoldier:
                         case ChessType.BlackKing:
-                            return ClickAction.Capture;
+                            return HistoryRelation.WeakEnemy;
 
                         default:
-                            return ClickAction.None;
+                            return HistoryRelation.StrongEnemy;
                     }
 
-                default: return ClickAction.None;
+                default: return HistoryRelation.StrongEnemy;
             }
         }
     }
