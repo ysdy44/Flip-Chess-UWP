@@ -19,7 +19,7 @@ namespace Flip_Chess.Chesses.Extensions
                     if (x > 0)
                     {
                         ChessType left = collection[index, y, x - 1];
-                        if (item.BlackClick(left) is ClickAction.Capture)
+                        if (item.BlackRelateTo(left) is HistoryRelation.WeakEnemy)
                         {
                             yield return new History(y, x, y, x - 1);
                         }
@@ -28,7 +28,7 @@ namespace Flip_Chess.Chesses.Extensions
                     if (y > 0)
                     {
                         ChessType top = collection[index, y - 1, x];
-                        if (item.BlackClick(top) is ClickAction.Capture)
+                        if (item.BlackRelateTo(top) is HistoryRelation.WeakEnemy)
                         {
                             yield return new History(y, x, y - 1, x);
                         }
@@ -37,7 +37,7 @@ namespace Flip_Chess.Chesses.Extensions
                     if (x + 1 < w)
                     {
                         ChessType right = collection[index, y, x + 1];
-                        if (item.BlackClick(right) is ClickAction.Capture)
+                        if (item.BlackRelateTo(right) is HistoryRelation.WeakEnemy)
                         {
                             yield return new History(y, x, y, x + 1);
                         }
@@ -45,7 +45,7 @@ namespace Flip_Chess.Chesses.Extensions
                         if (y + 1 < h)
                         {
                             ChessType bottom = collection[index, y + 1, x];
-                            if (item.BlackClick(bottom) is ClickAction.Capture)
+                            if (item.BlackRelateTo(bottom) is HistoryRelation.WeakEnemy)
                             {
                                 yield return new History(y, x, y + 1, x);
                             }
@@ -67,7 +67,7 @@ namespace Flip_Chess.Chesses.Extensions
             if (x > 0)
             {
                 ChessType left = collection[index, y, x - 1];
-                if (item.BlackClick(left) is ClickAction.Capture)
+                if (item.BlackRelateTo(left) is HistoryRelation.WeakEnemy)
                 {
                     type |= NeighborType.Left;
                 }
@@ -76,7 +76,7 @@ namespace Flip_Chess.Chesses.Extensions
             if (y > 0)
             {
                 ChessType top = collection[index, y - 1, x];
-                if (item.BlackClick(top) is ClickAction.Capture)
+                if (item.BlackRelateTo(top) is HistoryRelation.WeakEnemy)
                 {
                     type |= NeighborType.Top;
                 }
@@ -85,7 +85,7 @@ namespace Flip_Chess.Chesses.Extensions
             if (x + 1 < w)
             {
                 ChessType right = collection[index, y, x + 1];
-                if (item.BlackClick(right) is ClickAction.Capture)
+                if (item.BlackRelateTo(right) is HistoryRelation.WeakEnemy)
                 {
                     type |= NeighborType.Right;
                 }
@@ -94,7 +94,7 @@ namespace Flip_Chess.Chesses.Extensions
             if (y + 1 < h)
             {
                 ChessType bottom = collection[index, y + 1, x];
-                if (item.BlackClick(bottom) is ClickAction.Capture)
+                if (item.BlackRelateTo(bottom) is HistoryRelation.WeakEnemy)
                 {
                     type |= NeighborType.Bottom;
                 }
