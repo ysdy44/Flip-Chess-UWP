@@ -43,17 +43,17 @@ namespace Flip_Chess
         public ChessType Previous { get; set; }
         public int PreviousY { get; set; } = -1;
         public int PreviousX { get; set; } = -1;
-        
+
         // History
-        public int Step => this.Historian.Count + this.HistorianCount; // Index
-        public bool IsRed => this.Step % 2 == 0; // Index
-        public bool IsBlack => this.Step % 2 != 0; // Index
-        public ObservableCollection<History> Historian { get; } = new ObservableCollection<History>();
         public int HistorianCount { get; set; } // Sertings
+        public int Step => this.HistorianCount + this.Historian.Count; // Indexer
+        public bool IsRed => this.Step % 2 == 0; // Indexer
+        public bool IsBlack => this.Step % 2 != 0; // Indexer
+        public ObservableCollection<History> Historian { get; } = new ObservableCollection<History>();
 
         // Collection
-        public int Index { get; set; } // Index
-        public ChessType[,,] Collection { get; } = new ChessType[1024, App.Height, App.Width]; // Sertings // Index
+        public int Index { get; set; } // Indexer
+        public ChessType[,,] Collection { get; } = new ChessType[1024, App.Height, App.Width]; // Sertings // Indexer
         public ChessAlive[] Chesses { get; } = new ChessAlive[App.Height * App.Width]
         {
             new ChessAlive(), new ChessAlive(), new ChessAlive(), new ChessAlive(),
@@ -121,7 +121,6 @@ namespace Flip_Chess
             }
             else
             {
-                this.Randoms.Home();
                 this.Randoms.Random();
                 this.WriteRandom(); // Sertings
             }

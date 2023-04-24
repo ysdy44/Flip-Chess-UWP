@@ -53,9 +53,9 @@ namespace Flip_Chess
                     this.State = GameState.None;
                     break;
                 case OptionType.Restart:
-                    this.Historian.Clear();
-                    this.HistorianCount = 0;
-                    this.SaveStep(this.Step);
+                    this.HistorianCount = 0; // 1. Clear HistorianCount
+                    this.Historian.Clear(); // 2. Clear Historian
+                    this.SaveStep(this.Step); // 3. Save HistorianCount + Historian
 
                     //this.Randoms.Random();
                     this.Collection.Clear();
