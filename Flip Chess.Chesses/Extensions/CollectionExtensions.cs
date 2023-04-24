@@ -44,6 +44,68 @@ namespace Flip_Chess.Chesses.Extensions
             }
         }
 
+        public static History RandomFlip(this ChessType[,,] array, History defaultValue)
+        {
+            if (defaultValue != History.Noway) return defaultValue;
+
+            int count = 0;
+
+            for (int y = 0; y < array.Height(); y++)
+            {
+                for (int x = 0; x < array.Width(); x++)
+                {
+                    ChessType item = array[0, y, x];
+
+                    if (item is ChessType.Unkonw)
+                    {
+                        count++;
+                    }
+                }
+            }
+
+            switch (count)
+            {
+                case 0:
+                    return defaultValue;
+                case 1:
+                    for (int y = 0; y < array.Height(); y++)
+                    {
+                        for (int x = 0; x < array.Width(); x++)
+                        {
+                            ChessType item = array[0, y, x];
+
+                            if (item is ChessType.Unkonw)
+                            {
+                                return new History(y, x);
+                            }
+                        }
+                    }
+                    return defaultValue;
+                default:
+                    {
+                        int random = CollectionExtensions.Instance.Next(0, count - 1);
+
+                        for (int y = 0; y < array.Height(); y++)
+                        {
+                            for (int x = 0; x < array.Width(); x++)
+                            {
+                                ChessType item = array[0, y, x];
+
+                                if (item is ChessType.Unkonw)
+                                {
+                                    random--;
+                                    if (random == 0)
+                                    {
+                                        return new History(y, x);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    return defaultValue;
+            }
+        }
+
         public static void Clear(this IEnumerable<IChess> enumerable)
         {
             foreach (IChess item in enumerable)
