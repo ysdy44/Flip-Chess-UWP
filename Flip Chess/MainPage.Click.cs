@@ -29,8 +29,8 @@ namespace Flip_Chess
             switch (type)
             {
                 case OptionType.Ai:
-                    if (this.IsBlack) this.ItemClick(new BlackAutoAICollection(this).FindAutoAI(this));
-                    else if (this.IsRed) this.ItemClick(new RedAutoAICollection(this).FindAutoAI(this));
+                    if (this.IsBlack) this.ItemClick(this.Collection.RandomFlip(new BlackAutoAICollection(this).FindAutoAI()));
+                    else if (this.IsRed) this.ItemClick(this.Collection.RandomFlip(new RedAutoAICollection(this).FindAutoAI()));
                     break;
                 case OptionType.Play:
                     this.State = GameState.None;

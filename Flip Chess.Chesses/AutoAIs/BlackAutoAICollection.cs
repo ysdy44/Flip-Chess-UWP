@@ -128,8 +128,8 @@ namespace Flip_Chess.Chesses.AutoAIs
 
             return ai;
         }
-        
-        public  History FindAutoAI(IIndexer indexer)
+
+        public History FindAutoAI()
         {
             BlackAutoAI next = this.FindNext();
 
@@ -140,20 +140,6 @@ namespace Flip_Chess.Chesses.AutoAIs
                     if (this.Level >= next.Level)
                     {
                         return next.History;
-                    }
-                }
-            }
-
-            // Flip
-            for (int y = 0; y < indexer.Collection.Height(); y++)
-            {
-                for (int x = 0; x < indexer.Collection.Width(); x++)
-                {
-                    ChessType item = indexer.Collection[0, y, x];
-
-                    if (item is ChessType.Unkonw)
-                    {
-                        return new History(y, x);
                     }
                 }
             }

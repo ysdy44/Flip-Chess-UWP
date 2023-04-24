@@ -137,14 +137,14 @@ namespace Flip_Chess
                         {
                             if (this.IsRedComputer)
                             {
-                                this.ItemClick(new RedAutoAICollection(this).FindAutoAI(this));
+                                this.ItemClick(this.Collection.RandomFlip(new RedAutoAICollection(this).FindAutoAI()));
                             }
                         }
                         else if (this.IsBlack)
                         {
                             if (this.IsBlackComputer)
                             {
-                                this.ItemClick(new BlackAutoAICollection(this).FindAutoAI(this));
+                                this.ItemClick(this.Collection.RandomFlip(new BlackAutoAICollection(this).FindAutoAI()));
                             }
                         }
                         break;

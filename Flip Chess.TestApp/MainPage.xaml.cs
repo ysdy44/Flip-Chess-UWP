@@ -57,11 +57,11 @@ namespace Flip_Chess.TestApp
             {
                 if (this.IsRed)
                 {
-                    this.ItemClick(new RedAutoAICollection(this).FindAutoAI(this));
+                    this.ItemClick(this.Collection.RandomFlip(new RedAutoAICollection(this).FindAutoAI()));
                 }
                 else if (this.IsBlack)
                 {
-                    this.ItemClick(new BlackAutoAICollection(this).FindAutoAI(this));
+                    this.ItemClick(this.Collection.RandomFlip(new BlackAutoAICollection(this).FindAutoAI()));
                 }
             };
             this.Timer.Start();
