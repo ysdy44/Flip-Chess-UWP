@@ -75,6 +75,7 @@ namespace Flip_Chess
                     this.StopCemetery();
                     break;
                 case OptionType.Next:
+                    this.Randoms.Home();
                     this.Randoms.Random();
                     this.WriteRandom(); // Sertings
 

@@ -8,7 +8,7 @@ namespace Flip_Chess.Chesses.Extensions
     {
         readonly static Random Instance = new Random();
 
-        public static void Random(this IChess[] array)
+        public static void Home(this IChess[] array)
         {
             int index = 0;
             int count = array.Length;
@@ -26,6 +26,11 @@ namespace Flip_Chess.Chesses.Extensions
                     if (index >= count) return;
                 }
             } while (index < count);
+        }
+
+        public static void Random(this IChess[] array)
+        {
+            int count = array.Length;
 
             for (int i = 0; i < count; i++)
             {

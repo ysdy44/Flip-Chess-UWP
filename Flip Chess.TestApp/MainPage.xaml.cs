@@ -50,6 +50,7 @@ namespace Flip_Chess.TestApp
         public MainPage()
         {
             this.InitializeComponent();
+            this.Randoms.Home();
             this.Randoms.Random();
 
             this.Timer.Tick += (s, e) =>

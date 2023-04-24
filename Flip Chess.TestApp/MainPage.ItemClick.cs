@@ -16,6 +16,7 @@ namespace Flip_Chess.TestApp
             {
                 case HistoryAction.Noway:
                     {
+                        this.Randoms.Home();
                         this.Randoms.Random();
                         this.Chesses.Clear();
                         this.Collection.Clear();
