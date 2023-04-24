@@ -121,6 +121,7 @@ namespace Flip_Chess
             }
             else
             {
+                this.Randoms.Home();
                 this.Randoms.Random();
                 this.WriteRandom(); // Sertings
             }

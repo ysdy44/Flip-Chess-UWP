@@ -7,12 +7,14 @@ namespace Flip_Chess.TestApp
     {
         public void ItemClick(History history)
         {
+            if (history.Distance is HistoryDistance.Others) return;
+
             this.Timer.Stop();
             this.Timer.Start();
 
             this.Historian.Add(history);
 
-            switch (history.Action)
+            switch ((HistoryAction)history.Distance)
             {
                 case HistoryAction.Noway:
                     {

@@ -20,16 +20,16 @@ namespace Flip_Chess
             int y = index / this.Collection.Width(); // Y
             int x = index % this.Collection.Width();  // X
 
-            ClickAction action =
+            HistoryRelation relation =
                 this.IsBlack ?
-                this.Previous.BlackClick(item.Type) :
-                this.Previous.RedClick(item.Type);
+                this.Previous.BlackRelateTo(item.Type) :
+                this.Previous.RedRelateTo(item.Type);
 
-            switch (action)
+            switch ((HistoryAction)(int)relation)
             {
-                case ClickAction.None:
+                case HistoryAction.Noway:
                     break;
-                case ClickAction.Select:
+                case HistoryAction.Select:
                     NeighborType type =
                         this.IsBlack ?
                         this.Collection.GetBlackNeighbor(0, y, x) :
@@ -41,14 +41,14 @@ namespace Flip_Chess
                     this.PreviousY = y;
                     this.PreviousX = x;
                     break;
-                case ClickAction.Flip:
+                case HistoryAction.Flip:
                     this.ItemClick(new History(y, x));
 
                     this.Previous = default;
                     this.PreviousY = -1;
                     this.PreviousX = -1;
                     break;
-                case ClickAction.Capture:
+                case HistoryAction.Capture:
                     if (this.Previous == default) break;
                     if (this.PreviousY == -1) break;
                     if (this.PreviousX == -1) break;
@@ -66,13 +66,15 @@ namespace Flip_Chess
 
         public void ItemClick(History history)
         {
+            if (history.Distance is HistoryDistance.Others) return;
+
             this.Timer.Stop();
             this.Timer.Start();
 
             this.Historian.Add(history);
             this.SaveStep(this.Step);
-
-            switch (history.Action)
+   
+            switch ((HistoryAction)history.Distance)
             {
                 case HistoryAction.Noway:
                     {
