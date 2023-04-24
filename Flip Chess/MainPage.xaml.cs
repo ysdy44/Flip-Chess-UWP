@@ -103,6 +103,8 @@ namespace Flip_Chess
         {
             this.InitializeComponent();
 
+            this.State = (GameState)this.LoadState();
+
             this.HistorianCount = this.LoadStep();
 
             if (this.ReadCollection()) // Sertings

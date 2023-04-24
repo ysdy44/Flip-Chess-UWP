@@ -7,6 +7,24 @@ namespace Flip_Chess
 {
     partial class MainPage
     {
+        public int LoadState()
+        {
+            if (ApplicationData.Current.LocalSettings.Values.ContainsKey("State"))
+            {
+                if (ApplicationData.Current.LocalSettings.Values["State"] is int item)
+                {
+                    return item;
+                }
+            }
+
+            return 0;
+        }
+
+        public void SaveState(int value)
+        {
+            ApplicationData.Current.LocalSettings.Values["State"] = value;
+        }
+
         public int LoadStep()
         {
             if (ApplicationData.Current.LocalSettings.Values.ContainsKey("Step"))
