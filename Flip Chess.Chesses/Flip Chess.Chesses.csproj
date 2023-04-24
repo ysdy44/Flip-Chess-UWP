@@ -127,7 +127,6 @@
     <Compile Include="ChessType.cs" />
     <Compile Include="Enums\ChessCount.cs" />
     <Compile Include="Enums\ChessText.cs" />
-    <Compile Include="Enums\ClickAction.cs" />
     <Compile Include="Enums\HistoryAction.cs" />
     <Compile Include="Enums\HistoryDistance.cs" />
     <Compile Include="Enums\HistoryRelation.cs" />

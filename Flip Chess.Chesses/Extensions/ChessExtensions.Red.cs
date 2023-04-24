@@ -9,21 +9,7 @@
 			return c > 1 && c % 2 == 0;
 		}
 
-        public static ClickAction RedClick(this ChessType previous, ChessType next)
-        {
-            switch (previous.RedRelateTo(next))
-            {
-                case HistoryRelation.Unkonw:
-                    return ClickAction.Flip;
-                case HistoryRelation.WeakEnemy:
-                    return ClickAction.Capture;
-                case HistoryRelation.Friend:
-                    return ClickAction.Select;
-                default:
-                    return ClickAction.None;
-            }
-        }
-        public static HistoryRelation RedRelateTo(this ChessType previous, ChessType next)
+		public static HistoryRelation RedRelateTo(this ChessType previous, ChessType next)
 		{
 			switch (next)
 			{

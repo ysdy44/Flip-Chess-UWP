@@ -10,7 +10,6 @@
 
         public int Y => (this.Y1 + this.Y2) / 2;
         public int X => (this.X1 + this.X2) / 2;
-        public HistoryAction Action => this == Noway ? HistoryAction.Noway : this.X1 == this.X2 && this.Y1 == this.Y2 ? HistoryAction.Flip : HistoryAction.Capture;
         public HistoryDistance Distance
         {
             get

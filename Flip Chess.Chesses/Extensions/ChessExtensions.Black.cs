@@ -9,20 +9,6 @@
             return c > 1 && c % 2 != 0;
         }
 
-        public static ClickAction BlackClick(this ChessType previous, ChessType next)
-        {
-            switch (previous.BlackRelateTo(next))
-            {
-                case HistoryRelation.Unkonw:
-                    return ClickAction.Flip;
-                case HistoryRelation.WeakEnemy:
-                    return ClickAction.Capture;
-                case HistoryRelation.Friend:
-                    return ClickAction.Select;
-                default:
-                    return ClickAction.None;
-            }
-        }
         public static HistoryRelation BlackRelateTo(this ChessType previous, ChessType next)
         {
             switch (next)
