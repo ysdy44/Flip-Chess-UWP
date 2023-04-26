@@ -93,11 +93,11 @@ namespace Flip_Chess.Chesses.Extensions
 
                                 if (item is ChessType.Unkonw)
                                 {
-                                    random--;
-                                    if (random == 0)
+                                    if (random <= 0)
                                     {
                                         return new History(y, x);
                                     }
+                                    random--;
                                 }
                             }
                         }
