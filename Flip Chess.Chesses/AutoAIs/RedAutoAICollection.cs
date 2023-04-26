@@ -1,12 +1,14 @@
 ﻿using Flip_Chess.Chesses.Extensions;
 using System.Linq;
+using Ene = Flip_Chess.Chesses.AutoAIs.BlackAutoAI;
+using Fri = Flip_Chess.Chesses.AutoAIs.RedAutoAI;
 
 namespace Flip_Chess.Chesses.AutoAIs
 {
     public sealed class RedAutoAICollection
     {
         public int Level;
-        public readonly RedAutoAI[] Children;
+        public readonly Fri[] Children;
 
         public RedAutoAICollection(IIndexer indexer)
         {
@@ -20,22 +22,22 @@ namespace Flip_Chess.Chesses.AutoAIs
             this.Level = indexer.Collection.GetLevel(0);
 
             // 3. Children
-            var historion = indexer.Collection.GetRedHistory(0).ToArray();
+            History[] historion = indexer.Collection.GetRedHistory(0).ToArray();
 
             if (historion is null) return;
             if (historion.Length is 0) return;
 
-            this.Children = new RedAutoAI[historion.Length];
+            this.Children = new Fri[historion.Length];
             for (int i = 0; i < historion.Length; i++)
             {
-                var item = historion[i];
-                this.Children[i] = new RedAutoAI(indexer, item, 0, indexer.Step);
+                History item = historion[i];
+                this.Children[i] = new Fri(indexer, item, 0, indexer.Step);
             }
 
             // 1
             if (this.Children is null) return;
             if (this.Children.Length is 0) return;
-            foreach (var item in this.Children)
+            foreach (Fri item in this.Children)
             {
                 if (item.Birth(indexer) is false)
                 {
@@ -44,11 +46,11 @@ namespace Flip_Chess.Chesses.AutoAIs
             }
 
             // 2
-            foreach (var item in this.Children)
+            foreach (Fri item in this.Children)
             {
                 if (item.Children is null) return;
                 if (item.Children.Length is 0) return;
-                foreach (var item2 in item.Children)
+                foreach (Ene item2 in item.Children)
                 {
                     if (item2.Birth(indexer) is false)
                     {
@@ -58,12 +60,12 @@ namespace Flip_Chess.Chesses.AutoAIs
             }
 
             // 3
-            foreach (var item in this.Children)
-                foreach (var item2 in item.Children)
+            foreach (Fri item in this.Children)
+                foreach (Ene item2 in item.Children)
                 {
                     if (item2.Children is null) return;
                     if (item2.Children.Length is 0) return;
-                    foreach (var item3 in item2.Children)
+                    foreach (Fri item3 in item2.Children)
                     {
                         if (item3.Birth(indexer) is false)
                         {
@@ -73,13 +75,13 @@ namespace Flip_Chess.Chesses.AutoAIs
                 }
 
             // 4
-            foreach (var item in this.Children)
-                foreach (var item2 in item.Children)
-                    foreach (var item3 in item2.Children)
+            foreach (Fri item in this.Children)
+                foreach (Ene item2 in item.Children)
+                    foreach (Fri item3 in item2.Children)
                     {
                         if (item3.Children is null) return;
                         if (item3.Children.Length is 0) return;
-                        foreach (var item4 in item3.Children)
+                        foreach (Ene item4 in item3.Children)
                         {
                             if (item4.Birth(indexer) is false)
                             {
@@ -89,14 +91,14 @@ namespace Flip_Chess.Chesses.AutoAIs
                     }
 
             // 5
-            foreach (var item in this.Children)
-                foreach (var item2 in item.Children)
-                    foreach (var item3 in item2.Children)
-                        foreach (var item4 in item3.Children)
+            foreach (Fri item in this.Children)
+                foreach (Ene item2 in item.Children)
+                    foreach (Fri item3 in item2.Children)
+                        foreach (Ene item4 in item3.Children)
                         {
                             if (item4.Children is null) return;
                             if (item4.Children.Length is 0) return;
-                            foreach (var item5 in item4.Children)
+                            foreach (Fri item5 in item4.Children)
                             {
                                 if (item5.Birth(indexer) is false)
                                 {
@@ -112,9 +114,9 @@ namespace Flip_Chess.Chesses.AutoAIs
             if (this.Children.Length is 0) return History.Noway;
 
             float level = this.Level;
-            RedAutoAI next = null;
+            Fri next = null;
 
-            foreach (RedAutoAI item in this.Children)
+            foreach (Fri item in this.Children)
             {
                 float amout = item.GetAmout();
 
@@ -144,7 +146,7 @@ namespace Flip_Chess.Chesses.AutoAIs
                 }
             }
 
-            foreach (var item in this.Children)
+            foreach (Fri item in this.Children)
             {
                 if (item.History != History.Noway)
                 {

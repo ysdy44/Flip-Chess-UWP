@@ -1,5 +1,7 @@
 ﻿using Flip_Chess.Chesses.Extensions;
 using System.Linq;
+using Ene = Flip_Chess.Chesses.AutoAIs.BlackAutoAI;
+using Fri = Flip_Chess.Chesses.AutoAIs.RedAutoAI;
 
 namespace Flip_Chess.Chesses.AutoAIs
 {
@@ -11,7 +13,7 @@ namespace Flip_Chess.Chesses.AutoAIs
         public readonly History History;
         public readonly int Level;
 
-        internal BlackAutoAI[] Children;
+        internal Ene[] Children;
 
         internal RedAutoAI(IIndexer indexer, History history, int parentIndex, int parentStep)
         {
@@ -47,42 +49,42 @@ namespace Flip_Chess.Chesses.AutoAIs
             if (this.Index + 1 >= indexer.Collection.ZIndex()) return false;
 
             // 3. Children
-            var historion = indexer.Collection.GetBlackHistory(this.Index).ToArray();
+            History[] historion = indexer.Collection.GetBlackHistory(this.Index).ToArray();
 
             if (historion is null)
-                this.Children = new BlackAutoAI[] { new BlackAutoAI(indexer, History.Noway, this.Index, this.Step) };
+                this.Children = new Ene[] { new Ene(indexer, History.Noway, this.Index, this.Step) };
             else if (historion.Length is 0)
-                this.Children = new BlackAutoAI[] { new BlackAutoAI(indexer, History.Noway, this.Index, this.Step) };
+                this.Children = new Ene[] { new Ene(indexer, History.Noway, this.Index, this.Step) };
             else
             {
-                this.Children = new BlackAutoAI[historion.Length];
+                this.Children = new Ene[historion.Length];
                 for (int i = 0; i < historion.Length; i++)
                 {
-                    var a = historion[i];
-                    this.Children[i] = new BlackAutoAI(indexer, a, this.Index, this.Step);
+                    History item = historion[i];
+                    this.Children[i] = new Ene(indexer, item, this.Index, this.Step);
                 }
             }
             return true;
         }
 
-        internal float GetAmout() => (float)RedAutoAI.GetLevelSum(this) / (float)RedAutoAI.GetCount(this);
+        internal float GetAmout() => (float)GetLevelSum(this) / (float)GetCount(this);
 
-        internal static int GetLevelSum(RedAutoAI autoAI)
+        internal static int GetLevelSum(Fri autoAI)
         {
             if (autoAI.Children is null) return autoAI.Level;
             if (autoAI.Children.Length is 0) return autoAI.Level;
 
-            return autoAI.Level + autoAI.Children.Sum(BlackAutoAI.GetLevelSum);
+            return autoAI.Level + autoAI.Children.Sum(Ene.GetLevelSum);
         }
 
-        internal static int GetCount(RedAutoAI autoAI)
+        internal static int GetCount(Fri autoAI)
         {
             if (autoAI.Children is null) return 1;
             if (autoAI.Children.Length is 0) return 1;
 
-            return 1 + autoAI.Children.Sum(BlackAutoAI.GetCount);
+            return 1 + autoAI.Children.Sum(Ene.GetCount);
         }
 
-        public override string ToString() => $"Red Index: {this.Index} Amout: {this.GetAmout()} Level: {this.Level} {this.History}";
+        public override string ToString() => $"●{this.Index:000} A:{this.GetAmout()} L:{this.Level} {this.History}";
     }
 }
