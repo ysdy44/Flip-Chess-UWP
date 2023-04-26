@@ -15,7 +15,7 @@ namespace Flip_Chess.Chesses.AutoAIs
             // 1. Index
             lock (indexer)
             {
-                indexer.Index = 0;
+                indexer.ZIndex = 0;
             }
 
             // 2. History
@@ -113,13 +113,6 @@ namespace Flip_Chess.Chesses.AutoAIs
             if (this.Children is null) return History.Noway;
             if (this.Children.Length is 0) return History.Noway;
 
-            System.Diagnostics.Debug.WriteLine(string.Empty);
-            System.Diagnostics.Debug.WriteLine(this);
-            foreach (Fri item in this.Children)
-            {
-                System.Diagnostics.Debug.WriteLine(item.ToString());
-            }
-
             float level = this.Level;
             Fri next = null;
 
@@ -163,7 +156,5 @@ namespace Flip_Chess.Chesses.AutoAIs
 
             return History.Noway;
         }
-
-        public override string ToString() => $"⭕000 L:{this.Level}";
     }
 }

@@ -7,7 +7,7 @@ namespace Flip_Chess.Chesses.AutoAIs
 {
     public sealed class BlackAutoAI
     {
-        public readonly int Index;
+        public readonly int ZIndex;
 
         public readonly int Step;
         public readonly History History;
@@ -20,12 +20,12 @@ namespace Flip_Chess.Chesses.AutoAIs
             // 1. Index
             lock (indexer)
             {
-                indexer.Index++;
-                this.Index = indexer.Index;
+                indexer.ZIndex++;
+                this.ZIndex = indexer.ZIndex;
             }
 
-            if (this.Index + 1 >= indexer.Collection.ZIndex()) return;
-            indexer.Collection.Copy(this.Index, parentIndex);
+            if (this.ZIndex + 1 >= indexer.Collection.ZIndex()) return;
+            indexer.Collection.Copy(this.ZIndex, parentIndex);
 
             // 2. History
             this.Step = parentStep + 1;
@@ -34,34 +34,34 @@ namespace Flip_Chess.Chesses.AutoAIs
             switch ((HistoryAction)history.Distance)
             {
                 case HistoryAction.Capture:
-                    indexer.Collection[this.Index, history.Y1, history.X1] = ChessType.Deaded;
-                    indexer.Collection[this.Index, history.Y2, history.X2] = indexer.Collection[parentIndex, history.Y1, history.X1];
+                    indexer.Collection[this.ZIndex, history.Y1, history.X1] = ChessType.Deaded;
+                    indexer.Collection[this.ZIndex, history.Y2, history.X2] = indexer.Collection[parentIndex, history.Y1, history.X1];
                     break;
                 default:
                     break;
             }
 
-            this.Level = indexer.Collection.GetLevel(this.Index);
+            this.Level = indexer.Collection.GetLevel(this.ZIndex);
         }
 
         internal bool Birth(IIndexer indexer)
         {
-            if (this.Index + 1 >= indexer.Collection.ZIndex()) return false;
+            if (this.ZIndex + 1 >= indexer.Collection.ZIndex()) return false;
 
             // 3. Children
-            History[] historion = indexer.Collection.GetRedHistory(this.Index).ToArray();
+            History[] historion = indexer.Collection.GetRedHistory(this.ZIndex).ToArray();
 
             if (historion is null)
-                return true;
+                this.Children = new Ene[] { new Ene(indexer, History.Noway, this.ZIndex, this.Step) };
             else if (historion.Length is 0)
-                return true;
+                this.Children = new Ene[] { new Ene(indexer, History.Noway, this.ZIndex, this.Step) };
             else
             {
                 this.Children = new Ene[historion.Length];
                 for (int i = 0; i < historion.Length; i++)
                 {
                     History item = historion[i];
-                    this.Children[i] = new Ene(indexer, item, this.Index, this.Step);
+                    this.Children[i] = new Ene(indexer, item, this.ZIndex, this.Step);
                 }
             }
             return true;
@@ -85,6 +85,6 @@ namespace Flip_Chess.Chesses.AutoAIs
             return 1 + autoAI.Children.Sum(Ene.GetCount);
         }
 
-        public override string ToString() => $"⭕{this.Index:000} L:{this.Level} A:{this.GetAmout()} {this.History}";
+        public override string ToString() => $"⭕{this.ZIndex:000} A:{this.GetAmout()} L:{this.Level} {this.History}";
     }
 }

@@ -22,7 +22,7 @@ namespace Flip_Chess.TestApp
         public IList<History> Historian { get; } = new List<History>();
 
         // Collection
-        public int Index { get; set; } // Index
+        public int ZIndex { get; set; } // Index
         public ChessType[,,] Collection { get; } = new ChessType[1024, 8, 4]; // Sertings // Index
         public Chess[] Chesses { get; } = new Chess[8 * 4]
         {

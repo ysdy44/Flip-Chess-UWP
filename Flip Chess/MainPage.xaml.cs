@@ -63,7 +63,7 @@ namespace Flip_Chess
         public ObservableCollection<History> Historian { get; } = new ObservableCollection<History>();
 
         // Collection
-        public int Index { get; set; } // Indexer
+        public int ZIndex { get; set; } // Indexer
         public ChessType[,,] Collection { get; } = new ChessType[1024, App.Height, App.Width]; // Sertings // Indexer
         public ChessAlive[] Chesses { get; } = new ChessAlive[App.Height * App.Width]
         {

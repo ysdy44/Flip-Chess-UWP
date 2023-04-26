@@ -6,7 +6,7 @@
         bool IsRed { get; }
         bool IsBlack { get; }
 
-        int Index { get; set; }
+        int ZIndex { get; set; }
         ChessType[,,] Collection { get; }
     }
 }
