@@ -113,6 +113,13 @@ namespace Flip_Chess.Chesses.AutoAIs
             if (this.Children is null) return History.Noway;
             if (this.Children.Length is 0) return History.Noway;
 
+            System.Diagnostics.Debug.WriteLine(string.Empty);
+            System.Diagnostics.Debug.WriteLine(this);
+            foreach (Fri item in this.Children)
+            {
+                System.Diagnostics.Debug.WriteLine(item);
+            }
+
             float level = this.Level;
             Fri next = null;
 
@@ -156,5 +163,7 @@ namespace Flip_Chess.Chesses.AutoAIs
 
             return History.Noway;
         }
+
+        public override string ToString() => $"●000 L:{this.Level}";
     }
 }

@@ -52,9 +52,9 @@ namespace Flip_Chess.Chesses.AutoAIs
             History[] historion = indexer.Collection.GetBlackHistory(this.Index).ToArray();
 
             if (historion is null)
-                this.Children = new Ene[] { new Ene(indexer, History.Noway, this.Index, this.Step) };
+                return true;
             else if (historion.Length is 0)
-                this.Children = new Ene[] { new Ene(indexer, History.Noway, this.Index, this.Step) };
+                return true;
             else
             {
                 this.Children = new Ene[historion.Length];
@@ -85,6 +85,6 @@ namespace Flip_Chess.Chesses.AutoAIs
             return 1 + autoAI.Children.Sum(Ene.GetCount);
         }
 
-        public override string ToString() => $"●{this.Index:000} A:{this.GetAmout()} L:{this.Level} {this.History}";
+        public override string ToString() => $"●{this.Index:000} L:{this.Level} A:{this.GetAmout()} {this.History}";
     }
 }
