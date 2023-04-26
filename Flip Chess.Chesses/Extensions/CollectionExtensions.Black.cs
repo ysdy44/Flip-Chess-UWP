@@ -4,21 +4,21 @@ namespace Flip_Chess.Chesses.Extensions
 {
     partial class CollectionExtensions
     {
-        public static IEnumerable<History> GetBlackHistory(this ChessType[,,] collection, int index)
+        public static IEnumerable<History> GetBlackHistory(this ChessType[,,] array, int zIndex)
         {
-            int h = collection.Height();
-            int w = collection.Width();
+            int h = array.Height();
+            int w = array.Width();
 
             for (int y = 0; y < h; y++)
             {
                 for (int x = 0; x < w; x++)
                 {
-                    ChessType item = collection[index, y, x];
+                    ChessType item = array[zIndex, y, x];
                     if (item.IsBlack() is false) continue;
 
                     if (x > 0)
                     {
-                        ChessType left = collection[index, y, x - 1];
+                        ChessType left = array[zIndex, y, x - 1];
                         if (item.BlackRelateTo(left) is HistoryRelation.WeakEnemy)
                         {
                             yield return new History(y, x, y, x - 1);
@@ -27,7 +27,7 @@ namespace Flip_Chess.Chesses.Extensions
 
                     if (y > 0)
                     {
-                        ChessType top = collection[index, y - 1, x];
+                        ChessType top = array[zIndex, y - 1, x];
                         if (item.BlackRelateTo(top) is HistoryRelation.WeakEnemy)
                         {
                             yield return new History(y, x, y - 1, x);
@@ -36,7 +36,7 @@ namespace Flip_Chess.Chesses.Extensions
 
                     if (x + 1 < w)
                     {
-                        ChessType right = collection[index, y, x + 1];
+                        ChessType right = array[zIndex, y, x + 1];
                         if (item.BlackRelateTo(right) is HistoryRelation.WeakEnemy)
                         {
                             yield return new History(y, x, y, x + 1);
@@ -44,7 +44,7 @@ namespace Flip_Chess.Chesses.Extensions
 
                         if (y + 1 < h)
                         {
-                            ChessType bottom = collection[index, y + 1, x];
+                            ChessType bottom = array[zIndex, y + 1, x];
                             if (item.BlackRelateTo(bottom) is HistoryRelation.WeakEnemy)
                             {
                                 yield return new History(y, x, y + 1, x);
@@ -55,18 +55,18 @@ namespace Flip_Chess.Chesses.Extensions
             }
         }
 
-        public static NeighborType GetBlackNeighbor(this ChessType[,,] collection, int index, int y, int x)
+        public static NeighborType GetBlackNeighbor(this ChessType[,,] array, int zIndex, int y, int x)
         {
-            int h = collection.Height();
-            int w = collection.Width();
+            int h = array.Height();
+            int w = array.Width();
 
             NeighborType type = default;
-            ChessType item = collection[index, y, x];
+            ChessType item = array[zIndex, y, x];
             if (item.IsBlack() is false) return default;
 
             if (x > 0)
             {
-                ChessType left = collection[index, y, x - 1];
+                ChessType left = array[zIndex, y, x - 1];
                 if (item.BlackRelateTo(left) is HistoryRelation.WeakEnemy)
                 {
                     type |= NeighborType.Left;
@@ -75,7 +75,7 @@ namespace Flip_Chess.Chesses.Extensions
 
             if (y > 0)
             {
-                ChessType top = collection[index, y - 1, x];
+                ChessType top = array[zIndex, y - 1, x];
                 if (item.BlackRelateTo(top) is HistoryRelation.WeakEnemy)
                 {
                     type |= NeighborType.Top;
@@ -84,7 +84,7 @@ namespace Flip_Chess.Chesses.Extensions
 
             if (x + 1 < w)
             {
-                ChessType right = collection[index, y, x + 1];
+                ChessType right = array[zIndex, y, x + 1];
                 if (item.BlackRelateTo(right) is HistoryRelation.WeakEnemy)
                 {
                     type |= NeighborType.Right;
@@ -93,7 +93,7 @@ namespace Flip_Chess.Chesses.Extensions
 
             if (y + 1 < h)
             {
-                ChessType bottom = collection[index, y + 1, x];
+                ChessType bottom = array[zIndex, y + 1, x];
                 if (item.BlackRelateTo(bottom) is HistoryRelation.WeakEnemy)
                 {
                     type |= NeighborType.Bottom;
