@@ -64,6 +64,7 @@ namespace Flip_Chess
 
                     //this.Randoms.Random();
                     this.Collection.Clear();
+                    this.WriteCollection(); // Sertings
                     //this.Chesses.Clear();
 
                     this.BeginClip(); /// <see cref="OptionType.UIClipCompleted"/>
