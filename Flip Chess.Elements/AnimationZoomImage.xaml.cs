@@ -11,8 +11,8 @@ namespace Flip_Chess.Elements
         public object CommandParameter { get; set; }
         public ICommand Command { get; set; }
 
-        public Uri ImageSource1 { get; set; }
-        public Uri ImageSource2 { get; set; }
+        public Uri PlaceholderSource { get; set; }
+        Uri ImageSource;
 
         public AnimationZoomImage()
         {
@@ -23,7 +23,7 @@ namespace Flip_Chess.Elements
             };
             this.HideStoryboard.Completed += (s, e) =>
             {
-                this.BitmapImage.UriSource = this.ImageSource2;
+                this.BitmapImage.UriSource = this.ImageSource;
 
                 this.ShowStoryboard.Begin(); // Storyboard
             };
@@ -48,11 +48,11 @@ namespace Flip_Chess.Elements
 
         public void Hide()
         {
-            this.BitmapImage.UriSource = this.ImageSource1;
+            this.BitmapImage.UriSource = this.PlaceholderSource;
             base.Visibility = Visibility.Collapsed;
         }
 
-        public void Show(Vector2 position)
+        public void Show(Vector2 position, Uri uri)
         {
             this.CompositeTransform.ScaleX = 1;
             this.CompositeTransform.ScaleY = 1;
@@ -60,7 +60,8 @@ namespace Flip_Chess.Elements
             this.CompositeTransform.TranslateX = position.X;
             this.CompositeTransform.TranslateY = position.Y;
 
-            this.BitmapImage.UriSource = this.ImageSource1;
+            this.ImageSource = uri;
+            this.BitmapImage.UriSource = this.PlaceholderSource;
             base.Visibility = Visibility.Visible;
         }
     }

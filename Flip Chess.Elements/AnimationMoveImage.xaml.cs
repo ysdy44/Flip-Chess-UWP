@@ -11,12 +11,6 @@ namespace Flip_Chess.Elements
         public object CommandParameter { get; set; }
         public ICommand Command { get; set; }
 
-        public Uri ImageSource
-        {
-            get => this.BitmapImage.UriSource;
-            set => this.BitmapImage.UriSource = value;
-        }
-
         public AnimationMoveImage()
         {
             this.InitializeComponent();
@@ -39,9 +33,10 @@ namespace Flip_Chess.Elements
         public void Hide()
         {
             base.Visibility = Visibility.Collapsed;
+            this.BitmapImage.UriSource = null;
         }
 
-        public void Show(Vector2 from, Vector2 to)
+        public void Show(Vector2 from, Vector2 to, Uri uri)
         {
             this.CompositeTransform.ScaleX = 1;
             this.CompositeTransform.ScaleY = 1;
@@ -55,6 +50,7 @@ namespace Flip_Chess.Elements
             this.XAnimation.To = to.X;
             this.YAnimation.To = to.Y;
 
+            this.BitmapImage.UriSource = uri;
             base.Visibility = Visibility.Visible;
         }
     }

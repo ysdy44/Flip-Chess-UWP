@@ -112,29 +112,17 @@ namespace Flip_Chess
         private void StopFlip() => this.FlipItem.Stop();
         public void BeginFlip() => this.FlipItem.Begin(); /// <see cref="OptionType.UIFlipCompleted"/>
         private void HideFlip() => this.FlipItem.Hide();
-        public void ShowFlip(Vector2 position, Uri uri)
-        {
-            this.FlipItem.ImageSource2 = uri;
-            this.FlipItem.Show(position);
-        }
+        public void ShowFlip(Vector2 position, Uri uri) => this.FlipItem.Show(position, uri);
 
         private void StopCapture() => this.CaptureItem.Stop();
         public void BeginCapture() => this.CaptureItem.Begin();  /// <see cref="OptionType.UICaptureCompleted"/>
         private void HideCapture() => this.CaptureItem.Hide();
-        public void ShowCapture(Vector2 from, Vector2 to, Uri uri)
-        {
-            this.CaptureItem.ImageSource = uri;
-            this.CaptureItem.Show(from, to);
-        }
+        public void ShowCapture(Vector2 from, Vector2 to, Uri uri) => this.CaptureItem.Show(from, to, uri);
 
         private void StopCemetery() => this.CemeteryItem.Stop();
         public void BeginCemetery() => this.CemeteryItem.Begin();  /// <see cref="OptionType.UICemeteryCompleted"/>
         private void HideCemetery() => this.CemeteryItem.Hide();
-        public void ShowCemetery(Vector2 from, Vector2 to, Uri uri)
-        {
-            this.CemeteryItem.ImageSource = uri;
-            this.CemeteryItem.Show(from, to);
-        }
+        public void ShowCemetery(Vector2 from, Vector2 to, Uri uri) => this.CemeteryItem.Show(from, to, uri);
 
         public void StopClip() => this.ClipContainer.Stop();
         public void BeginClip() => this.ClipContainer.Begin(); /// <see cref="OptionType.UIClipCompleted"/>

@@ -503,7 +503,6 @@
                         x:Name="CemeteryItem"
                         CommandParameter="{strings:OptionType Type=UICemeteryCompleted}"
                         Command="{x:Bind Command}"
-                        ImageSource="ms-appx:///Images/Item.x2.png"
                         />
 
                     <!--Animation-->
@@ -511,7 +510,6 @@
                         x:Name="CaptureItem"
                         CommandParameter="{strings:OptionType Type=UICaptureCompleted}"
                         Command="{x:Bind Command}"
-                        ImageSource="ms-appx:///Images/Item.x2.png"
                         />
 
                     <!--Animation-->
@@ -519,8 +517,7 @@
                         x:Name="FlipItem"
                         CommandParameter="{strings:OptionType Type=UIFlipCompleted}"
                         Command="{x:Bind Command}"
-                        ImageSource1="ms-appx:///Images/Item.x2.png"
-                        ImageSource2="ms-appx:///Images/Item.x2.png"
+                        PlaceholderSource="ms-appx:///Images/Item.x2.png"
                         />
 
                 </Canvas>
