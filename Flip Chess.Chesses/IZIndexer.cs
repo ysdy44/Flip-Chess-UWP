@@ -1,6 +1,6 @@
 ﻿namespace Flip_Chess.Chesses
 {
-    public interface IIndexer
+    public interface IZIndexer
     {
         int Step { get; }
         bool IsRed { get; }

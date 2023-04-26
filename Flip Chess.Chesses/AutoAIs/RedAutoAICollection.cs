@@ -10,7 +10,7 @@ namespace Flip_Chess.Chesses.AutoAIs
         public int Level;
         public readonly Fri[] Children;
 
-        public RedAutoAICollection(IIndexer indexer)
+        public RedAutoAICollection(IZIndexer indexer)
         {
             // 1. Index
             lock (indexer)

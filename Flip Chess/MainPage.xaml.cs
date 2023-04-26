@@ -16,7 +16,7 @@ namespace Flip_Chess
         public MainLinesCanvas() : base(App.Width, App.Height, 100) { }
     }
 
-    public sealed partial class MainPage : Page, ICommand, IIndexer
+    public sealed partial class MainPage : Page, ICommand, IZIndexer
     {
         //@Strings
         private int W => App.Width * 100;

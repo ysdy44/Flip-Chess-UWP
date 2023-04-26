@@ -8,7 +8,7 @@ using Windows.UI.Xaml.Controls;
 
 namespace Flip_Chess.TestApp
 {
-    public sealed partial class MainPage : Page, IIndexer
+    public sealed partial class MainPage : Page, IZIndexer
     {
         readonly DispatcherTimer Timer = new DispatcherTimer
         {

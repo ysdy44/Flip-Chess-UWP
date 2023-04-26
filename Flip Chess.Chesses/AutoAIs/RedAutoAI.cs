@@ -15,7 +15,7 @@ namespace Flip_Chess.Chesses.AutoAIs
 
         internal Ene[] Children;
 
-        internal RedAutoAI(IIndexer indexer, History history, int parentIndex, int parentStep)
+        internal RedAutoAI(IZIndexer indexer, History history, int parentIndex, int parentStep)
         {
             // 1. Index
             lock (indexer)
@@ -44,7 +44,7 @@ namespace Flip_Chess.Chesses.AutoAIs
             this.Level = indexer.Collection.GetLevel(this.ZIndex);
         }
 
-        internal bool Birth(IIndexer indexer)
+        internal bool Birth(IZIndexer indexer)
         {
             if (this.ZIndex + 1 >= indexer.Collection.ZIndex()) return false;
 
