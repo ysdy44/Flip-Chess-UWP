@@ -49,10 +49,12 @@ namespace Flip_Chess.Chesses.Extensions
             if (defaultValue != History.Noway) return defaultValue;
 
             int count = 0;
+            int h = array.Height();
+            int w = array.Width();
 
-            for (int y = 0; y < array.Height(); y++)
+            for (int y = 0; y < h; y++)
             {
-                for (int x = 0; x < array.Width(); x++)
+                for (int x = 0; x < w; x++)
                 {
                     ChessType item = array[0, y, x];
 
@@ -66,11 +68,11 @@ namespace Flip_Chess.Chesses.Extensions
             switch (count)
             {
                 case 0:
-                    return defaultValue;
+                    return History.Noway;
                 case 1:
-                    for (int y = 0; y < array.Height(); y++)
+                    for (int y = 0; y < h; y++)
                     {
-                        for (int x = 0; x < array.Width(); x++)
+                        for (int x = 0; x < w; x++)
                         {
                             ChessType item = array[0, y, x];
 
@@ -80,14 +82,14 @@ namespace Flip_Chess.Chesses.Extensions
                             }
                         }
                     }
-                    return defaultValue;
+                    return History.Noway;
                 default:
                     {
                         int random = CollectionExtensions.Instance.Next(0, count - 1);
 
-                        for (int y = 0; y < array.Height(); y++)
+                        for (int y = 0; y < h; y++)
                         {
-                            for (int x = 0; x < array.Width(); x++)
+                            for (int x = 0; x < w; x++)
                             {
                                 ChessType item = array[0, y, x];
 
@@ -101,8 +103,8 @@ namespace Flip_Chess.Chesses.Extensions
                                 }
                             }
                         }
+                        return History.Noway;
                     }
-                    return defaultValue;
             }
         }
 
@@ -156,14 +158,14 @@ namespace Flip_Chess.Chesses.Extensions
             }
         }
 
-        public static int GetLevel(this ChessType[,,] array, int index)
+        public static int GetLevel(this ChessType[,,] array, int zIndex)
         {
             int level = 0;
             for (int y = 0; y < array.Height(); y++)
             {
                 for (int x = 0; x < array.Width(); x++)
                 {
-                    ChessType item = array[index, y, x];
+                    ChessType item = array[zIndex, y, x];
                     level += item.GetLevel();
                 }
             }
