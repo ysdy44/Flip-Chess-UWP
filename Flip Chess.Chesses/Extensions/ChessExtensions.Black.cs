@@ -17,7 +17,7 @@
                     return HistoryRelation.Unkonw;
 
                 case ChessType.Deaded:
-                    return HistoryRelation.StrongEnemy;
+                    return HistoryRelation.WeakEnemy;
 
                 case ChessType.BlackSoldier:
                 case ChessType.BlackCannons:
