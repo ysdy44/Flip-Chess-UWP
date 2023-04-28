@@ -139,7 +139,6 @@
     <Compile Include="Extensions\CollectionExtensions.Red.cs" />
     <Compile Include="History.cs" />
     <Compile Include="IChess.cs" />
-    <Compile Include="IZIndexer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Flip_Chess.Chesses.rd.xml" />
   </ItemGroup>
