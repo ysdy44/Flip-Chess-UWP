@@ -58,8 +58,8 @@ namespace Flip_Chess
         // History
         public int HistorianCount { get; set; } // Sertings
         public int Step => this.HistorianCount + this.Historian.Count; // Indexer
-        public bool IsRed => this.Step % 2 == 0; // Indexer
-        public bool IsBlack => this.Step % 2 != 0; // Indexer
+        public bool IsRed => this.Step.IsRed();
+        public bool IsBlack => this.Step.IsBlack();
         public ObservableCollection<History> Historian { get; } = new ObservableCollection<History>();
 
         // Collection

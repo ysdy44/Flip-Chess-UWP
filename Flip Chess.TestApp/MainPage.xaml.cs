@@ -16,9 +16,9 @@ namespace Flip_Chess.TestApp
         };
 
         // History
-        public int Step => this.Historian.Count;
-        public bool IsRed => this.Step % 2 == 0; // Index
-        public bool IsBlack => this.Step % 2 != 0; // Index
+        public int Step => this.Historian.Count; 
+        public bool IsRed => this.Step.IsRed();
+        public bool IsBlack => this.Step.IsBlack();
         public IList<History> Historian { get; } = new List<History>();
 
         // Collection

@@ -3,6 +3,7 @@
     partial class ChessExtensions
     {
         public static ChessType ToBlack(this ChessCount count) => (ChessType)(1 + (int)count / 5);
+        public static bool IsBlack(this int step) => step % 2 != 0; // Index
         public static bool IsBlack(this ChessType type)
         {
             int c = (int)type;
