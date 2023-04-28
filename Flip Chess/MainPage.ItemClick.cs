@@ -50,14 +50,20 @@ namespace Flip_Chess
                     break;
                 case HistoryAction.Capture:
                     if (this.Previous == default) break;
-                    if (this.PreviousY == -1) break;
-                    if (this.PreviousX == -1) break;
 
-                    this.ItemClick(new History(this.PreviousY, this.PreviousX, y, x));
+                    History history = new History(this.PreviousY, this.PreviousX, y, x);
+                    switch (history.Distance)
+                    {
+                        case HistoryDistance.DistanceIs1:
+                            this.ItemClick(history);
 
-                    this.Previous = default;
-                    this.PreviousY = -1;
-                    this.PreviousX = -1;
+                            this.Previous = default;
+                            this.PreviousY = -1;
+                            this.PreviousX = -1;
+                            break;
+                        default:
+                            break;
+                    }
                     break;
                 default:
                     break;
@@ -73,7 +79,7 @@ namespace Flip_Chess
 
             this.Historian.Add(history);
             this.SaveStep(this.Step);
-   
+
             switch ((HistoryAction)history.Distance)
             {
                 case HistoryAction.Noway:
@@ -186,7 +192,7 @@ namespace Flip_Chess
                     if (item == ChessType.Deaded) continue;
                     else if (item == ChessType.Unkonw)
                     {
-                        return; 
+                        return;
                     }
                     else if (item.IsRed())
                     {
