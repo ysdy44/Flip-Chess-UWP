@@ -1,5 +1,4 @@
 ﻿using Flip_Chess.Chesses.Extensions;
-using System.Linq;
 
 namespace Flip_Chess.Chesses.AutoAIs
 {
@@ -105,6 +104,17 @@ namespace Flip_Chess.Chesses.AutoAIs
                 {
                     defaultValue = value;
                     find = item;
+                }
+                else if (defaultValue == value)
+                {
+                    if (find != null)
+                    {
+                        if (this.EqualsValue(find.Level, item.Level))
+                        {
+                            defaultValue = value;
+                            find = item;
+                        }
+                    }
                 }
             }
 

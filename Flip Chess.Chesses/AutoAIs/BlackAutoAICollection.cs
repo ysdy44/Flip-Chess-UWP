@@ -13,6 +13,7 @@ namespace Flip_Chess.Chesses.AutoAIs
         {
             int h = array.Height();
             int w = array.Width();
+            int count = 0;
 
             for (int y = 0; y < h; y++)
             {
@@ -20,6 +21,7 @@ namespace Flip_Chess.Chesses.AutoAIs
                 {
                     ChessType item = array[zIndex, y, x];
                     if (item.IsBlack() is false) continue;
+                    count++;
 
                     if (x > 0)
                     {
@@ -59,6 +61,7 @@ namespace Flip_Chess.Chesses.AutoAIs
                 }
             }
 
+            if (count == 0) return;
             if (base.Count == 0)
             {
                 base.Add(new BlackAutoAICollection(array, zIndex, History.Noway));
