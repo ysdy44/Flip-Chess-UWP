@@ -48,10 +48,8 @@ namespace Flip_Chess
                 {
                     for (int x = 0; x < w; x++)
                     {
-                        ChessType type = this.Collection[0, y, x];
-                        if (type == default) continue;
-                        else if (type == item.Type) count--;
-                        else if (this.Randoms[y * w + x].Type == item.Type) count++;
+                        if (this.Collection[0, y, x] == item.Type) count--;
+                        if (this.Randoms[y * w + x].Type == item.Type) count++;
                     }
                 }
                 item.Count = count;
@@ -65,10 +63,8 @@ namespace Flip_Chess
                 {
                     for (int x = 0; x < w; x++)
                     {
-                        ChessType type = this.Collection[0, y, x];
-                        if (type == default) continue;
-                        else if (type == item.Type) count--;
-                        else if (this.Randoms[y * w + x].Type == item.Type) count++;
+                        if (this.Collection[0, y, x] == item.Type) count--;
+                        if (this.Randoms[y * w + x].Type == item.Type) count++;
                     }
                 }
                 item.Count = count;
