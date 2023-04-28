@@ -21,7 +21,7 @@ namespace Flip_Chess
             int x = index % this.Collection.Width();  // X
 
             HistoryRelation relation =
-                this.IsBlack ?
+                this.Step.IsBlack() ?
                 this.Previous.BlackRelateTo(item.Type) :
                 this.Previous.RedRelateTo(item.Type);
 
@@ -31,7 +31,7 @@ namespace Flip_Chess
                     break;
                 case HistoryAction.Select:
                     NeighborType type =
-                        this.IsBlack ?
+                        this.Step.IsBlack() ?
                         this.Collection.GetBlackNeighbor(0, y, x) :
                         this.Collection.GetRedNeighbor(0, y, x);
 
@@ -84,8 +84,8 @@ namespace Flip_Chess
             {
                 case HistoryAction.Noway:
                     {
-                        if (this.IsBlack) this.Click(OptionType.Lose);
-                        else if (this.IsRed) this.Click(OptionType.Win);
+                        if (this.Step.IsBlack()) this.Click(OptionType.Lose);
+                        else if (this.Step.IsRed()) this.Click(OptionType.Win);
                     }
                     break;
                 case HistoryAction.Flip:

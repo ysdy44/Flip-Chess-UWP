@@ -8,7 +8,7 @@ using Windows.UI.Xaml.Controls;
 
 namespace Flip_Chess.TestApp
 {
-    public sealed partial class MainPage : Page, IZIndexer
+    public sealed partial class MainPage : Page
     {
         readonly DispatcherTimer Timer = new DispatcherTimer
         {
@@ -16,9 +16,7 @@ namespace Flip_Chess.TestApp
         };
 
         // History
-        public int Step => this.Historian.Count; 
-        public bool IsRed => this.Step.IsRed();
-        public bool IsBlack => this.Step.IsBlack();
+        public int Step => this.Historian.Count;
         public IList<History> Historian { get; } = new List<History>();
 
         // Collection
@@ -55,11 +53,11 @@ namespace Flip_Chess.TestApp
 
             this.Timer.Tick += (s, e) =>
             {
-                if (this.IsRed)
+                if (this.Step.IsRed())
                 {
                     this.ItemClick(this.Collection.RandomFlip(new RedAutoAICollection(this.Collection).FindAutoAI()));
                 }
-                else if (this.IsBlack)
+                else if (this.Step.IsBlack())
                 {
                     this.ItemClick(this.Collection.RandomFlip(new BlackAutoAICollection(this.Collection).FindAutoAI()));
                 }

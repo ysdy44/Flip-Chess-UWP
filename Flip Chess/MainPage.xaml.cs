@@ -16,7 +16,7 @@ namespace Flip_Chess
         public MainLinesCanvas() : base(App.Width, App.Height, 100) { }
     }
 
-    public sealed partial class MainPage : Page, ICommand, IZIndexer
+    public sealed partial class MainPage : Page, ICommand
     {
         //@Strings
         private int W => App.Width * 100;
@@ -58,8 +58,6 @@ namespace Flip_Chess
         // History
         public int HistorianCount { get; set; } // Sertings
         public int Step => this.HistorianCount + this.Historian.Count; // Indexer
-        public bool IsRed => this.Step.IsRed();
-        public bool IsBlack => this.Step.IsBlack();
         public ObservableCollection<History> Historian { get; } = new ObservableCollection<History>();
 
         // Collection
@@ -144,14 +142,14 @@ namespace Flip_Chess
                 switch (this.State)
                 {
                     case GameState.None:
-                        if (this.IsRed)
+                        if (this.Step.IsRed())
                         {
                             if (this.IsRedComputer)
                             {
                                 this.ItemClick(this.Collection.RandomFlip(new RedAutoAICollection(this.Collection).FindAutoAI()));
                             }
                         }
-                        else if (this.IsBlack)
+                        else if (this.Step.IsBlack())
                         {
                             if (this.IsBlackComputer)
                             {
@@ -171,7 +169,7 @@ namespace Flip_Chess
                 switch (this.State)
                 {
                     case GameState.None:
-                        if (this.IsRed)
+                        if (this.Step.IsRed())
                         {
                             if (this.IsRedComputer) break;
                             if (e.ClickedItem is IChess item)
@@ -179,7 +177,7 @@ namespace Flip_Chess
                                 this.ItemClick(item);
                             }
                         }
-                        else if (this.IsBlack)
+                        else if (this.Step.IsBlack())
                         {
                             if (this.IsBlackComputer) break;
                             if (e.ClickedItem is IChess item)
@@ -195,11 +193,11 @@ namespace Flip_Chess
 
             // UI
             this.Text1 = this.Step.ToString();
-            this.Text2 = this.IsBlack ? "黑方" : "红方";
+            this.Text2 = this.Step.IsBlack() ? "黑方" : "红方";
             this.Historian.CollectionChanged += (s, e) =>
             {
                 this.Text1 = this.Step.ToString();
-                this.Text2 = this.IsBlack ? "黑方" : "红方";
+                this.Text2 = this.Step.IsBlack() ? "黑方" : "红方";
             };
         }
     }
