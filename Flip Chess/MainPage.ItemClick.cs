@@ -72,10 +72,22 @@ namespace Flip_Chess
 
         public void ItemClick(History history)
         {
-            if (history.Distance is HistoryDistance.Others) return;
-
             this.Timer.Stop();
             this.Timer.Start();
+
+            if (history.Distance is HistoryDistance.Others) return;
+
+            int count = 0;
+            for (int i = this.Historian.Count - 1; i >= System.Math.Max(0, this.Historian.Count - 20); i--)
+            {
+                if (history != this.Historian[i]) continue;
+
+                count++;
+                if (count < 5) continue;
+
+                history = History.Noway;
+                break;
+            }
 
             this.Historian.Add(history);
             this.SaveStep(this.Step);
