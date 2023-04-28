@@ -36,7 +36,7 @@ namespace Flip_Chess.Chesses.AutoAIs
 
             this.Level = indexer.Collection.GetLevel(this.ZIndex);
         }
-        
+
         protected abstract int DefaultValue();
         protected abstract bool EqualsValue(int thanDefault, int amout);
         protected abstract void CreateHistory(IZIndexer indexer, int zIndex);
@@ -44,7 +44,7 @@ namespace Flip_Chess.Chesses.AutoAIs
         private int GetValueForce()
         {
             if (base.Count is 0) return this.Level;
-            
+
             int defaultValue = this.DefaultValue();
             bool find = false;
 
@@ -52,7 +52,7 @@ namespace Flip_Chess.Chesses.AutoAIs
             {
                 if (item.History == default) continue;
                 if (item.History == History.Noway) continue;
-                
+
                 int value = item.GetValueForce();
 
                 if (this.EqualsValue(defaultValue, value))

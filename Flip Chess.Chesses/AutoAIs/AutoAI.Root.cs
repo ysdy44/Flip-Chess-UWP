@@ -90,7 +90,7 @@ namespace Flip_Chess.Chesses.AutoAIs
         public History FindAutoAI()
         {
             if (base.Count is 0) return History.Noway;
-            
+
             int defaultValue = this.DefaultValue();
             AutoAI find = null;
 
