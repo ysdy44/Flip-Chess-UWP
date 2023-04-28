@@ -1,160 +1,69 @@
 ﻿using Flip_Chess.Chesses.Extensions;
-using System.Linq;
-using Ene = Flip_Chess.Chesses.AutoAIs.RedAutoAI;
-using Fri = Flip_Chess.Chesses.AutoAIs.BlackAutoAI;
 
 namespace Flip_Chess.Chesses.AutoAIs
 {
-    public sealed class BlackAutoAICollection
+    public sealed class BlackAutoAICollection : AutoAI
     {
-        public int Level;
-        public readonly Fri[] Children;
+        public BlackAutoAICollection(IZIndexer indexer) : base(indexer) { }
+        internal BlackAutoAICollection(IZIndexer indexer, int parentZIndex, History history) : base(indexer, parentZIndex, history) { }
 
-        public BlackAutoAICollection(IZIndexer indexer)
+        protected override int DefaultValue() => int.MaxValue;
+        protected override bool EqualsValue(int thanDefault, int amout) => thanDefault > amout;
+        protected override void CreateHistory(IZIndexer indexer, int zIndex)
         {
-            // 1. Index
-            lock (indexer)
+            ChessType[,,] array = indexer.Collection;
+            int h = array.Height();
+            int w = array.Width();
+
+            for (int y = 0; y < h; y++)
             {
-                indexer.ZIndex = 0;
-            }
-
-            // 2. History
-            this.Level = indexer.Collection.GetLevel(0);
-
-            // 3. Children
-            History[] historion = indexer.Collection.GetBlackHistory(0).ToArray();
-
-            if (historion is null) return;
-            if (historion.Length is 0) return;
-
-            this.Children = new Fri[historion.Length];
-            for (int i = 0; i < historion.Length; i++)
-            {
-                History item = historion[i];
-                this.Children[i] = new Fri(indexer, item, 0, indexer.Step - 1);
-            }
-
-            // 1
-            if (this.Children is null) return;
-            if (this.Children.Length is 0) return;
-            foreach (Fri item in this.Children)
-            {
-                if (item.Birth(indexer) is false)
+                for (int x = 0; x < w; x++)
                 {
-                    return;
-                }
-            }
+                    ChessType item = array[zIndex, y, x];
+                    if (item.IsBlack() is false) continue;
 
-            // 2
-            foreach (Fri item in this.Children)
-            {
-                if (item.Children is null) return;
-                if (item.Children.Length is 0) return;
-                foreach (Ene item2 in item.Children)
-                {
-                    if (item2.Birth(indexer) is false)
+                    if (x > 0)
                     {
-                        return;
-                    }
-                }
-            }
-
-            // 3
-            foreach (Fri item in this.Children)
-                foreach (Ene item2 in item.Children)
-                {
-                    if (item2.Children is null) return;
-                    if (item2.Children.Length is 0) return;
-                    foreach (Fri item3 in item2.Children)
-                    {
-                        if (item3.Birth(indexer) is false)
+                        ChessType left = array[zIndex, y, x - 1];
+                        if (item.BlackRelateTo(left) is HistoryRelation.WeakEnemy)
                         {
-                            return;
+                            base.Add(new BlackAutoAICollection(indexer, zIndex, new History(y, x, y, x - 1)));
                         }
                     }
-                }
 
-            // 4
-            foreach (Fri item in this.Children)
-                foreach (Ene item2 in item.Children)
-                    foreach (Fri item3 in item2.Children)
+                    if (y > 0)
                     {
-                        if (item3.Children is null) return;
-                        if (item3.Children.Length is 0) return;
-                        foreach (Ene item4 in item3.Children)
+                        ChessType top = array[zIndex, y - 1, x];
+                        if (item.BlackRelateTo(top) is HistoryRelation.WeakEnemy)
                         {
-                            if (item4.Birth(indexer) is false)
+                            base.Add(new BlackAutoAICollection(indexer, zIndex, new History(y, x, y - 1, x)));
+                        }
+                    }
+
+                    if (x + 1 < w)
+                    {
+                        ChessType right = array[zIndex, y, x + 1];
+                        if (item.BlackRelateTo(right) is HistoryRelation.WeakEnemy)
+                        {
+                            base.Add(new BlackAutoAICollection(indexer, zIndex, new History(y, x, y, x + 1)));
+                        }
+
+                        if (y + 1 < h)
+                        {
+                            ChessType bottom = array[zIndex, y + 1, x];
+                            if (item.BlackRelateTo(bottom) is HistoryRelation.WeakEnemy)
                             {
-                                return;
+                                base.Add(new BlackAutoAICollection(indexer, zIndex, new History(y, x, y + 1, x)));
                             }
                         }
                     }
-
-            // 5
-            foreach (Fri item in this.Children)
-                foreach (Ene item2 in item.Children)
-                    foreach (Fri item3 in item2.Children)
-                        foreach (Ene item4 in item3.Children)
-                        {
-                            if (item4.Children is null) return;
-                            if (item4.Children.Length is 0) return;
-                            foreach (Fri item5 in item4.Children)
-                            {
-                                if (item5.Birth(indexer) is false)
-                                {
-                                    return;
-                                }
-                            }
-                        }
-        }
-
-        public History FindAutoAI()
-        {
-            if (this.Children is null) return History.Noway;
-            if (this.Children.Length is 0) return History.Noway;
-
-            int level = int.MaxValue;
-            Fri next = null;
-
-            foreach (Fri item in this.Children)
-            {
-                int amout = item.GetAmout();
-
-                if (level >= amout)
-                {
-                    level = amout;
-                    next = item;
                 }
             }
 
-            if (next != null)
+            if (base.Count == 0)
             {
-                if (next.History != History.Noway)
-                {
-                    if (this.Level >= next.Level)
-                    {
-                        return next.History;
-                    }
-                }
+                base.Add(new BlackAutoAICollection(indexer, zIndex, History.Noway));
             }
-
-            if (next != null)
-            {
-                if (next.History != History.Noway)
-                {
-                    return next.History;
-                }
-            }
-
-            foreach (Fri item in this.Children)
-            {
-                if (item.History != History.Noway)
-                {
-                    return item.History;
-                }
-            }
-
-            return History.Noway;
         }
     }
 }

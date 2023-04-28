@@ -1,100 +1,141 @@
 ﻿using Flip_Chess.Chesses.Extensions;
 using System.Linq;
-using Ene = Flip_Chess.Chesses.AutoAIs.BlackAutoAI;
-using Fri = Flip_Chess.Chesses.AutoAIs.RedAutoAI;
 
 namespace Flip_Chess.Chesses.AutoAIs
 {
-    public sealed class RedAutoAI
+    partial class AutoAI
     {
-        public readonly int ZIndex;
-
-        public readonly int Step;
-        public bool IsRed => this.Step % 2 == 0; // Indexer
-        public bool IsBlack => this.Step % 2 != 0; // Indexer
-
-        public readonly History History;
-        public readonly int Level;
-
-        internal Ene[] Children;
-
-        internal RedAutoAI(IZIndexer indexer, History history, int parentIndex, int parentStep)
+        protected AutoAI(IZIndexer indexer)
         {
             // 1. Index
             lock (indexer)
             {
-                indexer.ZIndex++;
-                this.ZIndex = indexer.ZIndex;
+                indexer.ZIndex = 0;
+                this.ZIndex = 0;
             }
-
-            if (this.ZIndex + 1 >= indexer.Collection.ZIndex()) return;
-            indexer.Collection.Copy(this.ZIndex, parentIndex);
 
             // 2. History
-            this.Step = parentStep + 1;
-
-            this.History = history;
-            switch ((HistoryAction)history.Distance)
-            {
-                case HistoryAction.Capture:
-                    indexer.Collection[this.ZIndex, history.Y1, history.X1] = ChessType.Deaded;
-                    indexer.Collection[this.ZIndex, history.Y2, history.X2] = indexer.Collection[parentIndex, history.Y1, history.X1];
-                    break;
-                default:
-                    break;
-            }
-
-            this.Level = indexer.Collection.GetLevel(this.ZIndex);
-        }
-
-        internal bool Birth(IZIndexer indexer)
-        {
-            if (this.ZIndex + 1 >= indexer.Collection.ZIndex()) return false;
+            this.Level = indexer.Collection.GetLevel(0);
 
             // 3. Children
-            History[] historion = indexer.Collection.GetBlackHistory(this.ZIndex).ToArray();
+            this.CreateHistory(indexer, 0);
 
-            if (historion is null)
-                this.Children = new Ene[] { new Ene(indexer, History.Noway, this.ZIndex, this.Step) };
-            else if (historion.Length is 0)
-                this.Children = new Ene[] { new Ene(indexer, History.Noway, this.ZIndex, this.Step) };
-            else
+            // 1
+            if (base.Count is 0) return;
+            foreach (AutoAI item in this)
             {
-                this.Children = new Ene[historion.Length];
-                for (int i = 0; i < historion.Length; i++)
+                if (item.ZIndex + 1 >= indexer.Collection.ZIndex()) return;
+                item.CreateHistory(indexer, item.ZIndex);
+            }
+
+            // 2
+            foreach (AutoAI item in this)
+            {
+                if (item is null) return;
+                if (item.Count is 0) return;
+                foreach (AutoAI item2 in item)
                 {
-                    History item = historion[i];
-                    this.Children[i] = new Ene(indexer, item, this.ZIndex, this.Step);
+                    if (item2 is null) return;
+                    if (item2.ZIndex + 1 >= indexer.Collection.ZIndex()) return;
+                    item2.CreateHistory(indexer, item2.ZIndex);
                 }
             }
-            return true;
+
+            // 3
+            foreach (AutoAI item in this)
+                foreach (AutoAI item2 in item)
+                {
+                    if (item2 is null) return;
+                    if (item2.Count is 0) return;
+                    foreach (AutoAI item3 in item2)
+                    {
+                        if (item3 is null) return;
+                        if (item3.ZIndex + 1 >= indexer.Collection.ZIndex()) return;
+                        item3.CreateHistory(indexer, item3.ZIndex);
+                    }
+                }
+
+            // 4
+            foreach (AutoAI item in this)
+                foreach (AutoAI item2 in item)
+                    foreach (AutoAI item3 in item2)
+                    {
+                        if (item3 is null) return;
+                        if (item3.Count is 0) return;
+                        foreach (AutoAI item4 in item3)
+                        {
+                            if (item4 is null) return;
+                            if (item4.ZIndex + 1 >= indexer.Collection.ZIndex()) return;
+                            item4.CreateHistory(indexer, item4.ZIndex);
+                        }
+                    }
+
+            // 5
+            foreach (AutoAI item in this)
+                foreach (AutoAI item2 in item)
+                    foreach (AutoAI item3 in item2)
+                        foreach (AutoAI item4 in item3)
+                        {
+                            if (item4 is null) return;
+                            if (item4.Count is 0) return;
+                            foreach (AutoAI item5 in item4)
+                            {
+                                if (item5 is null) return;
+                                if (item5.ZIndex + 1 >= indexer.Collection.ZIndex()) return;
+                                item5.CreateHistory(indexer, item5.ZIndex);
+                            }
+                        }
         }
 
-        internal int GetAmout()
+        public History FindAutoAI()
         {
-            if (this.Children is null) return this.Level;
-            if (this.Children.Length is 0) return this.Level;
+            if (base.Count is 0) return History.Noway;
+            
+            int defaultValue = this.DefaultValue();
+            AutoAI find = null;
 
-            int level = int.MaxValue;
-            bool find = false;
-
-            foreach (Ene item in this.Children)
+            System.Diagnostics.Debug.WriteLine(this.GetType().Name);
+            foreach (AutoAI item in this)
             {
-                if (item.History == default) continue;
-                if (item.History == History.Noway) continue;
+                System.Diagnostics.Debug.WriteLine(item.ToString());
 
-                int amout = item.GetAmout();
+                int value = item.GetValueForce();
 
-                if (level >= amout)
+                if (this.EqualsValue(defaultValue, value))
                 {
-                    level = amout;
-                    find = true;
+                    defaultValue = value;
+                    find = item;
                 }
             }
 
-            return find ? level : this.Level;
-        }
+            if (find != null)
+            {
+                if (find.History != History.Noway)
+                {
+                    if (this.EqualsValue(this.Level, find.Level))
+                    {
+                        return find.History;
+                    }
+                }
+            }
 
-        public override string ToString() => $"●{this.ZIndex:000} A:{this.GetAmout()} L:{this.Level} {this.History}";
+            if (find != null)
+            {
+                if (find.History != History.Noway)
+                {
+                    return find.History;
+                }
+            }
+
+            foreach (AutoAI item in this)
+            {
+                if (item.History != History.Noway)
+                {
+                    return item.History;
+                }
+            }
+
+            return History.Noway;
+        }
     }
 }
