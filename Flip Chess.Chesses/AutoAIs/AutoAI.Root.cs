@@ -86,9 +86,9 @@ namespace Flip_Chess.Chesses.AutoAIs
                         }
         }
 
-        public History FindAutoAI()
+        public History FindAutoAI(ChessType[,,] array)
         {
-            if (base.Count is 0) return History.Noway;
+            if (base.Count is 0) return array.RandomFlip();
 
             int defaultValue = this.DefaultValue();
             AutoAI find = null;
@@ -128,6 +128,9 @@ namespace Flip_Chess.Chesses.AutoAIs
                     }
                 }
             }
+
+            History flip = array.RandomFlip();
+            if (flip != History.Noway) return flip;
 
             if (find != null)
             {

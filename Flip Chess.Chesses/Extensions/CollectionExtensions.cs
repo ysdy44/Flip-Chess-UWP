@@ -44,10 +44,8 @@ namespace Flip_Chess.Chesses.Extensions
             }
         }
 
-        public static History RandomFlip(this ChessType[,,] array, History defaultValue)
+        public static History RandomFlip(this ChessType[,,] array)
         {
-            if (defaultValue != History.Noway) return defaultValue;
-
             int count = 0;
             int h = array.Height();
             int w = array.Width();
