@@ -6,40 +6,42 @@ namespace Flip_Chess.Chesses.AutoAIs
 {
     public abstract partial class AutoAI : List<AutoAI>, IDisposable
     {
+        static int ZIndexInstance;
+
         readonly int ZIndex;
         readonly History History;
         readonly int Level;
 
-        internal AutoAI(IZIndexer indexer, int parentZIndex, History history)
+        internal AutoAI(ChessType[,,] array, int parentZIndex, History history)
         {
             // 1. Index
-            lock (indexer)
+            lock (array)
             {
-                indexer.ZIndex++;
-                this.ZIndex = indexer.ZIndex;
+                AutoAI.ZIndexInstance++;
+                this.ZIndex = AutoAI.ZIndexInstance;
             }
 
-            if (this.ZIndex + 1 >= indexer.Collection.ZIndex()) return;
-            indexer.Collection.Copy(this.ZIndex, parentZIndex);
+            if (this.ZIndex + 1 >= array.ZIndex()) return;
+            array.Copy(this.ZIndex, parentZIndex);
 
             // 2. History
             this.History = history;
             switch ((HistoryAction)history.Distance)
             {
                 case HistoryAction.Capture:
-                    indexer.Collection[this.ZIndex, history.Y1, history.X1] = ChessType.Deaded;
-                    indexer.Collection[this.ZIndex, history.Y2, history.X2] = indexer.Collection[parentZIndex, history.Y1, history.X1];
+                    array[this.ZIndex, history.Y1, history.X1] = ChessType.Deaded;
+                    array[this.ZIndex, history.Y2, history.X2] = array[parentZIndex, history.Y1, history.X1];
                     break;
                 default:
                     break;
             }
 
-            this.Level = indexer.Collection.GetLevel(this.ZIndex);
+            this.Level = array.GetLevel(this.ZIndex);
         }
 
         protected abstract int DefaultValue();
         protected abstract bool EqualsValue(int thanDefault, int amout);
-        protected abstract void CreateHistory(IZIndexer indexer, int zIndex);
+        protected abstract void CreateHistory(ChessType[,,] array, int zIndex);
 
         private int GetValueForce()
         {

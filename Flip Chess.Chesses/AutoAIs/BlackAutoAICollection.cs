@@ -4,14 +4,13 @@ namespace Flip_Chess.Chesses.AutoAIs
 {
     public sealed class BlackAutoAICollection : AutoAI
     {
-        public BlackAutoAICollection(IZIndexer indexer) : base(indexer) { }
-        internal BlackAutoAICollection(IZIndexer indexer, int parentZIndex, History history) : base(indexer, parentZIndex, history) { }
+        public BlackAutoAICollection(ChessType[,,] array) : base(array) { }
+        internal BlackAutoAICollection(ChessType[,,] array, int parentZIndex, History history) : base(array, parentZIndex, history) { }
 
         protected override int DefaultValue() => int.MaxValue;
         protected override bool EqualsValue(int thanDefault, int amout) => thanDefault > amout;
-        protected override void CreateHistory(IZIndexer indexer, int zIndex)
+        protected override void CreateHistory(ChessType[,,] array, int zIndex)
         {
-            ChessType[,,] array = indexer.Collection;
             int h = array.Height();
             int w = array.Width();
 
@@ -27,7 +26,7 @@ namespace Flip_Chess.Chesses.AutoAIs
                         ChessType left = array[zIndex, y, x - 1];
                         if (item.BlackRelateTo(left) is HistoryRelation.WeakEnemy)
                         {
-                            base.Add(new BlackAutoAICollection(indexer, zIndex, new History(y, x, y, x - 1)));
+                            base.Add(new BlackAutoAICollection(array, zIndex, new History(y, x, y, x - 1)));
                         }
                     }
 
@@ -36,7 +35,7 @@ namespace Flip_Chess.Chesses.AutoAIs
                         ChessType top = array[zIndex, y - 1, x];
                         if (item.BlackRelateTo(top) is HistoryRelation.WeakEnemy)
                         {
-                            base.Add(new BlackAutoAICollection(indexer, zIndex, new History(y, x, y - 1, x)));
+                            base.Add(new BlackAutoAICollection(array, zIndex, new History(y, x, y - 1, x)));
                         }
                     }
 
@@ -45,7 +44,7 @@ namespace Flip_Chess.Chesses.AutoAIs
                         ChessType right = array[zIndex, y, x + 1];
                         if (item.BlackRelateTo(right) is HistoryRelation.WeakEnemy)
                         {
-                            base.Add(new BlackAutoAICollection(indexer, zIndex, new History(y, x, y, x + 1)));
+                            base.Add(new BlackAutoAICollection(array, zIndex, new History(y, x, y, x + 1)));
                         }
 
                         if (y + 1 < h)
@@ -53,7 +52,7 @@ namespace Flip_Chess.Chesses.AutoAIs
                             ChessType bottom = array[zIndex, y + 1, x];
                             if (item.BlackRelateTo(bottom) is HistoryRelation.WeakEnemy)
                             {
-                                base.Add(new BlackAutoAICollection(indexer, zIndex, new History(y, x, y + 1, x)));
+                                base.Add(new BlackAutoAICollection(array, zIndex, new History(y, x, y + 1, x)));
                             }
                         }
                     }
@@ -62,7 +61,7 @@ namespace Flip_Chess.Chesses.AutoAIs
 
             if (base.Count == 0)
             {
-                base.Add(new BlackAutoAICollection(indexer, zIndex, History.Noway));
+                base.Add(new BlackAutoAICollection(array, zIndex, History.Noway));
             }
         }
     }

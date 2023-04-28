@@ -5,27 +5,27 @@ namespace Flip_Chess.Chesses.AutoAIs
 {
     partial class AutoAI
     {
-        protected AutoAI(IZIndexer indexer)
+        protected AutoAI(ChessType[,,] array)
         {
             // 1. Index
-            lock (indexer)
+            lock (array)
             {
-                indexer.ZIndex = 0;
+                AutoAI.ZIndexInstance = 0;
                 this.ZIndex = 0;
             }
 
             // 2. History
-            this.Level = indexer.Collection.GetLevel(0);
+            this.Level = array.GetLevel(0);
 
             // 3. Children
-            this.CreateHistory(indexer, 0);
+            this.CreateHistory(array, 0);
 
             // 1
             if (base.Count is 0) return;
             foreach (AutoAI item in this)
             {
-                if (item.ZIndex + 1 >= indexer.Collection.ZIndex()) return;
-                item.CreateHistory(indexer, item.ZIndex);
+                if (item.ZIndex + 1 >= array.ZIndex()) return;
+                item.CreateHistory(array, item.ZIndex);
             }
 
             // 2
@@ -36,8 +36,8 @@ namespace Flip_Chess.Chesses.AutoAIs
                 foreach (AutoAI item2 in item)
                 {
                     if (item2 is null) return;
-                    if (item2.ZIndex + 1 >= indexer.Collection.ZIndex()) return;
-                    item2.CreateHistory(indexer, item2.ZIndex);
+                    if (item2.ZIndex + 1 >= array.ZIndex()) return;
+                    item2.CreateHistory(array, item2.ZIndex);
                 }
             }
 
@@ -50,8 +50,8 @@ namespace Flip_Chess.Chesses.AutoAIs
                     foreach (AutoAI item3 in item2)
                     {
                         if (item3 is null) return;
-                        if (item3.ZIndex + 1 >= indexer.Collection.ZIndex()) return;
-                        item3.CreateHistory(indexer, item3.ZIndex);
+                        if (item3.ZIndex + 1 >= array.ZIndex()) return;
+                        item3.CreateHistory(array, item3.ZIndex);
                     }
                 }
 
@@ -65,8 +65,8 @@ namespace Flip_Chess.Chesses.AutoAIs
                         foreach (AutoAI item4 in item3)
                         {
                             if (item4 is null) return;
-                            if (item4.ZIndex + 1 >= indexer.Collection.ZIndex()) return;
-                            item4.CreateHistory(indexer, item4.ZIndex);
+                            if (item4.ZIndex + 1 >= array.ZIndex()) return;
+                            item4.CreateHistory(array, item4.ZIndex);
                         }
                     }
 
@@ -81,8 +81,8 @@ namespace Flip_Chess.Chesses.AutoAIs
                             foreach (AutoAI item5 in item4)
                             {
                                 if (item5 is null) return;
-                                if (item5.ZIndex + 1 >= indexer.Collection.ZIndex()) return;
-                                item5.CreateHistory(indexer, item5.ZIndex);
+                                if (item5.ZIndex + 1 >= array.ZIndex()) return;
+                                item5.CreateHistory(array, item5.ZIndex);
                             }
                         }
         }

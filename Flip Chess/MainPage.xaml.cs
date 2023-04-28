@@ -148,14 +148,14 @@ namespace Flip_Chess
                         {
                             if (this.IsRedComputer)
                             {
-                                this.ItemClick(this.Collection.RandomFlip(new RedAutoAICollection(this).FindAutoAI()));
+                                this.ItemClick(this.Collection.RandomFlip(new RedAutoAICollection(this.Collection).FindAutoAI()));
                             }
                         }
                         else if (this.IsBlack)
                         {
                             if (this.IsBlackComputer)
                             {
-                                this.ItemClick(this.Collection.RandomFlip(new BlackAutoAICollection(this).FindAutoAI()));
+                                this.ItemClick(this.Collection.RandomFlip(new BlackAutoAICollection(this.Collection).FindAutoAI()));
                             }
                         }
                         break;
