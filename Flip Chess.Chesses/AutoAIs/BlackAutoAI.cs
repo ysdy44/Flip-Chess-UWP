@@ -10,6 +10,9 @@ namespace Flip_Chess.Chesses.AutoAIs
         public readonly int ZIndex;
 
         public readonly int Step;
+        public bool IsRed => this.Step % 2 == 0; // Indexer
+        public bool IsBlack => this.Step % 2 != 0; // Indexer
+
         public readonly History History;
         public readonly int Level;
 

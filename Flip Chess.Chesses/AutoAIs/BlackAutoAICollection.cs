@@ -31,7 +31,7 @@ namespace Flip_Chess.Chesses.AutoAIs
             for (int i = 0; i < historion.Length; i++)
             {
                 History item = historion[i];
-                this.Children[i] = new Fri(indexer, item, 0, indexer.Step);
+                this.Children[i] = new Fri(indexer, item, 0, indexer.Step - 1);
             }
 
             // 1
@@ -113,12 +113,12 @@ namespace Flip_Chess.Chesses.AutoAIs
             if (this.Children is null) return History.Noway;
             if (this.Children.Length is 0) return History.Noway;
 
-            float level = this.Level;
+            int level = this.Level;
             Fri next = null;
 
             foreach (Fri item in this.Children)
             {
-                float amout = item.GetAmout();
+                int amout = item.GetAmout();
 
                 if (level >= amout)
                 {
