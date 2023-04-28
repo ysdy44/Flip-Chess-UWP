@@ -113,7 +113,7 @@ namespace Flip_Chess.Chesses.AutoAIs
             if (this.Children is null) return History.Noway;
             if (this.Children.Length is 0) return History.Noway;
 
-            int level = this.Level;
+            int level = int.MaxValue;
             Fri next = null;
 
             foreach (Fri item in this.Children)
