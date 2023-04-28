@@ -67,22 +67,29 @@ namespace Flip_Chess.Chesses.AutoAIs
             return true;
         }
 
-        internal float GetAmout() => (float)GetLevelSum(this) / (float)GetCount(this);
-
-        internal static int GetLevelSum(Fri autoAI)
+        internal int GetAmout()
         {
-            if (autoAI.Children is null) return autoAI.Level;
-            if (autoAI.Children.Length is 0) return autoAI.Level;
+            if (this.Children is null) return this.Level;
+            if (this.Children.Length is 0) return this.Level;
 
-            return autoAI.Level + autoAI.Children.Sum(Ene.GetLevelSum);
-        }
+            int level = int.MaxValue;
+            bool find = false;
 
-        internal static int GetCount(Fri autoAI)
-        {
-            if (autoAI.Children is null) return 1;
-            if (autoAI.Children.Length is 0) return 1;
+            foreach (Ene item in this.Children)
+            {
+                if (item.History == default) continue;
+                if (item.History == History.Noway) continue;
 
-            return 1 + autoAI.Children.Sum(Ene.GetCount);
+                int amout = item.GetAmout();
+
+                if (level >= amout)
+                {
+                    level = amout;
+                    find = true;
+                }
+            }
+
+            return find ? level : this.Level;
         }
 
         public override string ToString() => $"●{this.ZIndex:000} A:{this.GetAmout()} L:{this.Level} {this.History}";
