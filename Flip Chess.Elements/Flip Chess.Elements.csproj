@@ -136,6 +136,8 @@
       <DependentUpon>AnimationZoomMoveImage.xaml</DependentUpon>
     </Compile>
     <Compile Include="ApplicationTitleBarExtension.cs" />
+    <Compile Include="CommandListBox.cs" />
+    <Compile Include="CommandListView.cs" />
     <Compile Include="Corner.cs" />
     <Compile Include="Highlight.xaml.cs">
       <DependentUpon>Highlight.xaml</DependentUpon>
