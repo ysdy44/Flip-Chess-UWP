@@ -314,7 +314,13 @@
                 <Button Grid.Column="2" Width="54" Height="52" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Bottom" Windows10version1809:CornerRadius="4">
                     <Button.Flyout>
                         <Flyout Placement="TopEdgeAlignedRight">
-                            <ListBox x:Name="RedListBox" MinWidth="200" Background="Transparent">
+                            <controls:CommandListBox 
+                                x:Name="RedListBox" 
+                                MinWidth="200" 
+                                Background="Transparent"
+                                CommandParameter="{strings:OptionType Type=UIRedChanged}" 
+                                Command="{x:Bind Command}"
+                                >
                                 <ListBoxItem>
                                     <TextBlock>
                                         <Run Text="&#xE115;" FontSize="16" FontFamily="Segoe UI Symbol"/>
@@ -331,7 +337,7 @@
                                         </Run>
                                     </TextBlock>
                                 </ListBoxItem>
-                            </ListBox>
+                            </controls:CommandListBox>
                         </Flyout>
                     </Button.Flyout>
                     <FontIcon 
@@ -346,7 +352,13 @@
                 <Button Width="54" Height="52" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Top" Windows10version1809:CornerRadius="4">
                     <Button.Flyout>
                         <Flyout Placement="BottomEdgeAlignedLeft">
-                            <ListBox x:Name="BlackListBox" MinWidth="200" Background="Transparent">
+                            <controls:CommandListBox
+                                x:Name="BlackListBox" 
+                                MinWidth="200" 
+                                Background="Transparent"
+                                CommandParameter="{strings:OptionType Type=UIBlackChanged}" 
+                                Command="{x:Bind Command}"
+                                >
                                 <ListBoxItem>
                                     <TextBlock>
                                         <Run Text="&#xE115;" FontSize="16" FontFamily="Segoe UI Symbol"/>
@@ -363,7 +375,7 @@
                                         </Run>
                                     </TextBlock>
                                 </ListBoxItem>
-                            </ListBox>
+                            </controls:CommandListBox>
                         </Flyout>
                     </Button.Flyout>
                     <FontIcon 
@@ -442,8 +454,8 @@
                         CommandParameter="{strings:OptionType Type=UIClipCompleted}"
                         Command="{x:Bind Command}"
                         >
-                        <ListView
-                            x:Name="ItemsControl" 
+                        <controls:CommandListView
+                            x:Name="ItemsControl"
                             Width="{x:Bind W}"
                             Height="{x:Bind H}"
                             CanDrag="True"
@@ -456,6 +468,7 @@
                             ScrollViewer.VerticalScrollMode="Disabled"
                             ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                             ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                            Command="{x:Bind Command}"
                             >
 
                             <ItemsControl.ItemsPanel>
@@ -493,7 +506,7 @@
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
 
-                        </ListView>
+                        </controls:CommandListView>
                     </controls:AnimationClipContainer>
 
                     <!--Highlight-->
