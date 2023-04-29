@@ -67,7 +67,7 @@ namespace Flip_Chess
 
         // Collection
         public int ZIndex { get; set; } // Indexer
-        public ChessType[,,] Collection { get; } = new ChessType[1024 * 32, App.Height, App.Width]; // Sertings // Indexer
+        public ChessType[,,] Collection { get; } = new ChessType[1024 * 128, App.Height, App.Width]; // Sertings // Indexer
         public Chess[] Randoms { get; } = new Chess[App.Height * App.Width] // Sertings
         {
             new Chess(), new Chess(), new Chess(), new Chess(),
