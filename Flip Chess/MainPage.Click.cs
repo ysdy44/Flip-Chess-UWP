@@ -14,16 +14,16 @@ namespace Flip_Chess
         public event EventHandler CanExecuteChanged;
 
         //@Command
+        public ICommand Command => this;
         public bool CanExecute(object parameter) => parameter != default;
         public void Execute(object parameter)
         {
-            if (parameter is OptionType item)
+            if (parameter is OptionType type)
             {
-                this.Click(item);
+                this.Click(type);
             }
         }
 
-        public ICommand Command => this;
         public void Click(OptionType type)
         {
             switch (type)
@@ -60,12 +60,12 @@ namespace Flip_Chess
                 case OptionType.Restart:
                     this.HistorianCount = 0; // 1. Clear HistorianCount
                     this.Historian.Clear(); // 2. Clear Historian
-                    this.SettingsStep = (this.Step); // 3. Save HistorianCount + Historian // Sertings
+                    this.SettingsStep = this.Step; // 3. Save HistorianCount + Historian // Sertings
 
                     //this.Randoms.Random();
                     this.Collection.Clear();
                     this.WriteCollection(); // Sertings
-                    //this.Chesses.Clear();
+                    //this.Chesses.Copy(this.Collection);
 
                     this.BeginClip(); /// <see cref="OptionType.UIClipCompleted"/>
                     this.Relive();
@@ -115,6 +115,17 @@ namespace Flip_Chess
                 case OptionType.Step4:
                     this.State = GameState.None;
                     this.SettingsState = (int)GameState.None; // Sertings
+                    break;
+
+                case OptionType.UIModeChanged:
+                    this.SettingsMode = (int)this.Mode; // Settings
+                    this.Click(OptionType.Restart);
+                    break;
+                case OptionType.UIRedChanged:
+                    this.SettingsRed = this.IsRedComputer; // Settings
+                    break;
+                case OptionType.UIBlackChanged:
+                    this.SettingsBlack = this.IsBlackComputer; // Settings
                     break;
 
                 case OptionType.UIFlipCompleted: /// <see cref="OptionType.UIFlipCompleted"/>
