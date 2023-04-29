@@ -314,7 +314,7 @@
                 <Button Grid.Column="2" Width="54" Height="52" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Bottom" Windows10version1809:CornerRadius="4">
                     <Button.Flyout>
                         <Flyout Placement="TopEdgeAlignedRight">
-                            <ListBox x:Name="RedListBox" SelectedIndex="1" MinWidth="200" Background="Transparent">
+                            <ListBox x:Name="RedListBox" MinWidth="200" Background="Transparent">
                                 <ListBoxItem>
                                     <TextBlock>
                                         <Run Text="&#xE115;" FontSize="16" FontFamily="Segoe UI Symbol"/>
@@ -346,7 +346,7 @@
                 <Button Width="54" Height="52" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Top" Windows10version1809:CornerRadius="4">
                     <Button.Flyout>
                         <Flyout Placement="BottomEdgeAlignedLeft">
-                            <ListBox x:Name="BlackListBox" SelectedIndex="0" MinWidth="200" Background="Transparent">
+                            <ListBox x:Name="BlackListBox" MinWidth="200" Background="Transparent">
                                 <ListBoxItem>
                                     <TextBlock>
                                         <Run Text="&#xE115;" FontSize="16" FontFamily="Segoe UI Symbol"/>

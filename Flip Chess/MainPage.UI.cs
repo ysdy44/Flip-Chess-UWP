@@ -28,8 +28,16 @@ namespace Flip_Chess
             set => this.BlackProgressBar.Height = System.Math.Max(0, value * 4);
         }
 
-        public bool IsRedComputer => this.RedListBox.SelectedIndex == default;
-        public bool IsBlackComputer => this.BlackListBox.SelectedIndex == default;
+        public bool IsRedComputer
+        {
+            get => this.RedListBox.SelectedIndex == 0;
+            set => this.RedListBox.SelectedIndex = value ? 0 : 1;
+        }
+        public bool IsBlackComputer
+        {
+            get => this.BlackListBox.SelectedIndex == 0;
+            set => this.BlackListBox.SelectedIndex = value ? 0 : 1;
+        }
 
         public void ClickFullScreen()
         {
