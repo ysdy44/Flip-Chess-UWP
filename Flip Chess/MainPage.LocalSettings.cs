@@ -7,49 +7,14 @@ namespace Flip_Chess
 {
     partial class MainPage
     {
-        // "State" int.0
-        // "Step" int.0
 
         // "Red" bool.False
         // "Black" bool.True
         // "Mode" int.0
-
+        // "State" int.0
+        // "Step" int.0
         // "Random" byte[]
         // "Collection" byte[]
-
-        public int SettingsState
-        {
-            get
-            {
-                if (ApplicationData.Current.LocalSettings.Values.ContainsKey("State"))
-                {
-                    if (ApplicationData.Current.LocalSettings.Values["State"] is int item)
-                    {
-                        return item;
-                    }
-                }
-
-                return 0;
-            }
-            set => ApplicationData.Current.LocalSettings.Values["State"] = value;
-        }
-
-        public int SettingsStep
-        {
-            get
-            {
-                if (ApplicationData.Current.LocalSettings.Values.ContainsKey("Step"))
-                {
-                    if (ApplicationData.Current.LocalSettings.Values["Step"] is int item)
-                    {
-                        return item;
-                    }
-                }
-
-                return 0;
-            }
-            set => ApplicationData.Current.LocalSettings.Values["Step"] = value;
-        }
 
         public bool SettingsRed
         {
@@ -100,6 +65,40 @@ namespace Flip_Chess
                 return 0;
             }
             set => ApplicationData.Current.LocalSettings.Values["Mode"] = value;
+        }
+
+        public int SettingsState
+        {
+            get
+            {
+                if (ApplicationData.Current.LocalSettings.Values.ContainsKey("State"))
+                {
+                    if (ApplicationData.Current.LocalSettings.Values["State"] is int item)
+                    {
+                        return item;
+                    }
+                }
+
+                return 0;
+            }
+            set => ApplicationData.Current.LocalSettings.Values["State"] = value;
+        }
+
+        public int SettingsStep
+        {
+            get
+            {
+                if (ApplicationData.Current.LocalSettings.Values.ContainsKey("Step"))
+                {
+                    if (ApplicationData.Current.LocalSettings.Values["Step"] is int item)
+                    {
+                        return item;
+                    }
+                }
+
+                return 0;
+            }
+            set => ApplicationData.Current.LocalSettings.Values["Step"] = value;
         }
 
         public bool ReadRandom()

@@ -10,8 +10,6 @@ namespace Flip_Chess
 {
     partial class MainPage
     {
-        public event ItemClickEventHandler ItemsItemClick { remove => this.ItemsControl.ItemClick -= value; add => this.ItemsControl.ItemClick += value; }
-
         public int SelectedIndex { get => this.FlipView.SelectedIndex; set => this.FlipView.SelectedIndex = value; }
 
         public string Text1 { get => this.Run1.Text; set => this.Run1.Text = value; }

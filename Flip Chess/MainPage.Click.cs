@@ -187,15 +187,15 @@ namespace Flip_Chess
                     this.SettingsState = (int)GameState.None; // Sertings
                     break;
 
-                case OptionType.UIModeChanged:
-                    this.SettingsMode = (int)this.Mode; // Settings
-                    this.Click(OptionType.Restart);
-                    break;
                 case OptionType.UIRedChanged:
                     this.SettingsRed = this.IsRedComputer; // Settings
                     break;
                 case OptionType.UIBlackChanged:
                     this.SettingsBlack = this.IsBlackComputer; // Settings
+                    break;
+                case OptionType.UIModeChanged:
+                    this.SettingsMode = (int)this.Mode; // Settings
+                    this.Click(OptionType.Restart);
                     break;
 
                 case OptionType.UIFlipCompleted: /// <see cref="OptionType.UIFlipCompleted"/>
