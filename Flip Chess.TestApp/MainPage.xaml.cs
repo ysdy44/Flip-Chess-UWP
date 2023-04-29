@@ -51,18 +51,26 @@ namespace Flip_Chess.TestApp
             this.Randoms.Home();
             this.Randoms.Random();
 
-            this.Timer.Tick += (s, e) =>
+            this.Timer.Tick += async (s, e) =>
             {
                 if (this.Step.IsRed())
                 {
-                    this.ItemClick(new RedAutoAICollection(this.Collection).FindAutoAI(this.Collection));
+                    this.Timer.Stop();
+                    this.ItemClick(await System.Threading.Tasks.Task.Run(this.FindRed));
+                    this.Timer.Start();
                 }
                 else if (this.Step.IsBlack())
                 {
-                    this.ItemClick(new BlackAutoAICollection(this.Collection).FindAutoAI(this.Collection));
+                    this.Timer.Stop();
+                    this.ItemClick(await System.Threading.Tasks.Task.Run(this.FindBlack));
+                    this.Timer.Start();
                 }
             };
             this.Timer.Start();
         }
+
+        // AutoAi
+        private History FindRed() => new RedAutoAICollection(this.Collection).FindAutoAI(this.Collection);
+        private History FindBlack() => new BlackAutoAICollection(this.Collection).FindAutoAI(this.Collection);
     }
 }
