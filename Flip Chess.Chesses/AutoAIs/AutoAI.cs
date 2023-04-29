@@ -10,7 +10,7 @@ namespace Flip_Chess.Chesses.AutoAIs
 
         readonly int ZIndex;
         readonly History History;
-        readonly int Level;
+        readonly int LevelSquared;
 
         internal AutoAI(ChessType[,,] array, int parentZIndex, History history)
         {
@@ -36,7 +36,7 @@ namespace Flip_Chess.Chesses.AutoAIs
                     break;
             }
 
-            this.Level = array.GetLevel(this.ZIndex);
+            this.LevelSquared = array.GetLevelSquared(this.ZIndex);
         }
 
         protected abstract int DefaultValue();
@@ -45,7 +45,7 @@ namespace Flip_Chess.Chesses.AutoAIs
 
         private int GetValueForce()
         {
-            if (base.Count is 0) return this.Level;
+            if (base.Count is 0) return this.LevelSquared;
 
             int defaultValue = this.DefaultValue();
             bool find = false;
@@ -64,10 +64,10 @@ namespace Flip_Chess.Chesses.AutoAIs
                 }
             }
 
-            return find ? defaultValue : this.Level;
+            return find ? defaultValue : this.LevelSquared;
         }
 
-        public override string ToString() => $"{this.ZIndex:000} V:{this.GetValueForce()} L:{this.Level} {this.History}";
+        public override string ToString() => $"{this.ZIndex:000} V:{this.GetValueForce()} L:{this.LevelSquared} {this.History}";
 
         public void Dispose()
         {

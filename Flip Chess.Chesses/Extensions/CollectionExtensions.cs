@@ -192,7 +192,7 @@ namespace Flip_Chess.Chesses.Extensions
         }
 
 
-        public static int GetLevel(this ChessType[,,] array, int zIndex)
+        public static int GetLevelSquared(this ChessType[,,] array, int zIndex)
         {
             int level = 0;
             for (int y = 0; y < array.Height(); y++)
@@ -200,7 +200,7 @@ namespace Flip_Chess.Chesses.Extensions
                 for (int x = 0; x < array.Width(); x++)
                 {
                     ChessType item = array[zIndex, y, x];
-                    level += item.GetLevel();
+                    level += item.GetLevelSquared();
                 }
             }
             return level;

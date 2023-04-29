@@ -14,7 +14,7 @@ namespace Flip_Chess.Chesses.AutoAIs
             }
 
             // 2. History
-            this.Level = array.GetLevel(0);
+            this.LevelSquared = array.GetLevelSquared(0);
 
             // 3. Children
             this.CreateHistory(array, 0);
@@ -109,7 +109,7 @@ namespace Flip_Chess.Chesses.AutoAIs
                 {
                     if (find != null)
                     {
-                        if (this.EqualsValue(find.Level, item.Level))
+                        if (this.EqualsValue(find.LevelSquared, item.LevelSquared))
                         {
                             defaultValue = value;
                             find = item;
@@ -122,7 +122,7 @@ namespace Flip_Chess.Chesses.AutoAIs
             {
                 if (find.History != History.Noway)
                 {
-                    if (this.EqualsValue(this.Level, find.Level))
+                    if (this.EqualsValue(this.LevelSquared, find.LevelSquared))
                     {
                         return find.History;
                     }
