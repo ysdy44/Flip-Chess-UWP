@@ -112,7 +112,7 @@
             Background="{StaticResource AppBrush100}"
             ItemsSource="{x:Bind Randoms}"
             Visibility="{x:Bind BooleanToVisibilityConverter(DebugButton.IsOn), Mode=OneWay}"
-                >
+            >
 
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
@@ -645,9 +645,15 @@
 
 
         <!--Billboard-->
-        <controls:AnimationFadeContainer x:Name="FadeContainer" Margin="12" MaxWidth="452" Height="280" IsEnabled="{x:Bind ReverseNoneToBooleanConverter(State), Mode=OneWay}">
+        <controls:AnimationFadeContainer
+            x:Name="FadeContainer" 
+            Margin="12" 
+            MaxWidth="452" 
+            Height="280"
+            IsEnabled="{x:Bind ReverseNoneToBooleanConverter(State), Mode=OneWay}"
+            >
             <FlipView x:Name="FlipView" SelectedIndex="1">
-              
+
                 <!--Step 0-->
                 <Grid Margin="2" BorderThickness="1" BorderBrush="{StaticResource AppBrush300}" Background="{StaticResource AppBrush900}">
                     <local:LinesCanvas4x2 IsHitTestVisible="False" HorizontalAlignment="Center" VerticalAlignment="Center"/>
@@ -751,22 +757,52 @@
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="12" HorizontalAlignment="Center">
-                        <Button Margin="3,0" Windows10version1809:CornerRadius="4" CommandParameter="{strings:OptionType Type=Restart}" Command="{x:Bind Command}">
+                        <Button 
+                            Margin="3,0" 
+                            Windows10version1809:CornerRadius="4"
+                            CommandParameter="{strings:OptionType Type=Restart}" 
+                            Command="{x:Bind Command}"
+                            >
                             <FontIcon Glyph="&#xE149;" FontSize="36" FontFamily="Segoe UI Symbol" Foreground="{StaticResource AppBrush900}"/>
                         </Button>
-                        <Button Margin="3,0" Windows10version1809:CornerRadius="4" CommandParameter="{strings:OptionType Type=Next}" Command="{x:Bind Command}" Visibility="{x:Bind LoseOrWinToVisibilityConverter(State), Mode=OneWay}">
-                            <FontIcon Glyph="&#xE111;" FontSize="36" FontFamily="Segoe UI Symbol" Foreground="{StaticResource AppBrush900}"/>
-                        </Button>
-                        <Button Margin="3,0" Windows10version1809:CornerRadius="4" CommandParameter="{strings:OptionType Type=Continue}" Command="{x:Bind Command}" Visibility="{x:Bind PauseToVisibilityConverter(State), Mode=OneWay}">
+                        <Button 
+                            Margin="3,0"
+                            Windows10version1809:CornerRadius="4"
+                            CommandParameter="{strings:OptionType Type=Continue}" 
+                            Command="{x:Bind Command}" 
+                            Visibility="{x:Bind PauseToVisibilityConverter(State), Mode=OneWay}"
+                            >
                             <FontIcon Glyph="&#xE102;" FontSize="36" FontFamily="Segoe UI Symbol" Foreground="{StaticResource AppBrush900}"/>
+                        </Button>
+                        <Button 
+                            Margin="3,0" 
+                            Windows10version1809:CornerRadius="4"
+                            CommandParameter="{strings:OptionType Type=Next}" 
+                            Command="{x:Bind Command}" 
+                            >
+                            <FontIcon Glyph="&#xE111;" FontSize="36" FontFamily="Segoe UI Symbol" Foreground="{StaticResource AppBrush900}"/>
                         </Button>
                     </StackPanel>
 
                     <Grid Grid.Row="2" BorderThickness="0,1,0,0" BorderBrush="{StaticResource AppBrush700}">
-                        <Button Padding="12,6" HorizontalAlignment="Left" Content="{strings:UI Type=About}" CommandParameter="{strings:OptionType Type=About}" Command="{x:Bind Command}" Style="{StaticResource TextBlockButtonStyle}">
+                        <Button 
+                            Padding="12,6" 
+                            HorizontalAlignment="Left" 
+                            Content="{strings:UI Type=About}" 
+                            CommandParameter="{strings:OptionType Type=About}" 
+                            Command="{x:Bind Command}" 
+                            Style="{StaticResource TextBlockButtonStyle}"
+                            >
                             <!--About-->
                         </Button>
-                        <Button Padding="12,6" HorizontalAlignment="Right" Content="{strings:UI Type=Tutorial}" CommandParameter="{strings:OptionType Type=Tutorial}" Command="{x:Bind Command}" Style="{StaticResource TextBlockButtonStyle}">
+                        <Button
+                            Padding="12,6" 
+                            HorizontalAlignment="Right" 
+                            Content="{strings:UI Type=Tutorial}" 
+                            CommandParameter="{strings:OptionType Type=Tutorial}" 
+                            Command="{x:Bind Command}" 
+                            Style="{StaticResource TextBlockButtonStyle}"
+                            >
                             <!--Tutorial-->
                         </Button>
                     </Grid>
@@ -801,7 +837,14 @@
                         </Canvas>
                     </StackPanel>
                     <Border VerticalAlignment="Bottom" BorderThickness="0,1,0,0" BorderBrush="{StaticResource AppBrush700}">
-                        <Button Padding="12,6" HorizontalAlignment="Right" Content="{strings:UI Type=NextStep}" CommandParameter="{strings:OptionType Type=Step1}" Command="{x:Bind Command}" Style="{StaticResource TextBlockButtonStyle}">
+                        <Button
+                            Padding="12,6" 
+                            HorizontalAlignment="Right" 
+                            Content="{strings:UI Type=NextStep}" 
+                            CommandParameter="{strings:OptionType Type=Step1}" 
+                            Command="{x:Bind Command}"
+                            Style="{StaticResource TextBlockButtonStyle}"
+                            >
                             <!--NextStep-->
                         </Button>
                     </Border>
@@ -844,7 +887,14 @@
                         </Canvas>
                     </StackPanel>
                     <Border VerticalAlignment="Bottom" BorderThickness="0,1,0,0" BorderBrush="{StaticResource AppBrush700}">
-                        <Button Padding="12,6" HorizontalAlignment="Right" Content="{strings:UI Type=NextStep}" CommandParameter="{strings:OptionType Type=Step2}" Command="{x:Bind Command}" Style="{StaticResource TextBlockButtonStyle}">
+                        <Button
+                            Padding="12,6" 
+                            HorizontalAlignment="Right" 
+                            Content="{strings:UI Type=NextStep}" 
+                            CommandParameter="{strings:OptionType Type=Step2}"
+                            Command="{x:Bind Command}" 
+                            Style="{StaticResource TextBlockButtonStyle}"
+                            >
                             <!--NextStep-->
                         </Button>
                     </Border>
@@ -874,7 +924,14 @@
                         </Canvas>
                     </StackPanel>
                     <Border VerticalAlignment="Bottom" BorderThickness="0,1,0,0" BorderBrush="{StaticResource AppBrush700}">
-                        <Button Padding="12,6" HorizontalAlignment="Right" Content="{strings:UI Type=NextStep}" CommandParameter="{strings:OptionType Type=Step3}" Command="{x:Bind Command}" Style="{StaticResource TextBlockButtonStyle}">
+                        <Button 
+                            Padding="12,6"
+                            HorizontalAlignment="Right" 
+                            Content="{strings:UI Type=NextStep}" 
+                            CommandParameter="{strings:OptionType Type=Step3}" 
+                            Command="{x:Bind Command}" 
+                            Style="{StaticResource TextBlockButtonStyle}"
+                            >
                             <!--NextStep-->
                         </Button>
                     </Border>
@@ -904,7 +961,14 @@
                         </Canvas>
                     </StackPanel>
                     <Border VerticalAlignment="Bottom" BorderThickness="0,1,0,0" BorderBrush="{StaticResource AppBrush700}">
-                        <Button Padding="12,6" HorizontalAlignment="Right" Content="{strings:UI Type=Close}" CommandParameter="{strings:OptionType Type=Step4}" Command="{x:Bind Command}" Style="{StaticResource TextBlockButtonStyle}">
+                        <Button
+                            Padding="12,6" 
+                            HorizontalAlignment="Right" 
+                            Content="{strings:UI Type=Close}" 
+                            CommandParameter="{strings:OptionType Type=Step4}" 
+                            Command="{x:Bind Command}" 
+                            Style="{StaticResource TextBlockButtonStyle}"
+                            >
                             <!--Close-->
                         </Button>
                     </Border>
