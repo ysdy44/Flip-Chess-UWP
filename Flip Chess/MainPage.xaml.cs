@@ -36,15 +36,14 @@ namespace Flip_Chess
         private bool ReverseNoneToBooleanConverter(GameState value) => value != default;
         private double BooleanToDoubleConverter(bool value) => value ? 0 : -36;
         private Visibility BooleanToVisibilityConverter(bool value) => value ? Visibility.Visible : Visibility.Collapsed;
-        private Visibility PauseToVisibilityConverter(GameState value) => value == GameState.Pause ? Visibility.Visible : Visibility.Collapsed;
         private Visibility WinToVisibilityConverter(GameState value) => value == GameState.Win ? Visibility.Visible : Visibility.Collapsed;
         private Visibility LoseToVisibilityConverter(GameState value) => value == GameState.Lose ? Visibility.Visible : Visibility.Collapsed;
-        private Visibility LoseOrWinToVisibilityConverter(GameState value)
+        private Visibility PauseToVisibilityConverter(GameState value)
         {
             switch (value)
             {
-                case GameState.Win:
-                case GameState.Lose:
+                case GameState.None:
+                case GameState.Pause:
                     return Visibility.Visible;
                 default:
                     return Visibility.Collapsed;
@@ -129,10 +128,8 @@ namespace Flip_Chess
         {
             this.InitializeComponent();
 
-            this.State = (GameState)this.LoadState();
-
-            this.HistorianCount = this.LoadStep();
-
+            this.State = (GameState)this.SettingsState; // Sertings
+            this.HistorianCount = this.SettingsStep; // Sertings
             this.IsRedComputer = this.SettingsRed; // Sertings
             this.IsBlackComputer = this.SettingsBlack; // Sertings
 

@@ -89,8 +89,9 @@ namespace Flip_Chess
                 break;
             }
 
+            // History
             this.Historian.Add(history);
-            this.SaveStep(this.Step);
+            this.SettingsStep = this.Step; // Sertings
 
             switch ((HistoryAction)history.Distance)
             {

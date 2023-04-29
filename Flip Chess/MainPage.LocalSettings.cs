@@ -7,40 +7,45 @@ namespace Flip_Chess
 {
     partial class MainPage
     {
-        public int LoadState()
+        // "State" int.0
+        // "Step" int.0
+        // "Red" bool.False
+        // "Black" bool.True
+        // "Random" byte[]
+        // "Collection" byte[]
+
+        public int SettingsState
         {
-            if (ApplicationData.Current.LocalSettings.Values.ContainsKey("State"))
+            get
             {
-                if (ApplicationData.Current.LocalSettings.Values["State"] is int item)
+                if (ApplicationData.Current.LocalSettings.Values.ContainsKey("State"))
                 {
-                    return item;
+                    if (ApplicationData.Current.LocalSettings.Values["State"] is int item)
+                    {
+                        return item;
+                    }
                 }
+
+                return 0;
             }
-
-            return 0;
+            set => ApplicationData.Current.LocalSettings.Values["State"] = value;
         }
 
-        public void SaveState(int value)
+        public int SettingsStep
         {
-            ApplicationData.Current.LocalSettings.Values["State"] = value;
-        }
-
-        public int LoadStep()
-        {
-            if (ApplicationData.Current.LocalSettings.Values.ContainsKey("Step"))
+            get
             {
-                if (ApplicationData.Current.LocalSettings.Values["Step"] is int item)
+                if (ApplicationData.Current.LocalSettings.Values.ContainsKey("Step"))
                 {
-                    return item;
+                    if (ApplicationData.Current.LocalSettings.Values["Step"] is int item)
+                    {
+                        return item;
+                    }
                 }
+
+                return 0;
             }
-
-            return default;
-        }
-
-        public void SaveStep(int value)
-        {
-            ApplicationData.Current.LocalSettings.Values["Step"] = value;
+            set => ApplicationData.Current.LocalSettings.Values["Step"] = value;
         }
 
         public bool SettingsRed

@@ -34,33 +34,33 @@ namespace Flip_Chess
                     break;
                 case OptionType.Play:
                     this.State = GameState.None;
-                    this.SaveState((int)GameState.None);
+                    this.SettingsState = (int)GameState.None; // Sertings
                     break;
 
                 case OptionType.Lose:
                     this.SelectedIndex = 1;
                     this.State = GameState.Lose;
-                    this.SaveState((int)GameState.Lose);
+                    this.SettingsState = (int)GameState.Lose; // Sertings
                     break;
                 case OptionType.Win:
                     this.SelectedIndex = 1;
                     this.State = GameState.Win;
-                    this.SaveState((int)GameState.Win);
+                    this.SettingsState = (int)GameState.Win; // Sertings
                     break;
                 case OptionType.Pause:
                     this.SelectedIndex = 1;
                     this.State = GameState.Pause;
-                    this.SaveState((int)GameState.Pause);
+                    this.SettingsState = (int)GameState.Pause; // Sertings
                     break;
 
                 case OptionType.Continue:
                     this.State = GameState.None;
-                    this.SaveState((int)GameState.None);
+                    this.SettingsState = (int)GameState.None; // Sertings
                     break;
                 case OptionType.Restart:
                     this.HistorianCount = 0; // 1. Clear HistorianCount
                     this.Historian.Clear(); // 2. Clear Historian
-                    this.SaveStep(this.Step); // 3. Save HistorianCount + Historian
+                    this.SettingsStep = (this.Step); // 3. Save HistorianCount + Historian // Sertings
 
                     //this.Randoms.Random();
                     this.Collection.Clear();
@@ -70,7 +70,7 @@ namespace Flip_Chess
                     this.BeginClip(); /// <see cref="OptionType.UIClipCompleted"/>
                     this.Relive();
                     this.State = GameState.None;
-                    this.SaveState((int)GameState.None);
+                    this.SettingsState = (int)GameState.None; // Sertings
 
                     this.HideFlip();
                     this.StopFlip();
@@ -114,7 +114,7 @@ namespace Flip_Chess
                     break;
                 case OptionType.Step4:
                     this.State = GameState.None;
-                    this.SaveState((int)GameState.None);
+                    this.SettingsState = (int)GameState.None; // Sertings
                     break;
 
                 case OptionType.UIFlipCompleted: /// <see cref="OptionType.UIFlipCompleted"/>
@@ -131,7 +131,7 @@ namespace Flip_Chess
                     this.Deaded();
                     break;
                 case OptionType.UIClipCompleted: /// <see cref="OptionType.UIClipCompleted"/>
-                    this.Chesses.Clear();
+                    this.Chesses.Copy(this.Collection);
                     break;
 
                 default:
