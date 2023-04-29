@@ -60,14 +60,40 @@ namespace Flip_Chess
             this.ApplicationView.ExitFullScreenMode();
         }
 
-        public void HideLines() => this.Lines.Hide();
+        public void HideLines()
+        {
+            this.CenterHighlight.Visibility = Visibility.Collapsed;
+
+            this.LeftHighlight.Hide();
+            this.TopHighlight.Hide();
+            this.RightHighlight.Hide();
+            this.BottomHighlight.Hide();
+        }
         public void ShowLinesAt(int y, int x, NeighborType type)
         {
-            this.Lines.ShowAt(x, y, 100);
-            this.Lines.ShowLeftAt(x, y, 100, type.HasFlag(NeighborType.Left));
-            this.Lines.ShowTopAt(x, y, 100, type.HasFlag(NeighborType.Top));
-            this.Lines.ShowRightAt(x, y, 100, type.HasFlag(NeighborType.Right));
-            this.Lines.ShowBottomAt(x, y, 100, type.HasFlag(NeighborType.Bottom));
+            Canvas.SetLeft(this.CenterHighlight, x * 100);
+            Canvas.SetTop(this.CenterHighlight, y * 100);
+            this.CenterHighlight.Visibility = Visibility.Visible;
+
+            if (type.HasFlag(NeighborType.Left))
+                this.LeftHighlight.ShowAt(x * 100 - 100, y * 100);
+            else
+                this.LeftHighlight.Hide();
+
+            if (type.HasFlag(NeighborType.Top))
+                this.TopHighlight.ShowAt(x * 100, y * 100 - 100);
+            else
+                this.TopHighlight.Hide();
+
+            if (type.HasFlag(NeighborType.Right))
+                this.RightHighlight.ShowAt(x * 100 + 100, y * 100);
+            else
+                this.RightHighlight.Hide();
+
+            if (type.HasFlag(NeighborType.Bottom))
+                this.BottomHighlight.ShowAt(x * 100, y * 100 + 100);
+            else
+                this.BottomHighlight.Hide();
         }
 
         public Vector2 GetCemeteryPosition(ChessType toType)

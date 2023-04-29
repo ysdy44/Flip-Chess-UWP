@@ -495,6 +495,23 @@
                         </ListView>
                     </controls:AnimationClipContainer>
 
+                    <!--Highlight-->
+                    <Canvas
+                        x:Name="CenterHighlight"
+                        IsHitTestVisible="False"
+                        Visibility="Collapsed"
+                        Width="100"
+                        Height="100"
+                        Background="#44FEF893"
+                        >
+                        <Ellipse Canvas.Left="4" Canvas.Top="0" Width="92" Height="99" StrokeThickness="3" Stroke="Gold" Fill="Transparent"/>
+                        <Ellipse Canvas.Left="4" Canvas.Top="0" Width="92" Height="99" StrokeThickness="2" Stroke="#FFF8A3" Fill="Transparent"/>
+                    </Canvas>
+                    <controls:Highlight x:Name="LeftHighlight"/>
+                    <controls:Highlight x:Name="TopHighlight"/>
+                    <controls:Highlight x:Name="RightHighlight"/>
+                    <controls:Highlight x:Name="BottomHighlight"/>
+
                     <!--Lines-->
                     <local:MainLinesCanvas x:Name="Lines"/>
 
