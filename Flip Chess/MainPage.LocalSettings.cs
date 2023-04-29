@@ -43,6 +43,40 @@ namespace Flip_Chess
             ApplicationData.Current.LocalSettings.Values["Step"] = value;
         }
 
+        public bool SettingsRed
+        {
+            get
+            {
+                if (ApplicationData.Current.LocalSettings.Values.ContainsKey("Red"))
+                {
+                    if (ApplicationData.Current.LocalSettings.Values["Red"] is bool item)
+                    {
+                        return item;
+                    }
+                }
+
+                return false; // IsRed is false
+            }
+            set => ApplicationData.Current.LocalSettings.Values["Red"] = value;
+        }
+
+        public bool SettingsBlack
+        {
+            get
+            {
+                if (ApplicationData.Current.LocalSettings.Values.ContainsKey("Black"))
+                {
+                    if (ApplicationData.Current.LocalSettings.Values["Black"] is bool item)
+                    {
+                        return item;
+                    }
+                }
+
+                return true; // IsBlack is true
+            }
+            set => ApplicationData.Current.LocalSettings.Values["Black"] = value;
+        }
+
         public bool ReadRandom()
         {
             if (ApplicationData.Current.LocalSettings.Values.ContainsKey("Random"))

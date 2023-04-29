@@ -133,6 +133,9 @@ namespace Flip_Chess
 
             this.HistorianCount = this.LoadStep();
 
+            this.IsRedComputer = this.SettingsRed; // Sertings
+            this.IsBlackComputer = this.SettingsBlack; // Sertings
+
             if (this.ReadCollection()) // Sertings
             {
                 this.Shown();
@@ -163,14 +166,24 @@ namespace Flip_Chess
                         {
                             if (this.IsRedComputer)
                             {
+                                this.SettingsRed = true; // Sertings
                                 this.ItemClick(new RedAutoAICollection(this.Collection).FindAutoAI(this.Collection));
+                            }
+                            else
+                            {
+                                this.SettingsRed = false; // Sertings
                             }
                         }
                         else if (this.Step.IsBlack())
                         {
                             if (this.IsBlackComputer)
                             {
+                                this.SettingsRed = true; // Sertings
                                 this.ItemClick(new BlackAutoAICollection(this.Collection).FindAutoAI(this.Collection));
+                            }
+                            else
+                            {
+                                this.SettingsRed = false; // Sertings
                             }
                         }
                         break;
