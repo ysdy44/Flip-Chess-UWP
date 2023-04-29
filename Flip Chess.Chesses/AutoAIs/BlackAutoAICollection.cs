@@ -28,7 +28,7 @@ namespace Flip_Chess.Chesses.AutoAIs
                         ChessType left = array[zIndex, y, x - 1];
                         if (item.BlackRelateTo(left) is HistoryRelation.WeakEnemy)
                         {
-                            base.Add(new BlackAutoAICollection(array, zIndex, new History(y, x, y, x - 1)));
+                            base.Add(new RedAutoAICollection(array, zIndex, new History(y, x, y, x - 1)));
                         }
                     }
 
@@ -37,7 +37,7 @@ namespace Flip_Chess.Chesses.AutoAIs
                         ChessType top = array[zIndex, y - 1, x];
                         if (item.BlackRelateTo(top) is HistoryRelation.WeakEnemy)
                         {
-                            base.Add(new BlackAutoAICollection(array, zIndex, new History(y, x, y - 1, x)));
+                            base.Add(new RedAutoAICollection(array, zIndex, new History(y, x, y - 1, x)));
                         }
                     }
 
@@ -46,16 +46,16 @@ namespace Flip_Chess.Chesses.AutoAIs
                         ChessType right = array[zIndex, y, x + 1];
                         if (item.BlackRelateTo(right) is HistoryRelation.WeakEnemy)
                         {
-                            base.Add(new BlackAutoAICollection(array, zIndex, new History(y, x, y, x + 1)));
+                            base.Add(new RedAutoAICollection(array, zIndex, new History(y, x, y, x + 1)));
                         }
+                    }
 
-                        if (y + 1 < h)
+                    if (y + 1 < h)
+                    {
+                        ChessType bottom = array[zIndex, y + 1, x];
+                        if (item.BlackRelateTo(bottom) is HistoryRelation.WeakEnemy)
                         {
-                            ChessType bottom = array[zIndex, y + 1, x];
-                            if (item.BlackRelateTo(bottom) is HistoryRelation.WeakEnemy)
-                            {
-                                base.Add(new BlackAutoAICollection(array, zIndex, new History(y, x, y + 1, x)));
-                            }
+                            base.Add(new RedAutoAICollection(array, zIndex, new History(y, x, y + 1, x)));
                         }
                     }
                 }
@@ -64,7 +64,7 @@ namespace Flip_Chess.Chesses.AutoAIs
             if (count == 0) return;
             if (base.Count == 0)
             {
-                base.Add(new BlackAutoAICollection(array, zIndex, History.Noway));
+                base.Add(new RedAutoAICollection(array, zIndex, History.Noway));
             }
         }
     }
