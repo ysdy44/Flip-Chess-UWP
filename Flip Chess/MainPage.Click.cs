@@ -22,6 +22,57 @@ namespace Flip_Chess
             {
                 this.Click(type);
             }
+
+            if (parameter is IChess chess)
+            {
+                this.Click(chess);
+            }
+        }
+
+        public void Click()
+        {
+            switch (this.State)
+            {
+                case GameState.None:
+                    if (this.Step.IsRed())
+                    {
+                        if (this.IsRedComputer)
+                        {
+                            this.ItemClick(new RedAutoAICollection(this.Collection).FindAutoAI(this.Collection));
+                        }
+                    }
+                    else if (this.Step.IsBlack())
+                    {
+                        if (this.IsBlackComputer)
+                        {
+                            this.ItemClick(new BlackAutoAICollection(this.Collection).FindAutoAI(this.Collection));
+                        }
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        public void Click(IChess chess)
+        {
+            switch (this.State)
+            {
+                case GameState.None:
+                    if (this.Step.IsRed())
+                    {
+                        if (this.IsRedComputer) break;
+                        this.ItemClick(chess);
+                    }
+                    else if (this.Step.IsBlack())
+                    {
+                        if (this.IsBlackComputer) break;
+                        this.ItemClick(chess);
+                    }
+                    break;
+                default:
+                    break;
+            }
         }
 
         public void Click(OptionType type)
