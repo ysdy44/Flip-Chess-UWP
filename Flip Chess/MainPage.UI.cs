@@ -31,17 +31,6 @@ namespace Flip_Chess
         public bool IsRedComputer => this.RedListBox.SelectedIndex == default;
         public bool IsBlackComputer => this.BlackListBox.SelectedIndex == default;
 
-        #region DependencyProperty
-
-        public GameState State
-        {
-            get => (GameState)base.GetValue(StateProperty);
-            set => base.SetValue(StateProperty, value);
-        }
-        public static readonly DependencyProperty StateProperty = DependencyProperty.Register(nameof(State), typeof(GameState), typeof(MainPage), new PropertyMetadata(GameState.None));
-
-        #endregion
-
         public void ClickFullScreen()
         {
             if (this.ApplicationView.IsFullScreenMode)
@@ -133,6 +122,22 @@ namespace Flip_Chess
             }
 
             return default;
+        }
+
+        public void SetMargin(int w, int h, int margin)
+        {
+            if (w > h + margin)
+            {
+                this.Viewbox.Margin = new Thickness(margin, 0, margin, 0);
+            }
+            else if (w < h - margin)
+            {
+                this.Viewbox.Margin = new Thickness(0, margin, 0, margin);
+            }
+            else
+            {
+                this.Viewbox.Margin = new Thickness(margin);
+            }
         }
 
         private void StopFlip() => this.FlipItem.Stop();

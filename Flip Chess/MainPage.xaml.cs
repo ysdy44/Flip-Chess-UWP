@@ -6,6 +6,7 @@ using Flip_Chess.Models;
 using System;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
+using Windows.Foundation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -113,6 +114,17 @@ namespace Flip_Chess
             new ChessDeaded(ChessType.RedSoldier)
         };
 
+        #region DependencyProperty
+
+        public GameState State
+        {
+            get => (GameState)base.GetValue(StateProperty);
+            set => base.SetValue(StateProperty, value);
+        }
+        public static readonly DependencyProperty StateProperty = DependencyProperty.Register(nameof(State), typeof(GameState), typeof(MainPage), new PropertyMetadata(GameState.None));
+
+        #endregion
+
         public MainPage()
         {
             this.InitializeComponent();
@@ -203,6 +215,14 @@ namespace Flip_Chess
             {
                 this.Text1 = this.Step.ToString();
                 this.Text2 = this.Step.IsBlack() ? "黑方" : "红方";
+            };
+
+            base.SizeChanged += (s, e) =>
+            {
+                if (e.NewSize == Size.Empty) return;
+                if (e.NewSize == e.PreviousSize) return;
+
+                this.SetMargin((int)e.NewSize.Width, (int)e.NewSize.Height, 50);
             };
         }
     }

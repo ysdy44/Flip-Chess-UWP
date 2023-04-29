@@ -152,7 +152,7 @@
 
 
         <!--Body-->
-        <Viewbox IsHitTestVisible="{x:Bind NoneToBoolenConverter(State), Mode=OneWay}">
+        <Viewbox x:Name="Viewbox" IsHitTestVisible="{x:Bind NoneToBoolenConverter(State), Mode=OneWay}">
             <Grid Margin="0,28" ColumnSpacing="28">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
