@@ -512,7 +512,7 @@
                     <controls:Highlight x:Name="TopHighlight"/>
                     <controls:Highlight x:Name="RightHighlight"/>
                     <controls:Highlight x:Name="BottomHighlight"/>
-            
+
                     <!--Lines-->
                     <local:MainLinesCanvas x:Name="Lines" IsHitTestVisible="False"/>
 
@@ -616,17 +616,10 @@
         <!--Billboard-->
         <controls:AnimationFadeContainer x:Name="FadeContainer" Margin="12" MaxWidth="452" Height="280" IsEnabled="{x:Bind ReverseNoneToBooleanConverter(State), Mode=OneWay}">
             <FlipView x:Name="FlipView" SelectedIndex="1">
-                <FrameworkElement.Resources>
-                    <!--Style-->
-                    <Style TargetType="Border">
-                        <Setter Property="BorderThickness" Value="1"/>
-                        <Setter Property="BorderBrush" Value="{StaticResource AppBrush300}"/>
-                        <Setter Property="Background" Value="{StaticResource AppBrush900}"/>
-                    </Style>
-                </FrameworkElement.Resources>
-
+              
                 <!--Step 0-->
-                <Border Margin="2">
+                <Grid Margin="2" BorderThickness="1" BorderBrush="{StaticResource AppBrush300}" Background="{StaticResource AppBrush900}">
+                    <local:LinesCanvas4x2 IsHitTestVisible="False" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     <TextBlock
                         FontSize="14" 
                         HorizontalAlignment="Center"
@@ -671,236 +664,226 @@
                         <LineBreak/>
 
                     </TextBlock>
-                </Border>
+                </Grid>
 
                 <!--Step 1-->
-                <Border Margin="2">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                        </Grid.RowDefinitions>
+                <Grid Margin="2" BorderThickness="1" BorderBrush="{StaticResource AppBrush300}" Background="{StaticResource AppBrush900}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
 
-                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="{x:Bind LoseToVisibilityConverter(State), Mode=OneWay}">
-                            <TextBlock Text="{strings:UI Type=Lose}" FontSize="46" HorizontalAlignment="Center" Foreground="{StaticResource AppBrush100}">
-                                <!--Lose-->
-                            </TextBlock>
-                            <TextBlock FontSize="16" HorizontalAlignment="Center" Foreground="{StaticResource AppBrush100}">
-                                <Run Text="{strings:UI Type=Click}">
-                                    <!--Click-->
-                                </Run>       
-                                <Run Text="&#xE149;" FontSize="14" FontFamily="Segoe UI Symbol"/>
-                                <Run Text="{strings:UI Type=ToRestart}">
-                                    <!--ToRestart-->
-                                </Run>
-                            </TextBlock>
-                        </StackPanel>
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="{x:Bind LoseToVisibilityConverter(State), Mode=OneWay}">
+                        <TextBlock Text="{strings:UI Type=Lose}" FontSize="46" HorizontalAlignment="Center" Foreground="{StaticResource AppBrush100}">
+                            <!--Lose-->
+                        </TextBlock>
+                        <TextBlock FontSize="16" HorizontalAlignment="Center" Foreground="{StaticResource AppBrush100}">
+                            <Run Text="{strings:UI Type=Click}">
+                                <!--Click-->
+                            </Run>       
+                            <Run Text="&#xE149;" FontSize="14" FontFamily="Segoe UI Symbol"/>
+                            <Run Text="{strings:UI Type=ToRestart}">
+                                <!--ToRestart-->
+                            </Run>
+                        </TextBlock>
+                    </StackPanel>
 
-                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="{x:Bind WinToVisibilityConverter(State), Mode=OneWay}">
-                            <TextBlock Text="{strings:UI Type=Win}" FontSize="46" HorizontalAlignment="Center" Foreground="{StaticResource AppBrush100}">
-                                <!--Win-->
-                            </TextBlock>
-                            <TextBlock FontSize="16" HorizontalAlignment="Center" Foreground="{StaticResource AppBrush100}">
-                                <Run Text="{strings:UI Type=Click}">
-                                    <!--Click-->
-                                </Run>       
-                                <Run Text="&#xE111;" FontSize="14" FontFamily="Segoe UI Symbol"/>
-                                <Run Text="{strings:UI Type=ToNext}">
-                                    <!--ToNext-->
-                                </Run>
-                            </TextBlock>
-                        </StackPanel>
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="{x:Bind WinToVisibilityConverter(State), Mode=OneWay}">
+                        <TextBlock Text="{strings:UI Type=Win}" FontSize="46" HorizontalAlignment="Center" Foreground="{StaticResource AppBrush100}">
+                            <!--Win-->
+                        </TextBlock>
+                        <TextBlock FontSize="16" HorizontalAlignment="Center" Foreground="{StaticResource AppBrush100}">
+                            <Run Text="{strings:UI Type=Click}">
+                                <!--Click-->
+                            </Run>       
+                            <Run Text="&#xE111;" FontSize="14" FontFamily="Segoe UI Symbol"/>
+                            <Run Text="{strings:UI Type=ToNext}">
+                                <!--ToNext-->
+                            </Run>
+                        </TextBlock>
+                    </StackPanel>
 
-                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="{x:Bind PauseToVisibilityConverter(State), Mode=OneWay}">
-                            <TextBlock Text="{strings:UI Type=Pause}" FontSize="46" HorizontalAlignment="Center" Foreground="{StaticResource AppBrush100}">
-                                <!--Pause-->
-                            </TextBlock>
-                            <TextBlock FontSize="16" HorizontalAlignment="Center" Foreground="{StaticResource AppBrush100}">
-                                <Run Text="{strings:UI Type=Click}">
-                                    <!--Click-->
-                                </Run>       
-                                <Run Text="&#xE102;" FontSize="14" FontFamily="Segoe UI Symbol"/>
-                                <Run Text="{strings:UI Type=ToPlay}">
-                                    <!--ToPlay-->
-                                </Run>
-                            </TextBlock>
-                        </StackPanel>
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="{x:Bind PauseToVisibilityConverter(State), Mode=OneWay}">
+                        <TextBlock Text="{strings:UI Type=Pause}" FontSize="46" HorizontalAlignment="Center" Foreground="{StaticResource AppBrush100}">
+                            <!--Pause-->
+                        </TextBlock>
+                        <TextBlock FontSize="16" HorizontalAlignment="Center" Foreground="{StaticResource AppBrush100}">
+                            <Run Text="{strings:UI Type=Click}">
+                                <!--Click-->
+                            </Run>       
+                            <Run Text="&#xE102;" FontSize="14" FontFamily="Segoe UI Symbol"/>
+                            <Run Text="{strings:UI Type=ToPlay}">
+                                <!--ToPlay-->
+                            </Run>
+                        </TextBlock>
+                    </StackPanel>
 
-                        <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="12" HorizontalAlignment="Center">
-                            <Button x:Name="FullScreenButton" Margin="3,0" Windows10version1809:CornerRadius="4" CommandParameter="{strings:OptionType Type=FullScreen}" Command="{x:Bind Command}">
-                                <FontIcon Glyph="&#xE1D9;" FontSize="36" FontFamily="Segoe UI Symbol" Foreground="{StaticResource AppBrush900}"/>
-                            </Button>
-                            <Button x:Name="UnFullScreenButton" Visibility="Collapsed" Margin="3,0" Windows10version1809:CornerRadius="4" CommandParameter="{strings:OptionType Type=UnFullScreen}" Command="{x:Bind Command}">
-                                <FontIcon Glyph="&#xE1D8;" FontSize="36" FontFamily="Segoe UI Symbol" Foreground="{StaticResource AppBrush900}"/>
-                            </Button>
-                            <Button Margin="3,0" Windows10version1809:CornerRadius="4" CommandParameter="{strings:OptionType Type=Restart}" Command="{x:Bind Command}">
-                                <FontIcon Glyph="&#xE149;" FontSize="36" FontFamily="Segoe UI Symbol" Foreground="{StaticResource AppBrush900}"/>
-                            </Button>
-                            <Button Margin="3,0" Windows10version1809:CornerRadius="4" CommandParameter="{strings:OptionType Type=Next}" Command="{x:Bind Command}" Visibility="{x:Bind LoseOrWinToVisibilityConverter(State), Mode=OneWay}">
-                                <FontIcon Glyph="&#xE111;" FontSize="36" FontFamily="Segoe UI Symbol" Foreground="{StaticResource AppBrush900}"/>
-                            </Button>
-                            <Button Margin="3,0" Windows10version1809:CornerRadius="4" CommandParameter="{strings:OptionType Type=Continue}" Command="{x:Bind Command}" Visibility="{x:Bind PauseToVisibilityConverter(State), Mode=OneWay}">
-                                <FontIcon Glyph="&#xE102;" FontSize="36" FontFamily="Segoe UI Symbol" Foreground="{StaticResource AppBrush900}"/>
-                            </Button>
-                        </StackPanel>
+                    <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="12" HorizontalAlignment="Center">
+                        <Button x:Name="FullScreenButton" Margin="3,0" Windows10version1809:CornerRadius="4" CommandParameter="{strings:OptionType Type=FullScreen}" Command="{x:Bind Command}">
+                            <FontIcon Glyph="&#xE1D9;" FontSize="36" FontFamily="Segoe UI Symbol" Foreground="{StaticResource AppBrush900}"/>
+                        </Button>
+                        <Button x:Name="UnFullScreenButton" Visibility="Collapsed" Margin="3,0" Windows10version1809:CornerRadius="4" CommandParameter="{strings:OptionType Type=UnFullScreen}" Command="{x:Bind Command}">
+                            <FontIcon Glyph="&#xE1D8;" FontSize="36" FontFamily="Segoe UI Symbol" Foreground="{StaticResource AppBrush900}"/>
+                        </Button>
+                        <Button Margin="3,0" Windows10version1809:CornerRadius="4" CommandParameter="{strings:OptionType Type=Restart}" Command="{x:Bind Command}">
+                            <FontIcon Glyph="&#xE149;" FontSize="36" FontFamily="Segoe UI Symbol" Foreground="{StaticResource AppBrush900}"/>
+                        </Button>
+                        <Button Margin="3,0" Windows10version1809:CornerRadius="4" CommandParameter="{strings:OptionType Type=Next}" Command="{x:Bind Command}" Visibility="{x:Bind LoseOrWinToVisibilityConverter(State), Mode=OneWay}">
+                            <FontIcon Glyph="&#xE111;" FontSize="36" FontFamily="Segoe UI Symbol" Foreground="{StaticResource AppBrush900}"/>
+                        </Button>
+                        <Button Margin="3,0" Windows10version1809:CornerRadius="4" CommandParameter="{strings:OptionType Type=Continue}" Command="{x:Bind Command}" Visibility="{x:Bind PauseToVisibilityConverter(State), Mode=OneWay}">
+                            <FontIcon Glyph="&#xE102;" FontSize="36" FontFamily="Segoe UI Symbol" Foreground="{StaticResource AppBrush900}"/>
+                        </Button>
+                    </StackPanel>
 
-                        <Grid Grid.Row="2" BorderThickness="0,1,0,0" BorderBrush="{StaticResource AppBrush700}">
-                            <Button Padding="12,6" HorizontalAlignment="Left" Content="{strings:UI Type=About}" CommandParameter="{strings:OptionType Type=About}" Command="{x:Bind Command}" Style="{StaticResource TextBlockButtonStyle}">
-                                <!--About-->
-                            </Button>
-                            <Button Padding="12,6" HorizontalAlignment="Right" Content="{strings:UI Type=Tutorial}" CommandParameter="{strings:OptionType Type=Tutorial}" Command="{x:Bind Command}" Style="{StaticResource TextBlockButtonStyle}">
-                                <!--Tutorial-->
-                            </Button>
-                        </Grid>
+                    <Grid Grid.Row="2" BorderThickness="0,1,0,0" BorderBrush="{StaticResource AppBrush700}">
+                        <Button Padding="12,6" HorizontalAlignment="Left" Content="{strings:UI Type=About}" CommandParameter="{strings:OptionType Type=About}" Command="{x:Bind Command}" Style="{StaticResource TextBlockButtonStyle}">
+                            <!--About-->
+                        </Button>
+                        <Button Padding="12,6" HorizontalAlignment="Right" Content="{strings:UI Type=Tutorial}" CommandParameter="{strings:OptionType Type=Tutorial}" Command="{x:Bind Command}" Style="{StaticResource TextBlockButtonStyle}">
+                            <!--Tutorial-->
+                        </Button>
                     </Grid>
-                </Border>
+                </Grid>
 
                 <!--Step 2-->
-                <Border Margin="2">
-                    <Grid>
-                        <StackPanel Spacing="12" Margin="12,8">
-                            <TextBlock FontSize="18" TextWrapping="Wrap" Foreground="{StaticResource AppBrush100}">
-                                <Run FontWeight="Bold">+1</Run>
-                                <Run FontWeight="Bold" Text="{strings:UI Type=Tutorial}">
-                                    <!--Tutorial-->
-                                </Run>
-                                <LineBreak/>
-                                <Run Text="{strings:UI Type=Guider001}">
-                                    <!--Guider001-->
-                                </Run>
-                                <LineBreak/>
-                                <Run Text="{strings:UI Type=Guider002}">
-                                    <!--Guider002-->
-                                </Run>
-                            </TextBlock>
-                            <Canvas Width="144" Height="60" Background="{StaticResource AppBrush100}">
-                                <Image Width="60" Height="60" Source="ms-appx:///Images/Item.png" />
-                                <Image Canvas.Left="84" Width="60" Height="60" Source="ms-appx:///Images/ItemRed.png" />
-                                <FontIcon Canvas.Left="60" Canvas.Top="14" Glyph="&#xE111;" FontFamily="Segoe UI Symbol" Foreground="{StaticResource AppRed}"/>
-                            </Canvas>
-                            <Canvas Width="144" Height="60" Background="{StaticResource AppBrush100}">
-                                <Image Width="60" Height="60" Source="ms-appx:///Images/Item.png" />
-                                <Image Canvas.Left="84" Width="60" Height="60" Source="ms-appx:///Images/ItemBlack.png" />
-                                <FontIcon Canvas.Left="60" Canvas.Top="14" Glyph="&#xE111;" FontFamily="Segoe UI Symbol" Foreground="{StaticResource AppBlack}"/>
-                            </Canvas>
-                        </StackPanel>
-                        <Border VerticalAlignment="Bottom" BorderThickness="0,1,0,0" BorderBrush="{StaticResource AppBrush700}">
-                            <Button Padding="12,6" HorizontalAlignment="Right" Content="{strings:UI Type=NextStep}" CommandParameter="{strings:OptionType Type=Step1}" Command="{x:Bind Command}" Style="{StaticResource TextBlockButtonStyle}">
-                                <!--NextStep-->
-                            </Button>
-                        </Border>
-                    </Grid>
-                </Border>
+                <Grid Margin="2" BorderThickness="1" BorderBrush="{StaticResource AppBrush300}" Background="{StaticResource AppBrush900}">
+                    <StackPanel Spacing="12" Margin="12,8">
+                        <TextBlock FontSize="18" TextWrapping="Wrap" Foreground="{StaticResource AppBrush100}">
+                            <Run FontWeight="Bold">+1</Run>
+                            <Run FontWeight="Bold" Text="{strings:UI Type=Tutorial}">
+                                <!--Tutorial-->
+                            </Run>
+                            <LineBreak/>
+                            <Run Text="{strings:UI Type=Guider001}">
+                                <!--Guider001-->
+                            </Run>
+                            <LineBreak/>
+                            <Run Text="{strings:UI Type=Guider002}">
+                                <!--Guider002-->
+                            </Run>
+                        </TextBlock>
+                        <Canvas Width="144" Height="60" Background="{StaticResource AppBrush100}">
+                            <Image Width="60" Height="60" Source="ms-appx:///Images/Item.png" />
+                            <Image Canvas.Left="84" Width="60" Height="60" Source="ms-appx:///Images/ItemRed.png" />
+                            <FontIcon Canvas.Left="60" Canvas.Top="14" Glyph="&#xE111;" FontFamily="Segoe UI Symbol" Foreground="{StaticResource AppRed}"/>
+                        </Canvas>
+                        <Canvas Width="144" Height="60" Background="{StaticResource AppBrush100}">
+                            <Image Width="60" Height="60" Source="ms-appx:///Images/Item.png" />
+                            <Image Canvas.Left="84" Width="60" Height="60" Source="ms-appx:///Images/ItemBlack.png" />
+                            <FontIcon Canvas.Left="60" Canvas.Top="14" Glyph="&#xE111;" FontFamily="Segoe UI Symbol" Foreground="{StaticResource AppBlack}"/>
+                        </Canvas>
+                    </StackPanel>
+                    <Border VerticalAlignment="Bottom" BorderThickness="0,1,0,0" BorderBrush="{StaticResource AppBrush700}">
+                        <Button Padding="12,6" HorizontalAlignment="Right" Content="{strings:UI Type=NextStep}" CommandParameter="{strings:OptionType Type=Step1}" Command="{x:Bind Command}" Style="{StaticResource TextBlockButtonStyle}">
+                            <!--NextStep-->
+                        </Button>
+                    </Border>
+                </Grid>
 
                 <!--Step 3-->
-                <Border Margin="2">
-                    <Grid>
-                        <StackPanel Spacing="12" Margin="12,8">
-                            <TextBlock FontSize="18" TextWrapping="Wrap" Foreground="{StaticResource AppBrush100}">
-                                <Run FontWeight="Bold">+2</Run>
-                                <Run FontWeight="Bold" Text="{strings:UI Type=Tutorial}">
-                                    <!--Tutorial-->
-                                </Run>
-                                <LineBreak/>
-                                <Run Text="{strings:UI Type=Guider003}">
-                                    <!--Guider003-->
-                                </Run>
-                                <LineBreak/>
-                                <Run Text="{strings:UI Type=Guider004}">
-                                    <!--Guider004-->
-                                </Run>
-                            </TextBlock>
-                            <Canvas Width="420" Height="60" Background="{StaticResource AppBrush100}">
-                                <Image Width="60" Height="60" Source="ms-appx:///Images/RedKing.png"/>
-                                <Image Canvas.Left="60" Width="60" Height="60" Source="ms-appx:///Images/RedMandarins.png"/>
-                                <Image Canvas.Left="120" Width="60" Height="60" Source="ms-appx:///Images/RedElephant.png"/>
-                                <Image Canvas.Left="180" Width="60" Height="60" Source="ms-appx:///Images/RedRook.png"/>
-                                <Image Canvas.Left="240" Width="60" Height="60" Source="ms-appx:///Images/RedKnight.png"/>
-                                <Image Canvas.Left="300" Width="60" Height="60" Source="ms-appx:///Images/RedCannons.png"/>
-                                <Image Canvas.Left="360" Width="60" Height="60" Source="ms-appx:///Images/RedSoldier.png"/>
-                            </Canvas>
-                            <Canvas Width="420" Height="60" Background="{StaticResource AppBrush100}">
-                                <Image Width="60" Height="60" Source="ms-appx:///Images/BlackKing.png"/>
-                                <Image Canvas.Left="60" Width="60" Height="60" Source="ms-appx:///Images/BlackMandarins.png"/>
-                                <Image Canvas.Left="120" Width="60" Height="60" Source="ms-appx:///Images/BlackElephant.png"/>
-                                <Image Canvas.Left="180" Width="60" Height="60" Source="ms-appx:///Images/BlackRook.png"/>
-                                <Image Canvas.Left="240" Width="60" Height="60" Source="ms-appx:///Images/BlackKnight.png"/>
-                                <Image Canvas.Left="300" Width="60" Height="60" Source="ms-appx:///Images/BlackCannons.png"/>
-                                <Image Canvas.Left="360" Width="60" Height="60" Source="ms-appx:///Images/BlackSoldier.png"/>
-                            </Canvas>
-                        </StackPanel>
-                        <Border VerticalAlignment="Bottom" BorderThickness="0,1,0,0" BorderBrush="{StaticResource AppBrush700}">
-                            <Button Padding="12,6" HorizontalAlignment="Right" Content="{strings:UI Type=NextStep}" CommandParameter="{strings:OptionType Type=Step2}" Command="{x:Bind Command}" Style="{StaticResource TextBlockButtonStyle}">
-                                <!--NextStep-->
-                            </Button>
-                        </Border>
-                    </Grid>
-                </Border>
+                <Grid Margin="2" BorderThickness="1" BorderBrush="{StaticResource AppBrush300}" Background="{StaticResource AppBrush900}">
+                    <StackPanel Spacing="12" Margin="12,8">
+                        <TextBlock FontSize="18" TextWrapping="Wrap" Foreground="{StaticResource AppBrush100}">
+                            <Run FontWeight="Bold">+2</Run>
+                            <Run FontWeight="Bold" Text="{strings:UI Type=Tutorial}">
+                                <!--Tutorial-->
+                            </Run>
+                            <LineBreak/>
+                            <Run Text="{strings:UI Type=Guider003}">
+                                <!--Guider003-->
+                            </Run>
+                            <LineBreak/>
+                            <Run Text="{strings:UI Type=Guider004}">
+                                <!--Guider004-->
+                            </Run>
+                        </TextBlock>
+                        <Canvas Width="420" Height="60" Background="{StaticResource AppBrush100}">
+                            <Image Width="60" Height="60" Source="ms-appx:///Images/RedKing.png"/>
+                            <Image Canvas.Left="60" Width="60" Height="60" Source="ms-appx:///Images/RedMandarins.png"/>
+                            <Image Canvas.Left="120" Width="60" Height="60" Source="ms-appx:///Images/RedElephant.png"/>
+                            <Image Canvas.Left="180" Width="60" Height="60" Source="ms-appx:///Images/RedRook.png"/>
+                            <Image Canvas.Left="240" Width="60" Height="60" Source="ms-appx:///Images/RedKnight.png"/>
+                            <Image Canvas.Left="300" Width="60" Height="60" Source="ms-appx:///Images/RedCannons.png"/>
+                            <Image Canvas.Left="360" Width="60" Height="60" Source="ms-appx:///Images/RedSoldier.png"/>
+                        </Canvas>
+                        <Canvas Width="420" Height="60" Background="{StaticResource AppBrush100}">
+                            <Image Width="60" Height="60" Source="ms-appx:///Images/BlackKing.png"/>
+                            <Image Canvas.Left="60" Width="60" Height="60" Source="ms-appx:///Images/BlackMandarins.png"/>
+                            <Image Canvas.Left="120" Width="60" Height="60" Source="ms-appx:///Images/BlackElephant.png"/>
+                            <Image Canvas.Left="180" Width="60" Height="60" Source="ms-appx:///Images/BlackRook.png"/>
+                            <Image Canvas.Left="240" Width="60" Height="60" Source="ms-appx:///Images/BlackKnight.png"/>
+                            <Image Canvas.Left="300" Width="60" Height="60" Source="ms-appx:///Images/BlackCannons.png"/>
+                            <Image Canvas.Left="360" Width="60" Height="60" Source="ms-appx:///Images/BlackSoldier.png"/>
+                        </Canvas>
+                    </StackPanel>
+                    <Border VerticalAlignment="Bottom" BorderThickness="0,1,0,0" BorderBrush="{StaticResource AppBrush700}">
+                        <Button Padding="12,6" HorizontalAlignment="Right" Content="{strings:UI Type=NextStep}" CommandParameter="{strings:OptionType Type=Step2}" Command="{x:Bind Command}" Style="{StaticResource TextBlockButtonStyle}">
+                            <!--NextStep-->
+                        </Button>
+                    </Border>
+                </Grid>
 
                 <!--Step 4-->
-                <Border Margin="2">
-                    <Grid>
-                        <StackPanel Spacing="12" Margin="12,8">
-                            <TextBlock FontSize="18" TextWrapping="Wrap" Foreground="{StaticResource AppBrush100}">
-                                <Run FontWeight="Bold">+3</Run>
-                                <Run FontWeight="Bold" Text="{strings:UI Type=Tutorial}">
-                                    <!--Tutorial-->
-                                </Run>
-                                <LineBreak/>
-                                <Run Text="{strings:UI Type=Guider005}">
-                                    <!--Guider005-->
-                                </Run>
-                                <LineBreak/>
-                                <Run Text="{strings:UI Type=Guider006}">
-                                    <!--Guider006-->
-                                </Run>
-                            </TextBlock>
-                            <Canvas Width="120" Height="120" Background="{StaticResource AppBrush100}">
-                                <Image Width="60" Height="60" Source="ms-appx:///Images/RedKing.png"/>
-                                <Image Canvas.Left="60" Width="60" Height="60" Source="ms-appx:///Images/BlackMandarins.png"/>
-                                <Image Canvas.Top="60" Width="60" Height="60" Source="ms-appx:///Images/BlackElephant.png"/>
-                            </Canvas>
-                        </StackPanel>
-                        <Border VerticalAlignment="Bottom" BorderThickness="0,1,0,0" BorderBrush="{StaticResource AppBrush700}">
-                            <Button Padding="12,6" HorizontalAlignment="Right" Content="{strings:UI Type=NextStep}" CommandParameter="{strings:OptionType Type=Step3}" Command="{x:Bind Command}" Style="{StaticResource TextBlockButtonStyle}">
-                                <!--NextStep-->
-                            </Button>
-                        </Border>
-                    </Grid>
-                </Border>
+                <Grid Margin="2" BorderThickness="1" BorderBrush="{StaticResource AppBrush300}" Background="{StaticResource AppBrush900}">
+                    <StackPanel Spacing="12" Margin="12,8">
+                        <TextBlock FontSize="18" TextWrapping="Wrap" Foreground="{StaticResource AppBrush100}">
+                            <Run FontWeight="Bold">+3</Run>
+                            <Run FontWeight="Bold" Text="{strings:UI Type=Tutorial}">
+                                <!--Tutorial-->
+                            </Run>
+                            <LineBreak/>
+                            <Run Text="{strings:UI Type=Guider005}">
+                                <!--Guider005-->
+                            </Run>
+                            <LineBreak/>
+                            <Run Text="{strings:UI Type=Guider006}">
+                                <!--Guider006-->
+                            </Run>
+                        </TextBlock>
+                        <Canvas Width="120" Height="120" Background="{StaticResource AppBrush100}">
+                            <Image Width="60" Height="60" Source="ms-appx:///Images/RedKing.png"/>
+                            <Image Canvas.Left="60" Width="60" Height="60" Source="ms-appx:///Images/BlackMandarins.png"/>
+                            <Image Canvas.Top="60" Width="60" Height="60" Source="ms-appx:///Images/BlackElephant.png"/>
+                        </Canvas>
+                    </StackPanel>
+                    <Border VerticalAlignment="Bottom" BorderThickness="0,1,0,0" BorderBrush="{StaticResource AppBrush700}">
+                        <Button Padding="12,6" HorizontalAlignment="Right" Content="{strings:UI Type=NextStep}" CommandParameter="{strings:OptionType Type=Step3}" Command="{x:Bind Command}" Style="{StaticResource TextBlockButtonStyle}">
+                            <!--NextStep-->
+                        </Button>
+                    </Border>
+                </Grid>
 
                 <!--Step 5-->
-                <Border Margin="2">
-                    <Grid>
-                        <StackPanel Spacing="12" Margin="12,8">
-                            <TextBlock FontSize="18" TextWrapping="Wrap" Foreground="{StaticResource AppBrush100}">
-                                <Run FontWeight="Bold">+4</Run>
-                                <Run FontWeight="Bold" Text="{strings:UI Type=Tutorial}">
-                                    <!--Tutorial-->
-                                </Run>
-                                <LineBreak/>
-                                <Run Text="{strings:UI Type=Guider007}">
-                                    <!--Guider007-->
-                                </Run>
-                                <LineBreak/>
-                                <Run Text="{strings:UI Type=Guider008}">
-                                    <!--Guider008-->
-                                </Run>
-                            </TextBlock>
-                            <Canvas Width="120" Height="120" Background="{StaticResource AppBrush100}">
-                                <Image Canvas.Left="60" Width="60" Height="60" Source="ms-appx:///Images/BlackSoldier.png"/>
-                                <Image Canvas.Top="60" Width="60" Height="60" Source="ms-appx:///Images/BlackSoldier.png"/>
-                                <Image Canvas.Left="60" Canvas.Top="60" Width="60" Height="60" Source="ms-appx:///Images/RedKing.png"/>
-                            </Canvas>
-                        </StackPanel>
-                        <Border VerticalAlignment="Bottom" BorderThickness="0,1,0,0" BorderBrush="{StaticResource AppBrush700}">
-                            <Button Padding="12,6" HorizontalAlignment="Right" Content="{strings:UI Type=Close}" CommandParameter="{strings:OptionType Type=Step4}" Command="{x:Bind Command}" Style="{StaticResource TextBlockButtonStyle}">
-                                <!--Close-->
-                            </Button>
-                        </Border>
-                    </Grid>
-                </Border>
+                <Grid Margin="2" BorderThickness="1" BorderBrush="{StaticResource AppBrush300}" Background="{StaticResource AppBrush900}">
+                    <StackPanel Spacing="12" Margin="12,8">
+                        <TextBlock FontSize="18" TextWrapping="Wrap" Foreground="{StaticResource AppBrush100}">
+                            <Run FontWeight="Bold">+4</Run>
+                            <Run FontWeight="Bold" Text="{strings:UI Type=Tutorial}">
+                                <!--Tutorial-->
+                            </Run>
+                            <LineBreak/>
+                            <Run Text="{strings:UI Type=Guider007}">
+                                <!--Guider007-->
+                            </Run>
+                            <LineBreak/>
+                            <Run Text="{strings:UI Type=Guider008}">
+                                <!--Guider008-->
+                            </Run>
+                        </TextBlock>
+                        <Canvas Width="120" Height="120" Background="{StaticResource AppBrush100}">
+                            <Image Canvas.Left="60" Width="60" Height="60" Source="ms-appx:///Images/BlackSoldier.png"/>
+                            <Image Canvas.Top="60" Width="60" Height="60" Source="ms-appx:///Images/BlackSoldier.png"/>
+                            <Image Canvas.Left="60" Canvas.Top="60" Width="60" Height="60" Source="ms-appx:///Images/RedKing.png"/>
+                        </Canvas>
+                    </StackPanel>
+                    <Border VerticalAlignment="Bottom" BorderThickness="0,1,0,0" BorderBrush="{StaticResource AppBrush700}">
+                        <Button Padding="12,6" HorizontalAlignment="Right" Content="{strings:UI Type=Close}" CommandParameter="{strings:OptionType Type=Step4}" Command="{x:Bind Command}" Style="{StaticResource TextBlockButtonStyle}">
+                            <!--Close-->
+                        </Button>
+                    </Border>
+                </Grid>
 
             </FlipView>
         </controls:AnimationFadeContainer>
