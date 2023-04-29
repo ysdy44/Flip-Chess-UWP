@@ -676,29 +676,29 @@
                         >
 
                         <Rectangle Width="45" Height="65" RadiusX="4" RadiusY="4" StrokeThickness="1" Stroke="{StaticResource AppBrush100}" Fill="{StaticResource AppBrush900}"/>
-                        <Border CornerRadius="4" BorderThickness="1" BorderBrush="{StaticResource AppBrush100}" Background="{StaticResource AppBrush900}">
-                            <Canvas Width="45" Height="65">
-                                <Ellipse Canvas.Left="7" Canvas.Top="7" Width="11" Height="11" Fill="{StaticResource AppBrush100}"/>
-                                <Ellipse Canvas.Left="27" Canvas.Top="47" Width="11" Height="11" Fill="{StaticResource AppBrush100}"/>
-                            </Canvas>
-                        </Border>
-                        <Border CornerRadius="4" BorderThickness="1" BorderBrush="{StaticResource AppBrush100}" Background="{StaticResource AppBrush900}">
-                            <Canvas Width="45" Height="65">
-                                <Ellipse Canvas.Left="7" Canvas.Top="7" Width="11" Height="11" Fill="{StaticResource AppBrush100}"/>
-                                <Ellipse Canvas.Left="27" Canvas.Top="27" Width="11" Height="11" Fill="{StaticResource AppBrush100}"/>
-                                <Ellipse Canvas.Left="7" Canvas.Top="47" Width="11" Height="11" Fill="{StaticResource AppBrush100}"/>
-                            </Canvas>
-                        </Border>
-                        <Border CornerRadius="4" BorderThickness="1" BorderBrush="{StaticResource AppBrush100}" Background="{StaticResource AppBrush900}">
-                            <Canvas Width="45" Height="65">
-                                <Ellipse Canvas.Left="7" Canvas.Top="7" Width="11" Height="11" Fill="{StaticResource AppBrush100}"/>
-                                <Ellipse Canvas.Left="27" Canvas.Top="7" Width="11" Height="11" Fill="{StaticResource AppBrush100}"/>
-                                <Ellipse Canvas.Left="7" Canvas.Top="27" Width="11" Height="11" Fill="{StaticResource AppBrush100}"/>
-                                <Ellipse Canvas.Left="27" Canvas.Top="27" Width="11" Height="11" Fill="{StaticResource AppBrush100}"/>
-                                <Ellipse Canvas.Left="7" Canvas.Top="47" Width="11" Height="11" Fill="{StaticResource AppBrush100}"/>
-                                <Ellipse Canvas.Left="27" Canvas.Top="47" Width="11" Height="11" Fill="{StaticResource AppBrush100}"/>
-                            </Canvas>
-                        </Border>
+       
+                        <Canvas Width="45" Height="65">
+                            <Rectangle Width="45" Height="65" RadiusX="4" RadiusY="4" StrokeThickness="1" Stroke="{StaticResource AppBrush100}" Fill="{StaticResource AppBrush900}"/>
+                            <Ellipse Canvas.Left="7" Canvas.Top="7" Width="11" Height="11" Fill="{StaticResource AppBrush100}"/>
+                            <Ellipse Canvas.Left="27" Canvas.Top="47" Width="11" Height="11" Fill="{StaticResource AppBrush100}"/>
+                        </Canvas>
+             
+                        <Canvas Width="45" Height="65">
+                            <Rectangle Width="45" Height="65" RadiusX="4" RadiusY="4" StrokeThickness="1" Stroke="{StaticResource AppBrush100}" Fill="{StaticResource AppBrush900}"/>
+                            <Ellipse Canvas.Left="7" Canvas.Top="7" Width="11" Height="11" Fill="{StaticResource AppBrush100}"/>
+                            <Ellipse Canvas.Left="27" Canvas.Top="27" Width="11" Height="11" Fill="{StaticResource AppBrush100}"/>
+                            <Ellipse Canvas.Left="7" Canvas.Top="47" Width="11" Height="11" Fill="{StaticResource AppBrush100}"/>
+                        </Canvas>
+          
+                        <Canvas Width="45" Height="65">
+                            <Rectangle Width="45" Height="65" RadiusX="4" RadiusY="4" StrokeThickness="1" Stroke="{StaticResource AppBrush100}" Fill="{StaticResource AppBrush900}"/>
+                            <Ellipse Canvas.Left="7" Canvas.Top="7" Width="11" Height="11" Fill="{StaticResource AppBrush100}"/>
+                            <Ellipse Canvas.Left="27" Canvas.Top="7" Width="11" Height="11" Fill="{StaticResource AppBrush100}"/>
+                            <Ellipse Canvas.Left="7" Canvas.Top="27" Width="11" Height="11" Fill="{StaticResource AppBrush100}"/>
+                            <Ellipse Canvas.Left="27" Canvas.Top="27" Width="11" Height="11" Fill="{StaticResource AppBrush100}"/>
+                            <Ellipse Canvas.Left="7" Canvas.Top="47" Width="11" Height="11" Fill="{StaticResource AppBrush100}"/>
+                            <Ellipse Canvas.Left="27" Canvas.Top="47" Width="11" Height="11" Fill="{StaticResource AppBrush100}"/>
+                        </Canvas>
 
                     </controls:CommandListBox>
                 </Flyout>
