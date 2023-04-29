@@ -1,19 +1,27 @@
-﻿namespace Flip_Chess.Elements
-{
-    public struct Liner
-    {
-        public int X1;
-        public int Y1;
-        public int X2;
-        public int Y2;
+﻿using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 
-        //@Construct
-        public Liner(int x1, int y1, int x2, int y2) : this()
+namespace Flip_Chess.Elements
+{
+    public sealed partial class Highlight : Canvas
+    {
+        public Highlight()
         {
-            this.X1 = x1;
-            this.Y1 = y1;
-            this.X2 = x2;
-            this.Y2 = y2;
+            this.InitializeComponent();
+        }
+
+        public void Hide()
+        {
+            base.Visibility = Visibility.Collapsed;
+            this.Storyboard.Stop();
+        }
+
+        public void ShowAt(int x, int y)
+        {
+            Canvas.SetLeft(this, x);
+            Canvas.SetTop(this, y);
+            base.Visibility = Visibility.Visible;
+            this.Storyboard.Begin();
         }
     }
 }

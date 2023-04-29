@@ -1,69 +1,58 @@
-﻿using System.Collections.Generic;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
+﻿using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Shapes;
 
 namespace Flip_Chess.Elements
 {
-    public abstract partial class LinesCanvas : Canvas
+    public abstract class LinesCanvas : Canvas
     {
         protected LinesCanvas(int w, int h, int unit)
-        {
-            this.InitializeComponent();
-            foreach (Liner item in LinesCanvas.GetLines(w, h, unit))
-            {
-                base.Children.Add(new Line { X1 = item.X1, Y1 = item.Y1, X2 = item.X2, Y2 = item.Y2 });
-            }
-        }
-
-        private static IEnumerable<Liner> GetLines(int w, int h, int unit)
         {
             // X-Coordinate
             for (int i = 0; i <= w; i++)
             {
-                yield return new Liner(i * unit, 0, i * unit, h * unit);
+                base.Children.Add(new Line { X1 = i * unit, Y1 = 0, X2 = i * unit, Y2 = h * unit });
             }
             // Y-Coordinate
             for (int i = 0; i <= h; i++)
             {
-                yield return new Liner(0, i * unit, w * unit, i * unit);
+                base.Children.Add(new Line { X1 = 0, Y1 = i * unit, X2 = w * unit, Y2 = i * unit });
             }
 
             //LeftTop
             Corner lt = new Corner(0, 0);
-            yield return new Liner(lt.R, lt.B, lt.R, lt.BB);
-            yield return new Liner(lt.R, lt.B, lt.RR, lt.B);
+            base.Children.Add(new Line { X1 = lt.R, Y1 = lt.B, X2 = lt.R, Y2 = lt.BB });
+            base.Children.Add(new Line { X1 = lt.R, Y1 = lt.B, X2 = lt.RR, Y2 = lt.B });
 
             // LeftBottom
             Corner lb = new Corner(0, h * unit);
-            yield return new Liner(lb.R, lb.T, lb.R, lb.TT);
-            yield return new Liner(lb.R, lb.T, lb.RR, lb.T);
+            base.Children.Add(new Line { X1 = lb.R, Y1 = lb.T, X2 = lb.R, Y2 = lb.TT });
+            base.Children.Add(new Line { X1 = lb.R, Y1 = lb.T, X2 = lb.RR, Y2 = lb.T });
 
             // RightTop
             Corner rt = new Corner(w * unit, 0);
-            yield return new Liner(rt.L, rt.B, rt.L, rt.BB);
-            yield return new Liner(rt.L, rt.B, rt.LL, rt.B);
+            base.Children.Add(new Line { X1 = rt.L, Y1 = rt.B, X2 = rt.L, Y2 = rt.BB });
+            base.Children.Add(new Line { X1 = rt.L, Y1 = rt.B, X2 = rt.LL, Y2 = rt.B });
 
             // RightBottom
             Corner rb = new Corner(w * unit, h * unit);
-            yield return new Liner(rb.L, rb.T, rb.L, rb.TT);
-            yield return new Liner(rb.L, rb.T, rb.LL, rb.T);
+            base.Children.Add(new Line { X1 = rb.L, Y1 = rb.T, X2 = rb.L, Y2 = rb.TT });
+            base.Children.Add(new Line { X1 = rb.L, Y1 = rb.T, X2 = rb.LL, Y2 = rb.T });
 
             for (int i = 1; i < h / 2; i++)
             {
                 // Left Lines
                 Corner l = new Corner(0, i * 2 * unit);
-                yield return new Liner(l.R, l.T, l.R, l.TT);
-                yield return new Liner(l.R, l.T, l.RR, l.T);
-                yield return new Liner(l.R, l.B, l.R, l.BB);
-                yield return new Liner(l.R, l.B, l.RR, l.B);
+                base.Children.Add(new Line { X1 = l.R, Y1 = l.T, X2 = l.R, Y2 = l.TT });
+                base.Children.Add(new Line { X1 = l.R, Y1 = l.T, X2 = l.RR, Y2 = l.T });
+                base.Children.Add(new Line { X1 = l.R, Y1 = l.B, X2 = l.R, Y2 = l.BB });
+                base.Children.Add(new Line { X1 = l.R, Y1 = l.B, X2 = l.RR, Y2 = l.B });
 
                 // Right Lines
                 Corner r = new Corner(w * unit, i * 2 * unit);
-                yield return new Liner(r.L, r.T, r.L, r.TT);
-                yield return new Liner(r.L, r.T, r.LL, r.T);
-                yield return new Liner(r.L, r.B, r.L, r.BB);
-                yield return new Liner(r.L, r.B, r.LL, r.B);
+                base.Children.Add(new Line { X1 = r.L, Y1 = r.T, X2 = r.L, Y2 = r.TT });
+                base.Children.Add(new Line { X1 = r.L, Y1 = r.T, X2 = r.LL, Y2 = r.T });
+                base.Children.Add(new Line { X1 = r.L, Y1 = r.B, X2 = r.L, Y2 = r.BB });
+                base.Children.Add(new Line { X1 = r.L, Y1 = r.B, X2 = r.LL, Y2 = r.B });
             }
 
             // Center Lines
@@ -79,104 +68,23 @@ namespace Flip_Chess.Elements
                     var x2 = x * xs + xp;
 
                     Corner c = new Corner(x2 * unit, y3 * unit);
-                    yield return new Liner(c.L, c.T, c.L, c.TT);
-                    yield return new Liner(c.L, c.T, c.LL, c.T);
-                    yield return new Liner(c.R, c.T, c.R, c.TT);
-                    yield return new Liner(c.R, c.T, c.RR, c.T);
-                    yield return new Liner(c.R, c.B, c.R, c.BB);
-                    yield return new Liner(c.R, c.B, c.RR, c.B);
-                    yield return new Liner(c.L, c.B, c.L, c.BB);
-                    yield return new Liner(c.L, c.B, c.LL, c.B);
+                    base.Children.Add(new Line { X1 = c.L, Y1 = c.T, X2 = c.L, Y2 = c.TT });
+                    base.Children.Add(new Line { X1 = c.L, Y1 = c.T, X2 = c.LL, Y2 = c.T });
+                    base.Children.Add(new Line { X1 = c.R, Y1 = c.T, X2 = c.R, Y2 = c.TT });
+                    base.Children.Add(new Line { X1 = c.R, Y1 = c.T, X2 = c.RR, Y2 = c.T });
+                    base.Children.Add(new Line { X1 = c.R, Y1 = c.B, X2 = c.R, Y2 = c.BB });
+                    base.Children.Add(new Line { X1 = c.R, Y1 = c.B, X2 = c.RR, Y2 = c.B });
+                    base.Children.Add(new Line { X1 = c.L, Y1 = c.B, X2 = c.L, Y2 = c.BB });
+                    base.Children.Add(new Line { X1 = c.L, Y1 = c.B, X2 = c.LL, Y2 = c.B });
                 }
             }
         }
 
-        public void Hide()
-        {
-            this.Center.Visibility = Visibility.Collapsed;
-
-            this.Left.Visibility = Visibility.Collapsed;
-            this.LeftStoryboard.Stop();
-
-            this.Top.Visibility = Visibility.Collapsed;
-            this.TopStoryboard.Stop();
-
-            this.Right.Visibility = Visibility.Collapsed;
-            this.RightStoryboard.Stop();
-
-            this.Bottom.Visibility = Visibility.Collapsed;
-            this.BottomStoryboard.Stop();
-        }
-
-        public void ShowAt(int x, int y, int unit)
-        {
-            Canvas.SetLeft(this.Center, x * unit);
-            Canvas.SetTop(this.Center, y * unit);
-            this.Center.Visibility = Visibility.Visible;
-        }
-
-        public void ShowLeftAt(int x, int y, int unit, bool isLeft)
-        {
-            if (isLeft)
-            {
-                Canvas.SetLeft(this.Left, x * unit - unit);
-                Canvas.SetTop(this.Left, y * unit);
-                this.Left.Visibility = Visibility.Visible;
-                this.LeftStoryboard.Begin();
-            }
-            else
-            {
-                this.Left.Visibility = Visibility.Collapsed;
-                this.LeftStoryboard.Stop();
-            }
-        }
-
-        public void ShowTopAt(int x, int y, int unit, bool isTop)
-        {
-            if (isTop)
-            {
-                Canvas.SetLeft(this.Top, x * unit);
-                Canvas.SetTop(this.Top, y * unit - unit);
-                this.Top.Visibility = Visibility.Visible;
-                this.TopStoryboard.Begin();
-            }
-            else
-            {
-                this.Top.Visibility = Visibility.Collapsed;
-                this.TopStoryboard.Stop();
-            }
-        }
-
-        public void ShowRightAt(int x, int y, int unit, bool isRight)
-        {
-            if (isRight)
-            {
-                Canvas.SetLeft(this.Right, x * unit + unit);
-                Canvas.SetTop(this.Right, y * unit);
-                this.Right.Visibility = Visibility.Visible;
-                this.RightStoryboard.Begin();
-            }
-            else
-            {
-                this.Right.Visibility = Visibility.Collapsed;
-                this.RightStoryboard.Stop();
-            }
-        }
-
-        public void ShowBottomAt(int x, int y, int unit, bool isBottom)
-        {
-            if (isBottom)
-            {
-                Canvas.SetLeft(this.Bottom, x * unit);
-                Canvas.SetTop(this.Bottom, y * unit + unit);
-                this.Bottom.Visibility = Visibility.Visible;
-                this.BottomStoryboard.Begin();
-            }
-            else
-            {
-                this.Bottom.Visibility = Visibility.Collapsed;
-                this.BottomStoryboard.Stop();
-            }
-        }
+        public void Hide() { }
+        public void ShowAt(int x, int y, int unit) { }
+        public void ShowLeftAt(int x, int y, int unit, bool isLeft) { }
+        public void ShowTopAt(int x, int y, int unit, bool isTop) { }
+        public void ShowRightAt(int x, int y, int unit, bool isRight) { }
+        public void ShowBottomAt(int x, int y, int unit, bool isBottom) { }
     }
 }
