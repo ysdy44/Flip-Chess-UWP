@@ -24,6 +24,10 @@
         Step3,
         Step4,
 
+        UIRedChanged,
+        UIBlackChanged,
+        UIModeChanged,
+
         UIFlipCompleted,
         UICaptureCompleted,
         UICemeteryCompleted,
