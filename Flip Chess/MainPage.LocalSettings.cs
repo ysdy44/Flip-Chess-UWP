@@ -13,8 +13,8 @@ namespace Flip_Chess
         // "Mode" int.0
         // "State" int.0
         // "Step" int.0
-        // "Random" byte[]
         // "Collection" byte[]
+        // "Random" byte[]
 
         public bool SettingsRed
         {

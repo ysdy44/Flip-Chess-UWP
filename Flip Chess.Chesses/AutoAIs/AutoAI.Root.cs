@@ -93,28 +93,14 @@ namespace Flip_Chess.Chesses.AutoAIs
             int defaultValue = this.DefaultValue();
             AutoAI find = null;
 
-            System.Diagnostics.Debug.WriteLine(this.GetType().Name);
             foreach (AutoAI item in this)
             {
-                System.Diagnostics.Debug.WriteLine(item.ToString());
-
                 int value = item.GetValueForce();
 
                 if (this.EqualsValue(defaultValue, value))
                 {
                     defaultValue = value;
                     find = item;
-                }
-                else if (defaultValue == value)
-                {
-                    if (find != null)
-                    {
-                        if (this.EqualsValue(find.LevelSquared, item.LevelSquared))
-                        {
-                            defaultValue = value;
-                            find = item;
-                        }
-                    }
                 }
             }
 
