@@ -114,7 +114,26 @@ namespace Flip_Chess
                     this.SettingsStep = this.Step; // 3. Save HistorianCount + Historian // Sertings
 
                     //this.Randoms.Random();
-                    this.Collection.Clear();
+                    switch (this.Mode)
+                    {
+                        case GameMode.None:
+                            this.Collection.Clear();
+                            break;
+                        case GameMode.King:
+                            this.Collection.Clear();
+                            this.Collection.Copy(this.Randoms, ChessType.RedKing);
+                            this.Collection.Copy(this.Randoms, ChessType.BlackKing);
+                            break;
+                        case GameMode.Half:
+                            this.Collection.Clear();
+                            this.Collection.CopyHalf(this.Randoms);
+                            break;
+                        case GameMode.All:
+                            this.Collection.Copy(this.Randoms);
+                            break;
+                        default:
+                            break;
+                    }
                     this.WriteCollection(); // Sertings
                     //this.Chesses.Copy(this.Collection);
 
@@ -200,6 +219,5 @@ namespace Flip_Chess
                     break;
             }
         }
-
     }
 }
