@@ -11,6 +11,11 @@ using Windows.UI.Xaml.Controls;
 
 namespace Flip_Chess
 {
+    internal sealed class LinesCanvas4x2 : LinesCanvas
+    {
+        public LinesCanvas4x2() : base(4, 2, 100) { }
+    }
+
     internal sealed class MainLinesCanvas : LinesCanvas
     {
         public MainLinesCanvas() : base(App.Width, App.Height, 100) { }

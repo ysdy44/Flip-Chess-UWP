@@ -7,6 +7,9 @@ namespace Flip_Chess.Elements
     {
         protected LinesCanvas(int w, int h, int unit)
         {
+            base.Width = w * unit;
+            base.Height = h * unit;
+
             // X-Coordinate
             for (int i = 0; i <= w; i++)
             {
