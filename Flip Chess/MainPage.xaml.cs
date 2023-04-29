@@ -123,18 +123,9 @@ namespace Flip_Chess
             this.State = (GameState)this.SettingsState; // Sertings
             this.HistorianCount = this.SettingsStep; // Sertings
 
-            if (this.ReadCollection()) // Sertings
+            if (this.ReadRandom() && this.ReadCollection()) // Sertings
             {
                 this.Shown();
-            }
-            else
-            {
-                this.Collection.Clear();
-                this.WriteCollection(); // Sertings
-            }
-
-            if (this.ReadRandom()) // Sertings
-            {
                 this.Deaded();
             }
             else
@@ -142,6 +133,31 @@ namespace Flip_Chess
                 this.Randoms.Home();
                 this.Randoms.Random();
                 this.WriteRandom(); // Sertings
+
+                switch (this.Mode)
+                {
+                    case GameMode.None:
+                        this.Collection.Clear();
+                        break;
+                    case GameMode.King:
+                        this.Collection.Clear();
+                        this.Collection.Copy(this.Randoms, ChessType.RedKing);
+                        this.Collection.Copy(this.Randoms, ChessType.BlackKing);
+                        break;
+                    case GameMode.Half:
+                        this.Collection.Clear();
+                        this.Collection.CopyHalf(this.Randoms);
+                        break;
+                    case GameMode.All:
+                        this.Collection.Copy(this.Randoms);
+                        break;
+                    default:
+                        break;
+                }
+                this.WriteCollection(); // Sertings
+
+                this.Shown();
+                this.Relive();
             }
 
             this.Timer.Tick += (s, e) => this.Click();

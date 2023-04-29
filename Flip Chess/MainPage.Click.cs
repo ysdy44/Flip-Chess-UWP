@@ -113,7 +113,10 @@ namespace Flip_Chess
                     this.Historian.Clear(); // 2. Clear Historian
                     this.SettingsStep = this.Step; // 3. Save HistorianCount + Historian // Sertings
 
+                    //this.Randoms.Home();
                     //this.Randoms.Random();
+                    //this.WriteRandom(); // Sertings
+
                     switch (this.Mode)
                     {
                         case GameMode.None:
@@ -135,10 +138,11 @@ namespace Flip_Chess
                             break;
                     }
                     this.WriteCollection(); // Sertings
-                    //this.Chesses.Copy(this.Collection);
 
+                    //this.Shown();
                     this.BeginClip(); /// <see cref="OptionType.UIClipCompleted"/>
                     this.Relive();
+
                     this.State = GameState.None;
                     this.SettingsState = (int)GameState.None; // Sertings
 
@@ -212,7 +216,7 @@ namespace Flip_Chess
                     this.Deaded();
                     break;
                 case OptionType.UIClipCompleted: /// <see cref="OptionType.UIClipCompleted"/>
-                    this.Chesses.Copy(this.Collection);
+                    this.Shown();
                     break;
 
                 default:
