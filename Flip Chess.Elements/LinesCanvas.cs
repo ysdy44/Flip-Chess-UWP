@@ -79,12 +79,5 @@ namespace Flip_Chess.Elements
                 }
             }
         }
-
-        public void Hide() { }
-        public void ShowAt(int x, int y, int unit) { }
-        public void ShowLeftAt(int x, int y, int unit, bool isLeft) { }
-        public void ShowTopAt(int x, int y, int unit, bool isTop) { }
-        public void ShowRightAt(int x, int y, int unit, bool isRight) { }
-        public void ShowBottomAt(int x, int y, int unit, bool isBottom) { }
     }
 }
