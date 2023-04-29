@@ -101,50 +101,6 @@ namespace Flip_Chess
             set => ApplicationData.Current.LocalSettings.Values["Step"] = value;
         }
 
-        public bool ReadRandom()
-        {
-            if (ApplicationData.Current.LocalSettings.Values.ContainsKey("Random"))
-            {
-                if (ApplicationData.Current.LocalSettings.Values["Random"] is byte[] item)
-                {
-                    for (int i = 0; i < System.Math.Min(item.Length, this.Randoms.Length); i++)
-                    {
-                        this.Randoms[i].Type = (ChessType)(int)item[i];
-                    }
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
-        public bool WriteRandom()
-        {
-            if (ApplicationData.Current.LocalSettings.Values.ContainsKey("Random"))
-            {
-                if (ApplicationData.Current.LocalSettings.Values["Random"] is byte[] item)
-                {
-                    if (item.Length == this.Randoms.Length)
-                    {
-                        for (int i = 0; i < this.Randoms.Length; i++)
-                        {
-                            item[i] = (byte)(int)this.Randoms[i].Type;
-                        }
-                        ApplicationData.Current.LocalSettings.Values["Random"] = item;
-                        return true;
-                    }
-                }
-            }
-
-            ApplicationData.Current.LocalSettings.Values["Random"] =
-            (
-                from i
-                in this.Randoms
-                select (byte)(int)i.Type
-            ).ToArray();
-            return false;
-        }
-
         public bool ReadCollection()
         {
             if (ApplicationData.Current.LocalSettings.Values.ContainsKey("Collection"))
@@ -212,6 +168,50 @@ namespace Flip_Chess
                 }
             }
             ApplicationData.Current.LocalSettings.Values["Collection"] = item2;
+            return false;
+        }
+
+        public bool ReadRandom()
+        {
+            if (ApplicationData.Current.LocalSettings.Values.ContainsKey("Random"))
+            {
+                if (ApplicationData.Current.LocalSettings.Values["Random"] is byte[] item)
+                {
+                    for (int i = 0; i < System.Math.Min(item.Length, this.Randoms.Length); i++)
+                    {
+                        this.Randoms[i].Type = (ChessType)(int)item[i];
+                    }
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public bool WriteRandom()
+        {
+            if (ApplicationData.Current.LocalSettings.Values.ContainsKey("Random"))
+            {
+                if (ApplicationData.Current.LocalSettings.Values["Random"] is byte[] item)
+                {
+                    if (item.Length == this.Randoms.Length)
+                    {
+                        for (int i = 0; i < this.Randoms.Length; i++)
+                        {
+                            item[i] = (byte)(int)this.Randoms[i].Type;
+                        }
+                        ApplicationData.Current.LocalSettings.Values["Random"] = item;
+                        return true;
+                    }
+                }
+            }
+
+            ApplicationData.Current.LocalSettings.Values["Random"] =
+            (
+                from i
+                in this.Randoms
+                select (byte)(int)i.Type
+            ).ToArray();
             return false;
         }
     }

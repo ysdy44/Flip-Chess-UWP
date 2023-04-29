@@ -68,17 +68,6 @@ namespace Flip_Chess
         // Collection
         public int ZIndex { get; set; } // Indexer
         public ChessType[,,] Collection { get; } = new ChessType[1024, App.Height, App.Width]; // Sertings // Indexer
-        public ChessAlive[] Chesses { get; } = new ChessAlive[App.Height * App.Width]
-        {
-            new ChessAlive(), new ChessAlive(), new ChessAlive(), new ChessAlive(),
-            new ChessAlive(), new ChessAlive(), new ChessAlive(), new ChessAlive(),
-            new ChessAlive(), new ChessAlive(), new ChessAlive(), new ChessAlive(),
-            new ChessAlive(), new ChessAlive(), new ChessAlive(), new ChessAlive(),
-            new ChessAlive(), new ChessAlive(), new ChessAlive(), new ChessAlive(),
-            new ChessAlive(), new ChessAlive(), new ChessAlive(), new ChessAlive(),
-            new ChessAlive(), new ChessAlive(), new ChessAlive(), new ChessAlive(),
-            new ChessAlive(), new ChessAlive(), new ChessAlive(), new ChessAlive(),
-        };
         public Chess[] Randoms { get; } = new Chess[App.Height * App.Width] // Sertings
         {
             new Chess(), new Chess(), new Chess(), new Chess(),
@@ -89,6 +78,17 @@ namespace Flip_Chess
             new Chess(), new Chess(), new Chess(), new Chess(),
             new Chess(), new Chess(), new Chess(), new Chess(),
             new Chess(), new Chess(), new Chess(), new Chess(),
+        };
+        public ChessAlive[] Chesses { get; } = new ChessAlive[App.Height * App.Width]
+        {
+            new ChessAlive(), new ChessAlive(), new ChessAlive(), new ChessAlive(),
+            new ChessAlive(), new ChessAlive(), new ChessAlive(), new ChessAlive(),
+            new ChessAlive(), new ChessAlive(), new ChessAlive(), new ChessAlive(),
+            new ChessAlive(), new ChessAlive(), new ChessAlive(), new ChessAlive(),
+            new ChessAlive(), new ChessAlive(), new ChessAlive(), new ChessAlive(),
+            new ChessAlive(), new ChessAlive(), new ChessAlive(), new ChessAlive(),
+            new ChessAlive(), new ChessAlive(), new ChessAlive(), new ChessAlive(),
+            new ChessAlive(), new ChessAlive(), new ChessAlive(), new ChessAlive(),
         };
 
         // Storyboard
