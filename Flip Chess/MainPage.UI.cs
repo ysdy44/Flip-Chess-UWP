@@ -39,6 +39,23 @@ namespace Flip_Chess
             set => this.BlackListBox.SelectedIndex = value ? 0 : 1;
         }
 
+        public GameMode Mode
+        {
+            get => (GameMode)this.ListBox.SelectedIndex;
+            set => this.ListBox.SelectedIndex = (int)value;
+        }
+
+        #region DependencyProperty
+
+        public GameState State
+        {
+            get => (GameState)base.GetValue(StateProperty);
+            set => base.SetValue(StateProperty, value);
+        }
+        public static readonly DependencyProperty StateProperty = DependencyProperty.Register(nameof(State), typeof(GameState), typeof(MainPage), new PropertyMetadata(GameState.None));
+
+        #endregion
+
         public void ClickFullScreen()
         {
             if (this.ApplicationView.IsFullScreenMode)

@@ -113,25 +113,15 @@ namespace Flip_Chess
             new ChessDeaded(ChessType.RedSoldier)
         };
 
-        #region DependencyProperty
-
-        public GameState State
-        {
-            get => (GameState)base.GetValue(StateProperty);
-            set => base.SetValue(StateProperty, value);
-        }
-        public static readonly DependencyProperty StateProperty = DependencyProperty.Register(nameof(State), typeof(GameState), typeof(MainPage), new PropertyMetadata(GameState.None));
-
-        #endregion
-
         public MainPage()
         {
             this.InitializeComponent();
 
-            this.State = (GameState)this.SettingsState; // Sertings
-            this.HistorianCount = this.SettingsStep; // Sertings
             this.IsRedComputer = this.SettingsRed; // Sertings
             this.IsBlackComputer = this.SettingsBlack; // Sertings
+            this.Mode = (GameMode)this.SettingsMode; // Sertings
+            this.State = (GameState)this.SettingsState; // Sertings
+            this.HistorianCount = this.SettingsStep; // Sertings
 
             if (this.ReadCollection()) // Sertings
             {
