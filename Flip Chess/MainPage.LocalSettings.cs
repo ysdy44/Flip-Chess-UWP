@@ -9,8 +9,11 @@ namespace Flip_Chess
     {
         // "State" int.0
         // "Step" int.0
+
         // "Red" bool.False
         // "Black" bool.True
+        // "Mode" int.0
+
         // "Random" byte[]
         // "Collection" byte[]
 
@@ -80,6 +83,23 @@ namespace Flip_Chess
                 return true; // IsBlack is true
             }
             set => ApplicationData.Current.LocalSettings.Values["Black"] = value;
+        }
+
+        public int SettingsMode
+        {
+            get
+            {
+                if (ApplicationData.Current.LocalSettings.Values.ContainsKey("Mode"))
+                {
+                    if (ApplicationData.Current.LocalSettings.Values["Mode"] is int item)
+                    {
+                        return item;
+                    }
+                }
+
+                return 0;
+            }
+            set => ApplicationData.Current.LocalSettings.Values["Mode"] = value;
         }
 
         public bool ReadRandom()
