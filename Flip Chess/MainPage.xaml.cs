@@ -180,5 +180,9 @@ namespace Flip_Chess
                 this.SetMargin((int)e.NewSize.Width, (int)e.NewSize.Height, 50);
             };
         }
+
+        // AutoAi
+        private History FindRed() => new RedAutoAICollection(this.Collection).FindAutoAI(this.Collection);
+        private History FindBlack() => new BlackAutoAICollection(this.Collection).FindAutoAI(this.Collection);
     }
 }

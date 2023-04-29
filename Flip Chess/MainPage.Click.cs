@@ -29,7 +29,7 @@ namespace Flip_Chess
             }
         }
 
-        public void Click()
+        public async void Click()
         {
             switch (this.State)
             {
@@ -38,14 +38,18 @@ namespace Flip_Chess
                     {
                         if (this.IsRedComputer)
                         {
-                            this.ItemClick(new RedAutoAICollection(this.Collection).FindAutoAI(this.Collection));
+                            this.Timer.Stop();
+                            this.ItemClick(await System.Threading.Tasks.Task.Run(this.FindRed));
+                            this.Timer.Start();
                         }
                     }
                     else if (this.Step.IsBlack())
                     {
                         if (this.IsBlackComputer)
                         {
-                            this.ItemClick(new BlackAutoAICollection(this.Collection).FindAutoAI(this.Collection));
+                            this.Timer.Stop();
+                            this.ItemClick(await System.Threading.Tasks.Task.Run(this.FindBlack));
+                            this.Timer.Start();
                         }
                     }
                     break;
@@ -80,8 +84,8 @@ namespace Flip_Chess
             switch (type)
             {
                 case OptionType.Ai:
-                    if (this.Step.IsBlack()) this.ItemClick(new BlackAutoAICollection(this.Collection).FindAutoAI(this.Collection));
-                    else if (this.Step.IsRed()) this.ItemClick(new RedAutoAICollection(this.Collection).FindAutoAI(this.Collection));
+                    if (this.Step.IsBlack()) this.ItemClick(this.FindRed());
+                    else if (this.Step.IsRed()) this.ItemClick(this.FindBlack());
                     break;
                 case OptionType.Play:
                     this.State = GameState.None;
