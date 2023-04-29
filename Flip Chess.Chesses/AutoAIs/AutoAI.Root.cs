@@ -102,21 +102,18 @@ namespace Flip_Chess.Chesses.AutoAIs
                     defaultValue = value;
                     find = item;
                 }
-            }
-
-            if (find != null)
-            {
-                if (find.History != History.Noway)
+                else if (defaultValue == value)
                 {
-                    if (this.EqualsValue(this.LevelSquared, find.LevelSquared))
+                    if (find != null)
                     {
-                        return find.History;
+                        if (this.EqualsValue(find.LevelSquared, item.LevelSquared))
+                        {
+                            defaultValue = value;
+                            find = item;
+                        }
                     }
                 }
             }
-
-            History flip = array.RandomFlip();
-            if (flip != History.Noway) return flip;
 
             if (find != null)
             {
@@ -125,6 +122,9 @@ namespace Flip_Chess.Chesses.AutoAIs
                     return find.History;
                 }
             }
+
+            History flip = array.RandomFlip();
+            if (flip != History.Noway) return flip;
 
             foreach (AutoAI item in this)
             {
