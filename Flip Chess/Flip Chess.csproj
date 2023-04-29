@@ -119,6 +119,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Enums\GameMode.cs" />
     <Compile Include="Enums\GameState.cs" />
     <Compile Include="Enums\OptionType.cs" />
     <Compile Include="Enums\UIType.cs" />
