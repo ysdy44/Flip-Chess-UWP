@@ -144,69 +144,8 @@ namespace Flip_Chess
                 this.WriteRandom(); // Sertings
             }
 
-            this.Timer.Tick += (s, e) =>
-            {
-                switch (this.State)
-                {
-                    case GameState.None:
-                        if (this.Step.IsRed())
-                        {
-                            if (this.IsRedComputer)
-                            {
-                                this.SettingsRed = true; // Sertings
-                                this.ItemClick(new RedAutoAICollection(this.Collection).FindAutoAI(this.Collection));
-                            }
-                            else
-                            {
-                                this.SettingsRed = false; // Sertings
-                            }
-                        }
-                        else if (this.Step.IsBlack())
-                        {
-                            if (this.IsBlackComputer)
-                            {
-                                this.SettingsRed = true; // Sertings
-                                this.ItemClick(new BlackAutoAICollection(this.Collection).FindAutoAI(this.Collection));
-                            }
-                            else
-                            {
-                                this.SettingsRed = false; // Sertings
-                            }
-                        }
-                        break;
-                    default:
-                        break;
-                }
-            };
+            this.Timer.Tick += (s, e) => this.Click();
             this.Timer.Start();
-
-            // ItemClick
-            this.ItemsItemClick += (s, e) =>
-            {
-                switch (this.State)
-                {
-                    case GameState.None:
-                        if (this.Step.IsRed())
-                        {
-                            if (this.IsRedComputer) break;
-                            if (e.ClickedItem is IChess item)
-                            {
-                                this.ItemClick(item);
-                            }
-                        }
-                        else if (this.Step.IsBlack())
-                        {
-                            if (this.IsBlackComputer) break;
-                            if (e.ClickedItem is IChess item)
-                            {
-                                this.ItemClick(item);
-                            }
-                        }
-                        break;
-                    default:
-                        break;
-                }
-            };
 
             // UI
             this.Text1 = this.Step.ToString();
