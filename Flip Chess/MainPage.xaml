@@ -589,6 +589,37 @@
         </Border>
 
         <!--Button-->
+        <Button 
+            x:Name="FullScreenButton" 
+            Margin="12,18"
+            Width="46" 
+            Height="44" 
+            FontWeight="Bold" 
+            HorizontalAlignment="Left" 
+            VerticalAlignment="Top" 
+            Windows10version1809:CornerRadius="4" 
+            CommandParameter="{strings:OptionType Type=FullScreen}" 
+            Command="{x:Bind Command}"
+            >
+            <FontIcon Glyph="&#xE1D9;" FontSize="22" FontFamily="Segoe UI Symbol" Foreground="{StaticResource AppBrush900}"/>
+        </Button>
+        <Button 
+            x:Name="UnFullScreenButton" 
+            Visibility="Collapsed"
+            Margin="12,18" 
+            Width="46" 
+            Height="44"
+            FontWeight="Bold"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top" 
+            Windows10version1809:CornerRadius="4" 
+            CommandParameter="{strings:OptionType Type=UnFullScreen}"
+            Command="{x:Bind Command}"
+            >
+            <FontIcon Glyph="&#xE1D8;" FontSize="22" FontFamily="Segoe UI Symbol" Foreground="{StaticResource AppBrush900}"/>
+        </Button>
+
+        <!--Button-->
         <Canvas Width="162" Height="115" HorizontalAlignment="Right" VerticalAlignment="Bottom">
             <controls:RevolvingRestaurant Paused="{x:Bind ReverseNoneToBooleanConverter(State), Mode=OneWay}"/>
             <Button
@@ -720,12 +751,6 @@
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="12" HorizontalAlignment="Center">
-                        <Button x:Name="FullScreenButton" Margin="3,0" Windows10version1809:CornerRadius="4" CommandParameter="{strings:OptionType Type=FullScreen}" Command="{x:Bind Command}">
-                            <FontIcon Glyph="&#xE1D9;" FontSize="36" FontFamily="Segoe UI Symbol" Foreground="{StaticResource AppBrush900}"/>
-                        </Button>
-                        <Button x:Name="UnFullScreenButton" Visibility="Collapsed" Margin="3,0" Windows10version1809:CornerRadius="4" CommandParameter="{strings:OptionType Type=UnFullScreen}" Command="{x:Bind Command}">
-                            <FontIcon Glyph="&#xE1D8;" FontSize="36" FontFamily="Segoe UI Symbol" Foreground="{StaticResource AppBrush900}"/>
-                        </Button>
                         <Button Margin="3,0" Windows10version1809:CornerRadius="4" CommandParameter="{strings:OptionType Type=Restart}" Command="{x:Bind Command}">
                             <FontIcon Glyph="&#xE149;" FontSize="36" FontFamily="Segoe UI Symbol" Foreground="{StaticResource AppBrush900}"/>
                         </Button>
