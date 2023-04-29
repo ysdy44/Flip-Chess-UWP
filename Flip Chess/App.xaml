@@ -65,10 +65,16 @@
 
             <!--Style-->
             <Style TargetType="Button">
-                <Setter Property="CornerRadius" Value="4"/>
                 <Setter Property="Width" Value="82"/>
                 <Setter Property="Height" Value="52"/>
                 <Setter Property="BorderThickness" Value="0"/>
+            </Style>
+
+            <!--Style-->
+            <Style TargetType="FlipView">
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="BorderBrush" Value="{StaticResource AppBrush300}"/>
+                <Setter Property="Background" Value="{StaticResource AppBrush900}"/>
             </Style>
 
             <!--Style-->

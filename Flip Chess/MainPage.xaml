@@ -4,6 +4,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:Windows10FallCreatorsUpdate="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract, 5)"
+    xmlns:Windows10version1809="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract, 7)"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:local="using:Flip_Chess"
     xmlns:controls="using:Flip_Chess.Elements"
@@ -310,7 +311,7 @@
 
 
                 <!--Player-->
-                <Button Grid.Column="2" Width="54" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+                <Button Grid.Column="2" Width="54" Height="52" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Bottom" Windows10version1809:CornerRadius="4">
                     <Button.Flyout>
                         <Flyout Placement="TopEdgeAlignedRight">
                             <ListBox x:Name="RedListBox" SelectedIndex="1" MinWidth="200" Background="Transparent">
@@ -342,7 +343,7 @@
                 </Button>
 
                 <!--Player-->
-                <Button Width="54" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Top">
+                <Button Width="54" Height="52" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Top" Windows10version1809:CornerRadius="4">
                     <Button.Flyout>
                         <Flyout Placement="BottomEdgeAlignedLeft">
                             <ListBox x:Name="BlackListBox" SelectedIndex="0" MinWidth="200" Background="Transparent">
@@ -511,9 +512,9 @@
                     <controls:Highlight x:Name="TopHighlight"/>
                     <controls:Highlight x:Name="RightHighlight"/>
                     <controls:Highlight x:Name="BottomHighlight"/>
-
+            
                     <!--Lines-->
-                    <local:MainLinesCanvas x:Name="Lines"/>
+                    <local:MainLinesCanvas x:Name="Lines" IsHitTestVisible="False"/>
 
                     <!--Animation-->
                     <controls:AnimationZoomMoveImage
@@ -613,15 +614,10 @@
 
 
         <!--Billboard-->
-        <controls:AnimationFadeContainer x:Name="FadeContainer" Margin="12" Width="452" Height="280" IsEnabled="{x:Bind ReverseNoneToBooleanConverter(State), Mode=OneWay}">
+        <controls:AnimationFadeContainer x:Name="FadeContainer" Margin="12" MaxWidth="452" Height="280" IsEnabled="{x:Bind ReverseNoneToBooleanConverter(State), Mode=OneWay}">
             <FlipView x:Name="FlipView" SelectedIndex="1">
                 <FrameworkElement.Resources>
                     <!--Style-->
-                    <Style TargetType="FlipView">
-                        <Setter Property="BorderThickness" Value="1"/>
-                        <Setter Property="BorderBrush" Value="{StaticResource AppBrush300}"/>
-                        <Setter Property="Background" Value="{StaticResource AppBrush900}"/>
-                    </Style>
                     <Style TargetType="Border">
                         <Setter Property="BorderThickness" Value="1"/>
                         <Setter Property="BorderBrush" Value="{StaticResource AppBrush300}"/>
@@ -732,19 +728,19 @@
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="12" HorizontalAlignment="Center">
-                            <Button x:Name="FullScreenButton" Margin="3,0" CommandParameter="{strings:OptionType Type=FullScreen}" Command="{x:Bind Command}">
+                            <Button x:Name="FullScreenButton" Margin="3,0" Windows10version1809:CornerRadius="4" CommandParameter="{strings:OptionType Type=FullScreen}" Command="{x:Bind Command}">
                                 <FontIcon Glyph="&#xE1D9;" FontSize="36" FontFamily="Segoe UI Symbol" Foreground="{StaticResource AppBrush900}"/>
                             </Button>
-                            <Button x:Name="UnFullScreenButton" Visibility="Collapsed" Margin="3,0" CommandParameter="{strings:OptionType Type=UnFullScreen}" Command="{x:Bind Command}">
+                            <Button x:Name="UnFullScreenButton" Visibility="Collapsed" Margin="3,0" Windows10version1809:CornerRadius="4" CommandParameter="{strings:OptionType Type=UnFullScreen}" Command="{x:Bind Command}">
                                 <FontIcon Glyph="&#xE1D8;" FontSize="36" FontFamily="Segoe UI Symbol" Foreground="{StaticResource AppBrush900}"/>
                             </Button>
-                            <Button Margin="3,0" CommandParameter="{strings:OptionType Type=Restart}" Command="{x:Bind Command}">
+                            <Button Margin="3,0" Windows10version1809:CornerRadius="4" CommandParameter="{strings:OptionType Type=Restart}" Command="{x:Bind Command}">
                                 <FontIcon Glyph="&#xE149;" FontSize="36" FontFamily="Segoe UI Symbol" Foreground="{StaticResource AppBrush900}"/>
                             </Button>
-                            <Button Margin="3,0" CommandParameter="{strings:OptionType Type=Next}" Command="{x:Bind Command}" Visibility="{x:Bind LoseOrWinToVisibilityConverter(State), Mode=OneWay}">
+                            <Button Margin="3,0" Windows10version1809:CornerRadius="4" CommandParameter="{strings:OptionType Type=Next}" Command="{x:Bind Command}" Visibility="{x:Bind LoseOrWinToVisibilityConverter(State), Mode=OneWay}">
                                 <FontIcon Glyph="&#xE111;" FontSize="36" FontFamily="Segoe UI Symbol" Foreground="{StaticResource AppBrush900}"/>
                             </Button>
-                            <Button Margin="3,0" CommandParameter="{strings:OptionType Type=Continue}" Command="{x:Bind Command}" Visibility="{x:Bind PauseToVisibilityConverter(State), Mode=OneWay}">
+                            <Button Margin="3,0" Windows10version1809:CornerRadius="4" CommandParameter="{strings:OptionType Type=Continue}" Command="{x:Bind Command}" Visibility="{x:Bind PauseToVisibilityConverter(State), Mode=OneWay}">
                                 <FontIcon Glyph="&#xE102;" FontSize="36" FontFamily="Segoe UI Symbol" Foreground="{StaticResource AppBrush900}"/>
                             </Button>
                         </StackPanel>
