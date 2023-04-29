@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace Flip_Chess.Chesses.Extensions
@@ -106,13 +105,6 @@ namespace Flip_Chess.Chesses.Extensions
             }
         }
 
-        public static void Clear(this IEnumerable<IChess> enumerable)
-        {
-            foreach (IChess item in enumerable)
-            {
-                item.Type = default;
-            }
-        }
 
         public static void Copy(this IChess[] sourceArray, ChessType[,,] destinationArray)
         {
@@ -125,6 +117,60 @@ namespace Flip_Chess.Chesses.Extensions
                 }
             }
         }
+
+        public static void Copy(this ChessType[,,] array, int sourceIndex, int destinationIndex)
+        {
+            for (int y = 0; y < array.Height(); y++)
+            {
+                for (int x = 0; x < array.Width(); x++)
+                {
+                    array[sourceIndex, y, x] = array[destinationIndex, y, x];
+                }
+            }
+        }
+
+        public static void Copy(this ChessType[,,] sourceArray, IChess[] destinationArray)
+        {
+            for (int y = 0; y < sourceArray.Height(); y++)
+            {
+                for (int x = 0; x < sourceArray.Width(); x++)
+                {
+                    int index = sourceArray.IndexOf(y, x);
+                    sourceArray[0, y, x] = destinationArray[index].Type;
+                }
+            }
+        }
+
+        public static void Copy(this ChessType[,,] sourceArray, IChess[] destinationArray, ChessType type)
+        {
+            for (int y = 0; y < sourceArray.Height(); y++)
+            {
+                for (int x = 0; x < sourceArray.Width(); x++)
+                {
+                    int index = sourceArray.IndexOf(y, x);
+                    if (destinationArray[index].Type == type)
+                    {
+                        sourceArray[0, y, x] = type;
+                    }
+                }
+            }
+        }
+
+        public static void CopyHalf(this ChessType[,,] sourceArray, IChess[] destinationArray)
+        {
+            for (int y = 0; y < sourceArray.Height(); y++)
+            {
+                for (int x = 0; x < sourceArray.Width(); x++)
+                {
+                    if ((x + y) % 2 == 0)
+                    {
+                        int index = sourceArray.IndexOf(y, x);
+                        sourceArray[0, y, x] = destinationArray[index].Type;
+                    }
+                }
+            }
+        }
+
 
         public static int Width(this ChessType[,,] array) => array.GetLength(2);
 
@@ -145,16 +191,6 @@ namespace Flip_Chess.Chesses.Extensions
             return y * w + x;
         }
 
-        public static void Copy(this ChessType[,,] array, int sourceIndex, int destinationIndex)
-        {
-            for (int y = 0; y < array.Height(); y++)
-            {
-                for (int x = 0; x < array.Width(); x++)
-                {
-                    array[sourceIndex, y, x] = array[destinationIndex, y, x];
-                }
-            }
-        }
 
         public static int GetLevel(this ChessType[,,] array, int zIndex)
         {

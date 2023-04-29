@@ -20,8 +20,9 @@ namespace Flip_Chess.TestApp
                     {
                         this.Randoms.Home();
                         this.Randoms.Random();
-                        this.Chesses.Clear();
+
                         this.Collection.Clear();
+                        this.Chesses.Copy(this.Collection);
 
                         this.Historian.Clear();
                     }
