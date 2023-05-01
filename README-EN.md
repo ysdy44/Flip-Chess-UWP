@@ -3,7 +3,8 @@
 ![](ScreenShot/logo.png)
 
  
- In development, please stay tuned......
+ Windows 10 app store address: 
+[Buy Flip Chess - Microsoft Store](https://www.microsoft.com/store/productId/9PFM18FL44FF)   
 
 
 <br/>
