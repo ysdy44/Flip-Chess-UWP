@@ -62,12 +62,11 @@ namespace Flip_Chess
 
         // History
         public int HistorianCount { get; set; } // Sertings
-        public int Step => this.HistorianCount + this.Historian.Count; // Indexer
+        public int Step => this.HistorianCount + this.Historian.Count;
         public ObservableCollection<History> Historian { get; } = new ObservableCollection<History>();
 
         // Collection
-        public int ZIndex { get; set; } // Indexer
-        public ChessType[,,] Collection { get; } = new ChessType[1024 * 128, App.Height, App.Width]; // Sertings // Indexer
+        public ChessType[,,] Collection { get; } = new ChessType[1024 * 128, App.Height, App.Width]; // Sertings
         public Chess[] Randoms { get; } = new Chess[App.Height * App.Width] // Sertings
         {
             new Chess(), new Chess(), new Chess(), new Chess(),
