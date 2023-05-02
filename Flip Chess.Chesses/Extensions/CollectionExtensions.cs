@@ -108,11 +108,14 @@ namespace Flip_Chess.Chesses.Extensions
 
         public static void Copy(this IChess[] sourceArray, ChessType[,,] destinationArray)
         {
-            for (int y = 0; y < destinationArray.Height(); y++)
+            int h = destinationArray.Height();
+            int w = destinationArray.Width();
+
+            for (int y = 0; y < h; y++)
             {
-                for (int x = 0; x < destinationArray.Width(); x++)
+                for (int x = 0; x < w; x++)
                 {
-                    int index = destinationArray.IndexOf(y, x);
+                    int index = w.IndexOf(y, x);
                     sourceArray[index].Type = destinationArray[0, y, x];
                 }
             }
@@ -131,11 +134,14 @@ namespace Flip_Chess.Chesses.Extensions
 
         public static void Copy(this ChessType[,,] sourceArray, IChess[] destinationArray)
         {
-            for (int y = 0; y < sourceArray.Height(); y++)
+            int h = sourceArray.Height();
+            int w = sourceArray.Width();
+
+            for (int y = 0; y < h; y++)
             {
-                for (int x = 0; x < sourceArray.Width(); x++)
+                for (int x = 0; x < w; x++)
                 {
-                    int index = sourceArray.IndexOf(y, x);
+                    int index = w.IndexOf(y, x);
                     sourceArray[0, y, x] = destinationArray[index].Type;
                 }
             }
@@ -143,11 +149,14 @@ namespace Flip_Chess.Chesses.Extensions
 
         public static void Copy(this ChessType[,,] sourceArray, IChess[] destinationArray, ChessType type)
         {
-            for (int y = 0; y < sourceArray.Height(); y++)
+            int h = sourceArray.Height();
+            int w = sourceArray.Width();
+
+            for (int y = 0; y < h; y++)
             {
-                for (int x = 0; x < sourceArray.Width(); x++)
+                for (int x = 0; x < w; x++)
                 {
-                    int index = sourceArray.IndexOf(y, x);
+                    int index = w.IndexOf(y, x);
                     if (destinationArray[index].Type == type)
                     {
                         sourceArray[0, y, x] = type;
@@ -158,13 +167,16 @@ namespace Flip_Chess.Chesses.Extensions
 
         public static void CopyHalf(this ChessType[,,] sourceArray, IChess[] destinationArray)
         {
-            for (int y = 0; y < sourceArray.Height(); y++)
+            int h = sourceArray.Height();
+            int w = sourceArray.Width();
+
+            for (int y = 0; y < h; y++)
             {
-                for (int x = 0; x < sourceArray.Width(); x++)
+                for (int x = 0; x < w; x++)
                 {
                     if ((x + y) % 2 == 0)
                     {
-                        int index = sourceArray.IndexOf(y, x);
+                        int index = w.IndexOf(y, x);
                         sourceArray[0, y, x] = destinationArray[index].Type;
                     }
                 }

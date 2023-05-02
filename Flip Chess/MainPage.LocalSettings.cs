@@ -114,7 +114,7 @@ namespace Flip_Chess
                     {
                         for (int x = 0; x < w; x++)
                         {
-                            int i = y * w + x;
+                            int i = w.IndexOf(y, x);
                             if (i < item.Length)
                             {
                                 this.Collection[0, y, x] = (ChessType)(int)item[i];
@@ -148,7 +148,7 @@ namespace Flip_Chess
                         {
                             for (int x = 0; x < w; x++)
                             {
-                                int i = y * w + x;
+                                int i = w.IndexOf(y, x);
                                 item[i] = (byte)(int)this.Collection[0, y, x];
                             }
                         }
@@ -163,7 +163,7 @@ namespace Flip_Chess
             {
                 for (int x = 0; x < w; x++)
                 {
-                    int i = y * w + x;
+                    int i = w.IndexOf(y, x);
                     item2[i] = (byte)(int)this.Collection[0, y, x];
                 }
             }
