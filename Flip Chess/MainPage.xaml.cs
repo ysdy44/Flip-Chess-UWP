@@ -118,8 +118,8 @@ namespace Flip_Chess
 
             this.IsRedComputer = this.SettingsRed; // Sertings
             this.IsBlackComputer = this.SettingsBlack; // Sertings
-            this.Mode = (GameMode)this.SettingsMode; // Sertings
-            this.State = (GameState)this.SettingsState; // Sertings
+            this.Mode = this.SettingsMode; // Sertings
+            this.State = this.SettingsState; // Sertings
             this.HistorianCount = this.SettingsStep; // Sertings
 
             if (this.ReadRandom() && this.ReadCollection()) // Sertings

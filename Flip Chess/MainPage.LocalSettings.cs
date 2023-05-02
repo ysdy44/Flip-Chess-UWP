@@ -50,7 +50,7 @@ namespace Flip_Chess
             set => ApplicationData.Current.LocalSettings.Values["Black"] = value;
         }
 
-        public int SettingsMode
+        public GameMode SettingsMode
         {
             get
             {
@@ -58,16 +58,16 @@ namespace Flip_Chess
                 {
                     if (ApplicationData.Current.LocalSettings.Values["Mode"] is int item)
                     {
-                        return item;
+                        return (GameMode)item;
                     }
                 }
 
-                return 0;
+                return GameMode.None;
             }
-            set => ApplicationData.Current.LocalSettings.Values["Mode"] = value;
+            set => ApplicationData.Current.LocalSettings.Values["Mode"] = (int)value;
         }
 
-        public int SettingsState
+        public GameState SettingsState
         {
             get
             {
@@ -75,13 +75,13 @@ namespace Flip_Chess
                 {
                     if (ApplicationData.Current.LocalSettings.Values["State"] is int item)
                     {
-                        return item;
+                        return (GameState)item;
                     }
                 }
 
-                return 0;
+                return GameState.None;
             }
-            set => ApplicationData.Current.LocalSettings.Values["State"] = value;
+            set => ApplicationData.Current.LocalSettings.Values["State"] = (int)value;
         }
 
         public int SettingsStep

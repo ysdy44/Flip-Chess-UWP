@@ -89,28 +89,28 @@ namespace Flip_Chess
                     break;
                 case OptionType.Play:
                     this.State = GameState.None;
-                    this.SettingsState = (int)GameState.None; // Sertings
+                    this.SettingsState = GameState.None; // Sertings
                     break;
 
                 case OptionType.Lose:
                     this.SelectedIndex = 1;
                     this.State = GameState.Lose;
-                    this.SettingsState = (int)GameState.Lose; // Sertings
+                    this.SettingsState = GameState.Lose; // Sertings
                     break;
                 case OptionType.Win:
                     this.SelectedIndex = 1;
                     this.State = GameState.Win;
-                    this.SettingsState = (int)GameState.Win; // Sertings
+                    this.SettingsState = GameState.Win; // Sertings
                     break;
                 case OptionType.Pause:
                     this.SelectedIndex = 1;
                     this.State = GameState.Pause;
-                    this.SettingsState = (int)GameState.Pause; // Sertings
+                    this.SettingsState = GameState.Pause; // Sertings
                     break;
 
                 case OptionType.Continue:
                     this.State = GameState.None;
-                    this.SettingsState = (int)GameState.None; // Sertings
+                    this.SettingsState = GameState.None; // Sertings
                     break;
                 case OptionType.Restart:
                     this.HistorianCount = 0; // 1. Clear HistorianCount
@@ -148,7 +148,7 @@ namespace Flip_Chess
                     this.Relive();
 
                     this.State = GameState.None;
-                    this.SettingsState = (int)GameState.None; // Sertings
+                    this.SettingsState = GameState.None; // Sertings
 
                     this.HideFlip();
                     this.StopFlip();
@@ -192,7 +192,7 @@ namespace Flip_Chess
                     break;
                 case OptionType.Step4:
                     this.State = GameState.None;
-                    this.SettingsState = (int)GameState.None; // Sertings
+                    this.SettingsState = GameState.None; // Sertings
                     break;
 
                 case OptionType.UIRedChanged:
@@ -202,7 +202,7 @@ namespace Flip_Chess
                     this.SettingsBlack = this.IsBlackComputer; // Settings
                     break;
                 case OptionType.UIModeChanged:
-                    this.SettingsMode = (int)this.Mode; // Settings
+                    this.SettingsMode = this.Mode; // Settings
                     this.Click(OptionType.Restart);
                     break;
 
