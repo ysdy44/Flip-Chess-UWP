@@ -183,13 +183,8 @@ namespace Flip_Chess.Chesses.Extensions
             Array.Clear(array, 0, array.Length);
         }
 
-        public static int IndexOf(this ChessType[,,] array, int y, int x)
-        {
-            //int h = array.Height();
-            int w = array.Width();
-
-            return y * w + x;
-        }
+        public static int IndexOf(this ChessType[,,] array, int y, int x) => array.Width().IndexOf(y, x);
+        public static int IndexOf(this int w, int y, int x) => w * y + x;
 
 
         public static int GetLevelSquared(this ChessType[,,] array, int zIndex)
