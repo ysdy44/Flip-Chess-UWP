@@ -22,11 +22,11 @@
 
     <FrameworkElement.Resources>
         <!--EasingFunction-->
-        <CubicEase x:Key="CubicEaseOut" EasingMode="EaseOut"/>
+        <CubicEase x:Key="CubicOut" EasingMode="EaseOut"/>
         <!--Storyboard-->
         <Storyboard x:Name="Storyboard" >
-            <DoubleAnimation x:Name="XAnimation" EasingFunction="{StaticResource CubicEaseOut}" Duration="0:0:0.3" Storyboard.TargetProperty="TranslateX" Storyboard.TargetName="CompositeTransform" d:IsOptimized="True"/>
-            <DoubleAnimation x:Name="YAnimation" EasingFunction="{StaticResource CubicEaseOut}" Duration="0:0:0.3" Storyboard.TargetProperty="TranslateY" Storyboard.TargetName="CompositeTransform" d:IsOptimized="True"/>
+            <DoubleAnimation x:Name="XAnimation" EasingFunction="{StaticResource CubicOut}" Duration="0:0:0.3" Storyboard.TargetProperty="TranslateX" Storyboard.TargetName="CompositeTransform" d:IsOptimized="True"/>
+            <DoubleAnimation x:Name="YAnimation" EasingFunction="{StaticResource CubicOut}" Duration="0:0:0.3" Storyboard.TargetProperty="TranslateY" Storyboard.TargetName="CompositeTransform" d:IsOptimized="True"/>
         </Storyboard>
     </FrameworkElement.Resources>
 

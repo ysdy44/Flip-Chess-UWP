@@ -40,8 +40,8 @@ namespace Flip_Chess.Elements
 
         public void Show(Vector2 from, Vector2 to, Uri uri)
         {
-            this.CompositeTransform.ScaleX = 1;
-            this.CompositeTransform.ScaleY = 1;
+            this.CompositeTransform.ScaleX = 0.8;
+            this.CompositeTransform.ScaleY = 0.8;
 
             this.CompositeTransform.TranslateX = from.X;
             this.CompositeTransform.TranslateY = from.Y;

@@ -13,7 +13,7 @@ namespace Flip_Chess.Elements
         public void Hide()
         {
             base.Visibility = Visibility.Collapsed;
-            this.Storyboard.Stop();
+            this.Storyboard.Stop(); // Storyboard
         }
 
         public void ShowAt(int x, int y)
@@ -21,7 +21,7 @@ namespace Flip_Chess.Elements
             Canvas.SetLeft(this, x);
             Canvas.SetTop(this, y);
             base.Visibility = Visibility.Visible;
-            this.Storyboard.Begin();
+            this.Storyboard.Begin(); // Storyboard
         }
     }
 }

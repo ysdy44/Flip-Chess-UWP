@@ -22,15 +22,15 @@
 
     <FrameworkElement.Resources>
         <!--EasingFunction-->
-        <CubicEase x:Key="CubicEaseIn" EasingMode="EaseIn"/>
+        <CubicEase x:Key="CubicIn" EasingMode="EaseIn"/>
         <!--Storyboard-->
         <Storyboard x:Name="HideStoryboard" >
-            <DoubleAnimation EasingFunction="{StaticResource CubicEaseIn}" Duration="0:0:0.1" From="1" To="0.4" Storyboard.TargetProperty="ScaleX" Storyboard.TargetName="CompositeTransform" d:IsOptimized="True"/>
-            <DoubleAnimation EasingFunction="{StaticResource CubicEaseIn}" Duration="0:0:0.1" From="1" To="0.4" Storyboard.TargetProperty="ScaleY" Storyboard.TargetName="CompositeTransform" d:IsOptimized="True"/>
+            <DoubleAnimation EasingFunction="{StaticResource CubicIn}" Duration="0:0:0.1" From="1" To="0.4" Storyboard.TargetProperty="ScaleX" Storyboard.TargetName="CompositeTransform" d:IsOptimized="True"/>
+            <DoubleAnimation EasingFunction="{StaticResource CubicIn}" Duration="0:0:0.1" From="1" To="0.4" Storyboard.TargetProperty="ScaleY" Storyboard.TargetName="CompositeTransform" d:IsOptimized="True"/>
         </Storyboard>
         <Storyboard x:Name="ShowStoryboard" >
-            <DoubleAnimation EasingFunction="{StaticResource CubicEaseIn}" Duration="0:0:0.1" From="0.4" To="1" Storyboard.TargetProperty="ScaleX" Storyboard.TargetName="CompositeTransform" d:IsOptimized="True"/>
-            <DoubleAnimation EasingFunction="{StaticResource CubicEaseIn}" Duration="0:0:0.1" From="0.4" To="1" Storyboard.TargetProperty="ScaleY" Storyboard.TargetName="CompositeTransform" d:IsOptimized="True"/>
+            <DoubleAnimation EasingFunction="{StaticResource CubicIn}" Duration="0:0:0.1" From="0.4" To="1" Storyboard.TargetProperty="ScaleX" Storyboard.TargetName="CompositeTransform" d:IsOptimized="True"/>
+            <DoubleAnimation EasingFunction="{StaticResource CubicIn}" Duration="0:0:0.1" From="0.4" To="1" Storyboard.TargetProperty="ScaleY" Storyboard.TargetName="CompositeTransform" d:IsOptimized="True"/>
         </Storyboard>
     </FrameworkElement.Resources>
 
