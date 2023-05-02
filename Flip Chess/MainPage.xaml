@@ -7,7 +7,7 @@
     xmlns:Windows10version1809="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract, 7)"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:local="using:Flip_Chess"
-    xmlns:controls="using:Flip_Chess.Elements"
+    xmlns:elements="using:Flip_Chess.Elements"
     xmlns:models="using:Flip_Chess.Models"
     xmlns:strings="using:Flip_Chess.Strings"
     mc:Ignorable="d"
@@ -46,7 +46,7 @@
 
 
         <!--Extension-->
-        <controls:ApplicationTitleBarExtension x:Name="ApplicationView" TitleBarColor="{StaticResource AppColor600}"/>
+        <elements:ApplicationTitleBarExtension x:Name="ApplicationView" TitleBarColor="{StaticResource AppColor600}"/>
 
 
         <!--Debug-->
@@ -152,12 +152,14 @@
 
 
         <!--Body-->
+        <!--Width: 80+28+400+28+80-->
+        <!--Height: 28+800+28-->
         <Viewbox x:Name="Viewbox" IsHitTestVisible="{x:Bind NoneToBoolenConverter(State), Mode=OneWay}">
             <Grid Margin="0,28" ColumnSpacing="28">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="80"/>
                     <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="80"/>
                 </Grid.ColumnDefinitions>
 
                 <!--Cemetery-->
@@ -314,7 +316,7 @@
                 <Button Grid.Column="2" Width="54" Height="52" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Bottom" Windows10version1809:CornerRadius="4">
                     <Button.Flyout>
                         <Flyout Placement="TopEdgeAlignedRight">
-                            <controls:CommandListBox 
+                            <elements:CommandListBox 
                                 x:Name="RedListBox" 
                                 MinWidth="200" 
                                 Background="Transparent"
@@ -337,7 +339,7 @@
                                         </Run>
                                     </TextBlock>
                                 </ListBoxItem>
-                            </controls:CommandListBox>
+                            </elements:CommandListBox>
                         </Flyout>
                     </Button.Flyout>
                     <FontIcon 
@@ -352,7 +354,7 @@
                 <Button Width="54" Height="52" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Top" Windows10version1809:CornerRadius="4">
                     <Button.Flyout>
                         <Flyout Placement="BottomEdgeAlignedLeft">
-                            <controls:CommandListBox
+                            <elements:CommandListBox
                                 x:Name="BlackListBox" 
                                 MinWidth="200" 
                                 Background="Transparent"
@@ -375,7 +377,7 @@
                                         </Run>
                                     </TextBlock>
                                 </ListBoxItem>
-                            </controls:CommandListBox>
+                            </elements:CommandListBox>
                         </Flyout>
                     </Button.Flyout>
                     <FontIcon 
@@ -447,14 +449,14 @@
                     >
 
                     <!--Chess-->
-                    <controls:AnimationClipContainer
+                    <elements:AnimationClipContainer
                         x:Name="ClipContainer"
                         Width="{x:Bind W}"
                         Height="{x:Bind H}"
                         CommandParameter="{strings:OptionType Type=UIClipCompleted}"
                         Command="{x:Bind Command}"
                         >
-                        <controls:CommandListView
+                        <elements:CommandListView
                             x:Name="ItemsControl"
                             Width="{x:Bind W}"
                             Height="{x:Bind H}"
@@ -506,8 +508,8 @@
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
 
-                        </controls:CommandListView>
-                    </controls:AnimationClipContainer>
+                        </elements:CommandListView>
+                    </elements:AnimationClipContainer>
 
                     <!--Highlight-->
                     <Canvas
@@ -521,30 +523,30 @@
                         <Ellipse Canvas.Left="4" Canvas.Top="0" Width="92" Height="99" StrokeThickness="3" Stroke="Gold" Fill="Transparent"/>
                         <Ellipse Canvas.Left="4" Canvas.Top="0" Width="92" Height="99" StrokeThickness="2" Stroke="#FFF8A3" Fill="Transparent"/>
                     </Canvas>
-                    <controls:Highlight x:Name="LeftHighlight"/>
-                    <controls:Highlight x:Name="TopHighlight"/>
-                    <controls:Highlight x:Name="RightHighlight"/>
-                    <controls:Highlight x:Name="BottomHighlight"/>
+                    <elements:Highlight x:Name="LeftHighlight"/>
+                    <elements:Highlight x:Name="TopHighlight"/>
+                    <elements:Highlight x:Name="RightHighlight"/>
+                    <elements:Highlight x:Name="BottomHighlight"/>
 
                     <!--Lines-->
                     <local:MainLinesCanvas x:Name="Lines" IsHitTestVisible="False"/>
 
                     <!--Animation-->
-                    <controls:AnimationZoomMoveImage
+                    <elements:AnimationZoomMoveImage
                         x:Name="CemeteryItem"
                         CommandParameter="{strings:OptionType Type=UICemeteryCompleted}"
                         Command="{x:Bind Command}"
                         />
 
                     <!--Animation-->
-                    <controls:AnimationMoveImage
+                    <elements:AnimationMoveImage
                         x:Name="CaptureItem"
                         CommandParameter="{strings:OptionType Type=UICaptureCompleted}"
                         Command="{x:Bind Command}"
                         />
 
                     <!--Animation-->
-                    <controls:AnimationZoomImage
+                    <elements:AnimationZoomImage
                         x:Name="FlipItem"
                         CommandParameter="{strings:OptionType Type=UIFlipCompleted}"
                         Command="{x:Bind Command}"
@@ -634,7 +636,7 @@
 
         <!--Button-->
         <Canvas Width="162" Height="115" HorizontalAlignment="Right" VerticalAlignment="Bottom">
-            <controls:RevolvingRestaurant Paused="{x:Bind ReverseNoneToBooleanConverter(State), Mode=OneWay}"/>
+            <elements:RevolvingRestaurant Paused="{x:Bind ReverseNoneToBooleanConverter(State), Mode=OneWay}"/>
             <Button
                 Canvas.Left="50"
                 Canvas.Top="45"
@@ -668,7 +670,7 @@
             >
             <Button.Flyout>
                 <Flyout Placement="Bottom">
-                    <controls:CommandListBox 
+                    <elements:CommandListBox 
                         x:Name="ListBox" 
                         Background="Transparent" 
                         CommandParameter="{strings:OptionType Type=UIModeChanged}" 
@@ -700,14 +702,14 @@
                             <Ellipse Canvas.Left="27" Canvas.Top="47" Width="11" Height="11" Fill="{StaticResource AppBrush100}"/>
                         </Canvas>
 
-                    </controls:CommandListBox>
+                    </elements:CommandListBox>
                 </Flyout>
             </Button.Flyout>
             <FontIcon Glyph="&#xE138;" FontSize="24" FontFamily="Segoe UI Symbol" Foreground="{StaticResource AppBrush900}"/>
         </Button>
 
         <!--Billboard-->
-        <controls:AnimationFadeContainer
+        <elements:AnimationFadeContainer
             Margin="12" 
             MaxWidth="452" 
             Height="280"
@@ -1036,7 +1038,7 @@
                 </Grid>
 
             </FlipView>
-        </controls:AnimationFadeContainer>
+        </elements:AnimationFadeContainer>
 
     </Grid>
 </Page>
