@@ -77,9 +77,16 @@ namespace Flip_Chess
             this.CenterHighlight.Visibility = Visibility.Collapsed;
 
             this.LeftHighlight.Hide();
+            this.LeftHighlight.Stop();
+
             this.TopHighlight.Hide();
+            this.TopHighlight.Stop();
+
             this.RightHighlight.Hide();
+            this.RightHighlight.Stop();
+            
             this.BottomHighlight.Hide();
+            this.BottomHighlight.Stop();
         }
         public void ShowLinesAt(int y, int x, NeighborType type)
         {
@@ -88,22 +95,34 @@ namespace Flip_Chess
             this.CenterHighlight.Visibility = Visibility.Visible;
 
             if (type.HasFlag(NeighborType.Left))
+            {
+                if (this.LeftHighlight.CanAnimate) this.LeftHighlight.Begin();
                 this.LeftHighlight.ShowAt(x * 100 - 100, y * 100);
+            }
             else
                 this.LeftHighlight.Hide();
 
             if (type.HasFlag(NeighborType.Top))
+            {
+                if (this.TopHighlight.CanAnimate) this.TopHighlight.Begin();
                 this.TopHighlight.ShowAt(x * 100, y * 100 - 100);
+            }
             else
                 this.TopHighlight.Hide();
 
             if (type.HasFlag(NeighborType.Right))
+            {
+                if (this.RightHighlight.CanAnimate) this.RightHighlight.Begin();
                 this.RightHighlight.ShowAt(x * 100 + 100, y * 100);
+            }
             else
                 this.RightHighlight.Hide();
 
             if (type.HasFlag(NeighborType.Bottom))
+            {
+                if (this.BottomHighlight.CanAnimate) this.BottomHighlight.Begin();
                 this.BottomHighlight.ShowAt(x * 100, y * 100 + 100);
+            }
             else
                 this.BottomHighlight.Hide();
         }
@@ -163,22 +182,26 @@ namespace Flip_Chess
             }
         }
 
+        private bool CanFlip => this.FlipItem.CanAnimate;
         private void StopFlip() => this.FlipItem.Stop();
-        public void BeginFlip() => this.FlipItem.Begin(); /// <see cref="OptionType.UIFlipCompleted"/>
+        public void BeginFlip() => this.FlipItem.Begin();
         private void HideFlip() => this.FlipItem.Hide();
         public void ShowFlip(Vector2 position, Uri uri) => this.FlipItem.Show(position, uri);
 
+        private bool CanCapture => this.CaptureItem.CanAnimate;
         private void StopCapture() => this.CaptureItem.Stop();
-        public void BeginCapture() => this.CaptureItem.Begin();  /// <see cref="OptionType.UICaptureCompleted"/>
+        public void BeginCapture() => this.CaptureItem.Begin();
         private void HideCapture() => this.CaptureItem.Hide();
         public void ShowCapture(Vector2 from, Vector2 to, Uri uri) => this.CaptureItem.Show(from, to, uri);
 
+        private bool CanCemetery => this.CemeteryItem.CanAnimate;
         private void StopCemetery() => this.CemeteryItem.Stop();
-        public void BeginCemetery() => this.CemeteryItem.Begin();  /// <see cref="OptionType.UICemeteryCompleted"/>
+        public void BeginCemetery() => this.CemeteryItem.Begin();
         private void HideCemetery() => this.CemeteryItem.Hide();
         public void ShowCemetery(Vector2 from, Vector2 to, Uri uri) => this.CemeteryItem.Show(from, to, uri);
 
+        private bool CanClip => this.ClipContainer.CanAnimate;
         public void StopClip() => this.ClipContainer.Stop();
-        public void BeginClip() => this.ClipContainer.Begin(); /// <see cref="OptionType.UIClipCompleted"/>
+        public void BeginClip() => this.ClipContainer.Begin();
     }
 }
