@@ -9,6 +9,8 @@ namespace Flip_Chess.Elements
         public object CommandParameter { get; set; }
         public ICommand Command { get; set; }
 
+        public bool CanAnimate => false;
+
         public AnimationClipContainer()
         {
             this.InitializeComponent();
@@ -32,7 +34,6 @@ namespace Flip_Chess.Elements
             this.HideStoryboard.Stop(); // Storyboard
             this.ShowStoryboard.Stop(); // Storyboard
         }
-
         public void Begin()
         {
             this.HideStoryboard.Begin(); // Storyboard

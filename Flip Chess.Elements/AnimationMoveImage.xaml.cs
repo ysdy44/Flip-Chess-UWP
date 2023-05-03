@@ -11,6 +11,8 @@ namespace Flip_Chess.Elements
         public object CommandParameter { get; set; }
         public ICommand Command { get; set; }
 
+        public bool CanAnimate => false;
+
         public AnimationMoveImage()
         {
             this.InitializeComponent();
@@ -20,22 +22,14 @@ namespace Flip_Chess.Elements
             };
         }
 
-        public void Stop()
-        {
-            this.Storyboard.Stop(); // Storyboard
-        }
-
-        public void Begin()
-        {
-            this.Storyboard.Begin(); // Storyboard
-        }
+        public void Stop() => this.Storyboard.Stop(); // Storyboard
+        public void Begin() => this.Storyboard.Begin(); // Storyboard
 
         public void Hide()
         {
             base.Visibility = Visibility.Collapsed;
             this.BitmapImage.UriSource = null;
         }
-
         public void Show(Vector2 from, Vector2 to, Uri uri)
         {
             this.CompositeTransform.TranslateX = from.X;

@@ -14,6 +14,8 @@ namespace Flip_Chess.Elements
         public Uri PlaceholderSource { get; set; }
         Uri ImageSource;
 
+        public bool CanAnimate => false;
+
         public AnimationZoomImage()
         {
             this.InitializeComponent();
@@ -40,7 +42,6 @@ namespace Flip_Chess.Elements
             this.HideStoryboard.Stop(); // Storyboard
             this.ShowStoryboard.Stop(); // Storyboard
         }
-
         public void Begin()
         {
             this.HideStoryboard.Begin(); // Storyboard
@@ -51,7 +52,6 @@ namespace Flip_Chess.Elements
             this.BitmapImage.UriSource = this.PlaceholderSource;
             base.Visibility = Visibility.Collapsed;
         }
-
         public void Show(Vector2 position, Uri uri)
         {
             this.CompositeTransform.ScaleX = 1;
