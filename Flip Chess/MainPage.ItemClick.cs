@@ -121,15 +121,22 @@ namespace Flip_Chess
                         this.Collection[0, history.Y, history.X] = random;
                         this.WriteCollection(); // Sertings
 
-                        // UI
-                        ChessAlive model = this.Chesses[index];
+                        if (this.CanFlip)
+                        {
+                            // UI
+                            ChessAlive model = this.Chesses[index];
 
-                        model.Type = random;
-                        model.Visibility = Visibility.Collapsed;
+                            model.Type = random;
+                            model.Visibility = Visibility.Collapsed;
 
-                        // Storyboard
-                        this.ShowFlip(position, model.ImageSource);
-                        this.BeginFlip(); /// <see cref="OptionType.UIFlipCompleted"/>
+                            // Storyboard
+                            this.ShowFlip(position, model.ImageSource);
+                            this.BeginFlip(); /// <see cref="OptionType.UIFlipCompleted"/>
+                        }
+                        else
+                        {
+                            this.Click(OptionType.UIFlipCompleted);
+                        }
                     }
                     break;
                 case HistoryAction.Capture:
@@ -165,25 +172,32 @@ namespace Flip_Chess
                         this.Collection[0, history.Y2, history.X2] = fromType;
                         this.WriteCollection(); // Sertings
 
-                        // UI
-                        int index1 = this.Collection.IndexOf(history.Y1, history.X1);
-                        ChessAlive previous = this.Chesses[index1];
+                        if (this.CanCapture)
+                        {
+                            // UI
+                            int index1 = this.Collection.IndexOf(history.Y1, history.X1);
+                            ChessAlive previous = this.Chesses[index1];
 
-                        int index2 = this.Collection.IndexOf(history.Y2, history.X2);
-                        ChessAlive next = this.Chesses[index2];
+                            int index2 = this.Collection.IndexOf(history.Y2, history.X2);
+                            ChessAlive next = this.Chesses[index2];
 
-                        // Storyboard
-                        this.ShowCapture(from, to, previous.ImageSource);
-                        this.ShowCemetery(to, this.GetCemeteryPosition(toType), next.ImageSource);
+                            // Storyboard
+                            this.ShowCapture(from, to, previous.ImageSource);
+                            if (this.CanCemetery) this.ShowCemetery(to, this.GetCemeteryPosition(toType), next.ImageSource);
 
-                        this.BeginCapture();  /// <see cref="OptionType.UICaptureCompleted"/>
+                            this.BeginCapture();  /// <see cref="OptionType.UICaptureCompleted"/>
 
-                        // UI
-                        previous.Type = ChessType.Deaded;
-                        previous.Visibility = Visibility.Collapsed;
+                            // UI
+                            previous.Type = ChessType.Deaded;
+                            previous.Visibility = Visibility.Collapsed;
 
-                        next.Type = fromType;
-                        next.Visibility = Visibility.Collapsed;
+                            next.Type = fromType;
+                            next.Visibility = Visibility.Collapsed;
+                        }
+                        else
+                        {
+                            this.Click(OptionType.UICaptureCompleted);
+                        }
                     }
                     break;
                 default:

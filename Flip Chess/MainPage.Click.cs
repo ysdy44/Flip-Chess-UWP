@@ -143,8 +143,12 @@ namespace Flip_Chess
                     }
                     this.WriteCollection(); // Sertings
 
-                    //this.Shown();
-                    this.BeginClip(); /// <see cref="OptionType.UIClipCompleted"/>
+                    // Storyboard
+                    if (this.CanClip)
+                        this.BeginClip();
+                    else
+                        this.Click(OptionType.UIClipCompleted);
+
                     this.Relive();
 
                     this.State = GameState.None;
@@ -212,7 +216,11 @@ namespace Flip_Chess
                 case OptionType.UICaptureCompleted: /// <see cref="OptionType.UICaptureCompleted"/>
                     this.Shown();
 
-                    this.BeginCemetery(); /// <see cref="OptionType.UICemeteryCompleted"/>
+                    // Storyboard
+                    if (this.CanCemetery)
+                        this.BeginCemetery();
+                    else
+                        this.Click(OptionType.UICemeteryCompleted);
                     break;
                 case OptionType.UICemeteryCompleted: /// <see cref="OptionType.UICemeteryCompleted"/>
                     this.HideCapture();
