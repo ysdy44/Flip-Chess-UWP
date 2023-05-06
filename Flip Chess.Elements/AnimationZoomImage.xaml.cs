@@ -14,7 +14,7 @@ namespace Flip_Chess.Elements
         public Uri PlaceholderSource { get; set; }
         Uri ImageSource;
 
-        public bool CanAnimate => false;
+        public bool CanAnimate => true;
 
         public AnimationZoomImage()
         {

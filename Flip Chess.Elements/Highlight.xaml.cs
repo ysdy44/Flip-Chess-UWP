@@ -5,7 +5,7 @@ namespace Flip_Chess.Elements
 {
     public sealed partial class Highlight : Canvas
     {
-        public bool CanAnimate => false;
+        public bool CanAnimate => true;
 
         public Highlight()
         {
