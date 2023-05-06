@@ -22,7 +22,7 @@
             <Setter Property="HorizontalAlignment" Value="Center"/>
             <Setter Property="VerticalAlignment" Value="Top"/>
             <Setter Property="FontSize" Value="19"/>
-            <Setter Property="Foreground" Value="{ThemeResource AppBrush500}"/>
+            <Setter Property="Foreground" Value="{StaticResource AppBrush500}"/>
         </Style>
         <Style TargetType="Border">
             <Setter Property="RenderTransformOrigin">

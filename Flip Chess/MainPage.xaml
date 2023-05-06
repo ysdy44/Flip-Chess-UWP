@@ -114,14 +114,20 @@
             Visibility="{x:Bind BooleanToVisibilityConverter(DebugButton.IsOn), Mode=OneWay}"
             >
 
+            <ItemsControl.ItemContainerTransitions>
+                <TransitionCollection>
+
+                </TransitionCollection>
+            </ItemsControl.ItemContainerTransitions>
+
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <ItemsWrapGrid 
-                            Orientation="Horizontal"
-                            Background="White" 
-                            HorizontalAlignment="Center" 
-                            VerticalAlignment="Center" 
-                            />
+                        Orientation="Horizontal"
+                        Background="White" 
+                        HorizontalAlignment="Center" 
+                        VerticalAlignment="Center" 
+                        />
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
 
@@ -642,8 +648,6 @@
                 Canvas.Top="45"
                 Width="112" 
                 Height="70"
-                HorizontalAlignment="Center" 
-                VerticalAlignment="Center"
                 Foreground="{StaticResource AppBrush900}"
                 Style="{StaticResource TextBlockButtonStyle}"
                 CommandParameter="{strings:OptionType Type=Pause}"
@@ -678,20 +682,20 @@
                         >
 
                         <Rectangle Width="45" Height="65" RadiusX="4" RadiusY="4" StrokeThickness="1" Stroke="{StaticResource AppBrush100}" Fill="{StaticResource AppBrush900}"/>
-       
+
                         <Canvas Width="45" Height="65">
                             <Rectangle Width="45" Height="65" RadiusX="4" RadiusY="4" StrokeThickness="1" Stroke="{StaticResource AppBrush100}" Fill="{StaticResource AppBrush900}"/>
                             <Ellipse Canvas.Left="7" Canvas.Top="7" Width="11" Height="11" Fill="{StaticResource AppBrush100}"/>
                             <Ellipse Canvas.Left="27" Canvas.Top="47" Width="11" Height="11" Fill="{StaticResource AppBrush100}"/>
                         </Canvas>
-             
+
                         <Canvas Width="45" Height="65">
                             <Rectangle Width="45" Height="65" RadiusX="4" RadiusY="4" StrokeThickness="1" Stroke="{StaticResource AppBrush100}" Fill="{StaticResource AppBrush900}"/>
                             <Ellipse Canvas.Left="7" Canvas.Top="7" Width="11" Height="11" Fill="{StaticResource AppBrush100}"/>
                             <Ellipse Canvas.Left="27" Canvas.Top="27" Width="11" Height="11" Fill="{StaticResource AppBrush100}"/>
                             <Ellipse Canvas.Left="7" Canvas.Top="47" Width="11" Height="11" Fill="{StaticResource AppBrush100}"/>
                         </Canvas>
-          
+
                         <Canvas Width="45" Height="65">
                             <Rectangle Width="45" Height="65" RadiusX="4" RadiusY="4" StrokeThickness="1" Stroke="{StaticResource AppBrush100}" Fill="{StaticResource AppBrush900}"/>
                             <Ellipse Canvas.Left="7" Canvas.Top="7" Width="11" Height="11" Fill="{StaticResource AppBrush100}"/>
@@ -725,7 +729,7 @@
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center" 
                         Windows10FallCreatorsUpdate:HorizontalTextAlignment="Center"
-                        Foreground="{ThemeResource AppBrush100}"
+                        Foreground="{StaticResource AppBrush100}"
                         >
                  
                         <Run FontWeight="Bold" Text="{strings:UI Type=VersionTitle}">
