@@ -44,6 +44,7 @@ namespace Flip_Chess.TestApp
             new Chess(), new Chess(), new Chess(), new Chess(),
         };
 
+        //@Construct
         public MainPage()
         {
             this.InitializeComponent();

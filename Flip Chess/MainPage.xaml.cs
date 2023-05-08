@@ -112,6 +112,7 @@ namespace Flip_Chess
             new ChessDeaded(ChessType.RedSoldier)
         };
 
+        //@Construct
         public MainPage()
         {
             this.InitializeComponent();

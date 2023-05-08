@@ -12,7 +12,7 @@
         public double A6 => Angle + 75;
         public Rotater(double angle)
         {
-            Angle = angle;
+            this.Angle = angle;
         }
     }
 }
