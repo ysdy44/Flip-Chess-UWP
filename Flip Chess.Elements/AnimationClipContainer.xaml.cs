@@ -9,8 +9,6 @@ namespace Flip_Chess.Elements
         public object CommandParameter { get; set; }
         public ICommand Command { get; set; }
 
-        public bool CanAnimate => true;
-
         public AnimationClipContainer()
         {
             this.InitializeComponent();

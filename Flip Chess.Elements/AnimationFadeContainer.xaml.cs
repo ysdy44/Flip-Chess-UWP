@@ -5,8 +5,6 @@ namespace Flip_Chess.Elements
 {
     public sealed partial class AnimationFadeContainer : UserControl
     {
-        public bool CanAnimate => true;
-
         public AnimationFadeContainer()
         {
             this.InitializeComponent();
