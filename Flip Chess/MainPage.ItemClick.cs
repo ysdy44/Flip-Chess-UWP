@@ -121,7 +121,7 @@ namespace Flip_Chess
                         this.Collection[0, history.Y, history.X] = random;
                         this.WriteCollection(); // Sertings
 
-                        if (this.CanFlip)
+                        if (this.CanAnimate)
                         {
                             // UI
                             ChessAlive model = this.Chesses[index];
@@ -172,7 +172,7 @@ namespace Flip_Chess
                         this.Collection[0, history.Y2, history.X2] = fromType;
                         this.WriteCollection(); // Sertings
 
-                        if (this.CanCapture)
+                        if (this.CanAnimate)
                         {
                             // UI
                             int index1 = this.Collection.IndexOf(history.Y1, history.X1);
@@ -183,7 +183,7 @@ namespace Flip_Chess
 
                             // Storyboard
                             this.ShowCapture(from, to, previous.ImageSource);
-                            if (this.CanCemetery) this.ShowCemetery(to, this.GetCemeteryPosition(toType), next.ImageSource);
+                            if (this.CanAnimate) this.ShowCemetery(to, this.GetCemeteryPosition(toType), next.ImageSource);
 
                             this.BeginCapture();  /// <see cref="OptionType.UICaptureCompleted"/>
 

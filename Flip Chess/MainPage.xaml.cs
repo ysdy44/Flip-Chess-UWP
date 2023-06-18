@@ -7,6 +7,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using Windows.Foundation;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -50,6 +51,8 @@ namespace Flip_Chess
             }
         }
 
+        bool CanAnimate => this.UISettings.AnimationsEnabled;
+        readonly UISettings UISettings = new UISettings();
         readonly DispatcherTimer Timer = new DispatcherTimer
         {
             Interval = System.TimeSpan.FromSeconds(1)

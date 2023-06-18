@@ -60,16 +60,15 @@ namespace Flip_Chess
             {
                 this.ClickUnFullScreen();
             }
-            else
+            else if (this.ApplicationView.TryEnterFullScreenMode())
             {
                 VisualStateManager.GoToState(this, nameof(FullScreen), false);
-                this.ApplicationView.TryEnterFullScreenMode();
             }
         }
         public void ClickUnFullScreen()
         {
-            VisualStateManager.GoToState(this, nameof(UnFullScreen), false);
             this.ApplicationView.ExitFullScreenMode();
+            VisualStateManager.GoToState(this, nameof(UnFullScreen), false);
         }
 
         public void HideLines()
@@ -84,7 +83,7 @@ namespace Flip_Chess
 
             this.RightHighlight.Hide();
             this.RightHighlight.Stop();
-            
+
             this.BottomHighlight.Hide();
             this.BottomHighlight.Stop();
         }
@@ -96,7 +95,7 @@ namespace Flip_Chess
 
             if (type.HasFlag(NeighborType.Left))
             {
-                if (this.LeftHighlight.CanAnimate) this.LeftHighlight.Begin();
+                if (this.CanAnimate) this.LeftHighlight.Begin();
                 this.LeftHighlight.ShowAt(x * 100 - 100, y * 100);
             }
             else
@@ -104,7 +103,7 @@ namespace Flip_Chess
 
             if (type.HasFlag(NeighborType.Top))
             {
-                if (this.TopHighlight.CanAnimate) this.TopHighlight.Begin();
+                if (this.CanAnimate) this.TopHighlight.Begin();
                 this.TopHighlight.ShowAt(x * 100, y * 100 - 100);
             }
             else
@@ -112,7 +111,7 @@ namespace Flip_Chess
 
             if (type.HasFlag(NeighborType.Right))
             {
-                if (this.RightHighlight.CanAnimate) this.RightHighlight.Begin();
+                if (this.CanAnimate) this.RightHighlight.Begin();
                 this.RightHighlight.ShowAt(x * 100 + 100, y * 100);
             }
             else
@@ -120,7 +119,7 @@ namespace Flip_Chess
 
             if (type.HasFlag(NeighborType.Bottom))
             {
-                if (this.BottomHighlight.CanAnimate) this.BottomHighlight.Begin();
+                if (this.CanAnimate) this.BottomHighlight.Begin();
                 this.BottomHighlight.ShowAt(x * 100, y * 100 + 100);
             }
             else
@@ -182,25 +181,21 @@ namespace Flip_Chess
             }
         }
 
-        private bool CanFlip => this.FlipItem.CanAnimate;
         private void StopFlip() => this.FlipItem.Stop();
         public void BeginFlip() => this.FlipItem.Begin();
         private void HideFlip() => this.FlipItem.Hide();
         public void ShowFlip(Vector2 position, Uri uri) => this.FlipItem.Show(position, uri);
 
-        private bool CanCapture => this.CaptureItem.CanAnimate;
         private void StopCapture() => this.CaptureItem.Stop();
         public void BeginCapture() => this.CaptureItem.Begin();
         private void HideCapture() => this.CaptureItem.Hide();
         public void ShowCapture(Vector2 from, Vector2 to, Uri uri) => this.CaptureItem.Show(from, to, uri);
 
-        private bool CanCemetery => this.CemeteryItem.CanAnimate;
         private void StopCemetery() => this.CemeteryItem.Stop();
         public void BeginCemetery() => this.CemeteryItem.Begin();
         private void HideCemetery() => this.CemeteryItem.Hide();
         public void ShowCemetery(Vector2 from, Vector2 to, Uri uri) => this.CemeteryItem.Show(from, to, uri);
 
-        private bool CanClip => this.ClipContainer.CanAnimate;
         public void StopClip() => this.ClipContainer.Stop();
         public void BeginClip() => this.ClipContainer.Begin();
     }

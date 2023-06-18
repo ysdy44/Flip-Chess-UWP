@@ -144,7 +144,7 @@ namespace Flip_Chess
                     this.WriteCollection(); // Sertings
 
                     // Storyboard
-                    if (this.CanClip)
+                    if (this.CanAnimate)
                         this.BeginClip();
                     else
                         this.Click(OptionType.UIClipCompleted);
@@ -217,7 +217,7 @@ namespace Flip_Chess
                     this.Shown();
 
                     // Storyboard
-                    if (this.CanCemetery)
+                    if (this.CanAnimate)
                         this.BeginCemetery();
                     else
                         this.Click(OptionType.UICemeteryCompleted);
